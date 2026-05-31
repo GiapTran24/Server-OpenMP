@@ -11,12 +11,37 @@
 //-----------------------------------------------------------------------------
 // Enums
 //-----------------------------------------------------------------------------
+// Enum Dialogs
 enum
 {
 	DIALOG_NOTHING,
-    DIALOG_REGISTRATION,
+    DIALOG_REGISTER,
     DIALOG_LOGIN
 };
+// Pinfo
+enum pInfo {
+	pID,
+
+    pLevel,
+    pCash,
+    pBank,
+    pAdmin,
+
+    Float:pPosX,
+    Float:pPosY,
+    Float:pPosZ,
+    Float:pAngle,
+
+    pInterior,
+    pVirtualWorld,
+
+    pSkin,
+    pGender,
+
+    bool:pLogged
+}
+new PlayerInfo[MAX_PLAYERS][pInfo];
+new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 
 //-----------------------------------------------------------------------------
 // Variables
@@ -54,7 +79,258 @@ MySQL_Close() {
 	mysql_close(g_DatabaseHandle);
 	return 1;
 }
+// Login / Register Stock
+Account_Check(playerid) {
+	new query[256];
 
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
+        "SELECT * FROM Accounts WHERE Username='%e'",
+        GetPlayerNameEx(playerid));
+
+    mysql_tquery(g_DatabaseHandle, query, "OnAccountCheck", "d", playerid);
+	return 1;
+}
+
+forward OnAccountCheck(playerid);
+public OnAccountCheck(playerid)
+{
+    if(cache_num_rows())
+    {
+        ShowPlayerDialog(
+            playerid,
+            DIALOG_LOGIN,
+            DIALOG_STYLE_PASSWORD,
+            "Dang nhap",
+            "Nhap mat khau:",
+            "Login",
+            "Thoat"
+        );
+    }
+    else
+    {
+        ShowPlayerDialog(
+            playerid,
+            DIALOG_REGISTER,
+            DIALOG_STYLE_PASSWORD,
+            "Dang ky",
+            "Tao mat khau moi:",
+            "Register",
+            "Thoat"
+        );
+    }
+    return 1;
+}
+
+forward OnPasswordHash(playerid);
+public OnPasswordHash(playerid)
+{
+    new hash[BCRYPT_HASH_LENGTH];
+    bcrypt_get_hash(hash);
+
+    new query[512];
+	mysql_format(g_DatabaseHandle, query, sizeof(query),
+		"INSERT INTO Accounts \
+		(Username, Password) \
+		VALUES ('%e', '%e')",
+		GetPlayerNameEx(playerid),
+		hash
+	);
+
+	mysql_tquery(g_DatabaseHandle, query, "OnAccountRegister", "d", playerid);
+    return 1;
+}
+
+forward OnAccountRegister(playerid);
+public OnAccountRegister(playerid)
+{
+    PlayerInfo[playerid][pID] = cache_insert_id();
+	PlayerInfo[playerid][pLevel] = 1;
+	PlayerInfo[playerid][pCash] = 5000;
+	PlayerInfo[playerid][pBank] = 0;
+	PlayerInfo[playerid][pAdmin] = 0;
+	PlayerInfo[playerid][pPosX] = InitPlayerPos[0];
+	PlayerInfo[playerid][pPosY] = InitPlayerPos[1];
+	PlayerInfo[playerid][pPosZ] = InitPlayerPos[2];
+	PlayerInfo[playerid][pAngle] = InitPlayerPos[3];
+	PlayerInfo[playerid][pInterior] = 0;
+	PlayerInfo[playerid][pVirtualWorld] = 0;
+	PlayerInfo[playerid][pSkin] = 27;
+	PlayerInfo[playerid][pGender] = 0;
+	SetPlayerSpawn(playerid);
+    return 1;
+}
+
+forward OnPasswordCheck(playerid, password[]);
+public OnPasswordCheck(playerid, password[])
+{
+    new dbHash[BCRYPT_HASH_LENGTH];
+    cache_get_value_name(0, "Password", dbHash);
+
+	bcrypt_verify(playerid, "ResultPasswordCheck", password, dbHash);
+    return 1;
+}
+
+forward ResultPasswordCheck(playerid, bool:match);
+public ResultPasswordCheck(playerid, bool:match) {
+	if(!match) {
+		ShowPlayerDialog(
+            playerid,
+            DIALOG_LOGIN,
+            DIALOG_STYLE_PASSWORD,
+            "Dang nhap",
+            "Nhap lai mat khau:",
+            "Login",
+            "Thoat"
+        );
+		return 1;
+	} 
+
+	LoadPlayerData(playerid);
+    return 1;
+}
+
+LoadPlayerData(playerid)
+{
+    new query[256];
+
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
+        "SELECT * FROM Accounts WHERE Username='%e'",
+        GetPlayerNameEx(playerid)
+    );
+
+    mysql_tquery(g_DatabaseHandle, query, "OnPlayerDataLoaded", "d", playerid);
+}
+
+forward OnPlayerDataLoaded(playerid);
+public OnPlayerDataLoaded(playerid)
+{
+    if(!cache_num_rows())
+        return 1;
+
+    cache_get_value_name_int(0, "ID",
+        PlayerInfo[playerid][pID]);
+
+    cache_get_value_name_int(0, "Level",
+        PlayerInfo[playerid][pLevel]);
+
+    cache_get_value_name_int(0, "Cash",
+        PlayerInfo[playerid][pCash]);
+
+    cache_get_value_name_int(0, "Bank",
+        PlayerInfo[playerid][pBank]);
+
+    cache_get_value_name_int(0, "Admin",
+        PlayerInfo[playerid][pAdmin]);
+
+    cache_get_value_name_float(0, "PosX",
+        PlayerInfo[playerid][pPosX]);
+
+    cache_get_value_name_float(0, "PosY",
+        PlayerInfo[playerid][pPosY]);
+
+    cache_get_value_name_float(0, "PosZ",
+        PlayerInfo[playerid][pPosZ]);
+
+    cache_get_value_name_float(0, "Angle",
+        PlayerInfo[playerid][pAngle]);
+
+    cache_get_value_name_int(0, "Interior",
+        PlayerInfo[playerid][pInterior]);
+
+    cache_get_value_name_int(0, "VirtualWorld",
+        PlayerInfo[playerid][pVirtualWorld]);
+
+    cache_get_value_name_int(0, "Skin",
+        PlayerInfo[playerid][pSkin]);
+
+    cache_get_value_name_int(0, "Gender",
+        PlayerInfo[playerid][pGender]);
+
+    
+	SetPlayerSpawn(playerid);
+    return 1;
+}
+
+SetPlayerSpawn(playerid) {
+	SetSpawnInfo(
+        playerid,
+        0,
+        PlayerInfo[playerid][pSkin],
+        PlayerInfo[playerid][pPosX],
+        PlayerInfo[playerid][pPosY],
+        PlayerInfo[playerid][pPosZ],
+        PlayerInfo[playerid][pAngle],
+        WEAPON_FIST,0,WEAPON_FIST,0,WEAPON_FIST,0
+    );
+
+	SetPlayerScore(
+		playerid,
+		PlayerInfo[playerid][pLevel]
+	);
+
+    SetPlayerInterior(
+        playerid,
+        PlayerInfo[playerid][pInterior]
+    );
+
+    SetPlayerVirtualWorld(
+        playerid,
+        PlayerInfo[playerid][pVirtualWorld]
+    );
+
+    GivePlayerMoney(
+        playerid,
+        PlayerInfo[playerid][pCash]
+    );
+
+	PlayerInfo[playerid][pLogged] = true;
+    SpawnPlayer(playerid);
+	return 1;
+}
+
+//-----------------------------------------------------------------------------
+// Functions Support
+//-----------------------------------------------------------------------------
+stock GetPlayerNameEx(playerid)
+{
+    static name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, sizeof(name));
+    return name;
+}
+
+stock GetPlayerCash(playerid)
+{
+    return PlayerInfo[playerid][pCash];
+}
+
+stock GivePlayerCash(playerid, amount)
+{
+    PlayerInfo[playerid][pCash] += amount;
+
+    ResetPlayerMoney(playerid);
+    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+
+    return 1;
+}
+
+stock SendClientMessageEx(playerid, color, const string[])
+{
+	SendClientMessage(playerid, color, string);
+	return 1;
+}
+
+stock SendClientMessageToAllEx(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		SendClientMessage(i, color, string);
+	}
+	return 1;
+}
+
+//-----------------------------------------------------------------------------
+// Callbacks Main
+//-----------------------------------------------------------------------------
 public OnPlayerConnect(playerid)
 {
 	Account_Check(playerid);
@@ -69,7 +345,7 @@ public OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerSpawn(playerid)
 {
-	SetPlayerInterior(playerid, 0);
+	if(!PlayerInfo[playerid][pLogged]) return 0;
 	return 1;
 }
 
@@ -106,6 +382,11 @@ public OnPlayerText(playerid, text[])
 
 public OnPlayerUpdate(playerid)
 {
+	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
+    {
+        ResetPlayerMoney(playerid);
+        GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+    }
 	return 1;
 }
 
@@ -158,47 +439,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch (dialogid)
     {
-        case DIALOG_REGISTRATION:
+        case DIALOG_REGISTER:
         {
-            if (!response)
-            {
-                Kick(playerid);
-            }
-            else
-            {
-                // Check if the password meets the requirements.
-                if (!IsValidPassword(inputtext))
-                {
-                    Account_ShowRegistrationDialog(playerid, .badpass = true);   
-                }
-                else
-                {
-                    // Password looks good.  Now hash the password.
-                    HashPassword(playerid, inputtext);
-                }
-            }
+            if(!response) return Kick(playerid);
 
-            // Return 1 to indicate the dialog was handled. 
-            return 1;
+			bcrypt_hash(playerid, "OnPasswordHash", inputtext, BCRYPT_COST);
+			return 1;
         }
 
         case DIALOG_LOGIN:
         {
-            if (!response)
-            {
-                Kick(playerid);
-            }
-            else
-            {
-                // Get the temporarily stored hash.
-                new tempHash[BCRYPT_HASH_LENGTH];
-                GetPVarString(playerid, "tempPassword", tempHash);
+            if(!response) return Kick(playerid);
 
-                // Compare hashes.
-                bcrypt_verify(playerid, "OnPasswordCheck", inputtext, tempHash);
-            }
+			new query[256];
 
-            // Return 1 to indicate the dialog was handled. 
+			mysql_format(g_DatabaseHandle, query, sizeof(query),
+				"SELECT Password FROM Accounts \
+				WHERE Username='%e'",
+				GetPlayerNameEx(playerid)
+			);
+
+			mysql_tquery(g_DatabaseHandle, query, "OnPasswordCheck", "ds",
+				playerid,
+				inputtext
+			);
             return 1;  
         }
     }

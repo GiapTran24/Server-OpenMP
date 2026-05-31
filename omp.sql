@@ -1,0 +1,30 @@
+CREATE TABLE `Accounts` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `Username` VARCHAR(24) NOT NULL,
+    `Password` VARCHAR(255) NOT NULL,
+
+    -- Thông tin nhân vật
+    `Level` INT NOT NULL DEFAULT 1,
+    `Cash` INT NOT NULL DEFAULT 5000,
+    `Bank` INT NOT NULL DEFAULT 0,
+    `Admin` INT NOT NULL DEFAULT 0,
+
+    -- Spawn
+    `PosX` FLOAT NOT NULL DEFAULT 1958.3783,
+    `PosY` FLOAT NOT NULL DEFAULT 1343.1572,
+    `PosZ` FLOAT NOT NULL DEFAULT 15.3746,
+    `Angle` FLOAT NOT NULL DEFAULT 0.0,
+    `Interior` INT NOT NULL DEFAULT 0,
+    `VirtualWorld` INT NOT NULL DEFAULT 0,
+
+    -- Thông tin cơ bản
+    `Skin` INT NOT NULL DEFAULT 0,
+    `Gender` TINYINT NOT NULL DEFAULT 0,
+
+    -- Thời gian
+    `RegisterDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `LastLogin` TIMESTAMP NULL DEFAULT NULL,
+
+    PRIMARY KEY (`ID`),
+    UNIQUE KEY `Username` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

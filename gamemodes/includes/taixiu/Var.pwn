@@ -16,6 +16,7 @@
 #define DIALOG_TX_XIU 8002
 #define DIALOG_TX_XACNHAN_THUHOI 8003
 #define DIALOG_TX_XACNHAN_ROIBAN 8004
+#define DIALOG_TX_ADMIN_EDIT 8005
 
 
 #define TX_STATE_BETTING 1
@@ -31,6 +32,7 @@ new bool:pTXThongBao[MAX_PLAYERS] = false;
 new TX_AnimTimerTB[MAX_PLAYERS] = -1;
 new Float:TX_AnimSizeY[MAX_PLAYERS];
 
+new BaoTriTaiXiuAD = 0;
 
 new TX_TIME_BET = 21; // mac dinh thoi gian la 21
 enum tx_data {

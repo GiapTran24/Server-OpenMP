@@ -242,17 +242,17 @@ stock TaiXiu_SetHistory(playerid, slot, is_tai)
     if (is_tai == 1)
     {
         PlayerTextDrawSetString(playerid, LSuPhien[playerid][slot], "T");
-        PlayerTextDrawColor(playerid, LSuPhien[playerid][slot], TX_COLOR_TAI);
+        PlayerTextDrawColour(playerid, LSuPhien[playerid][slot], TX_COLOR_TAI);
     }
     else if (is_tai == 2)
     {
         PlayerTextDrawSetString(playerid, LSuPhien[playerid][slot], "X");
-        PlayerTextDrawColor(playerid, LSuPhien[playerid][slot], TX_COLOR_XIU);
+        PlayerTextDrawColour(playerid, LSuPhien[playerid][slot], TX_COLOR_XIU);
     }
     else
     {
         PlayerTextDrawSetString(playerid, LSuPhien[playerid][slot], "-");
-        PlayerTextDrawColor(playerid, LSuPhien[playerid][slot], TX_COLOR_TRANSPARENT);
+        PlayerTextDrawColour(playerid, LSuPhien[playerid][slot], TX_COLOR_TRANSPARENT);
     }
 
     if (pTaiXiuTDShowed[playerid])
@@ -314,12 +314,12 @@ stock TaiXiu_UpdateResult(playerid, is_tai)
     if (is_tai == 1)
     {
         PlayerTextDrawSetString(playerid, formketqua[playerid], "TAI");
-        PlayerTextDrawColor(playerid, formketqua[playerid], TX_COLOR_TAI);
+        PlayerTextDrawColour(playerid, formketqua[playerid], TX_COLOR_TAI);
     }
     else if(is_tai == 2)
     {
         PlayerTextDrawSetString(playerid, formketqua[playerid], "XIU");
-        PlayerTextDrawColor(playerid, formketqua[playerid], TX_COLOR_XIU);
+        PlayerTextDrawColour(playerid, formketqua[playerid], TX_COLOR_XIU);
     }
 
     if (pTaiXiuTDShowed[playerid])
@@ -397,6 +397,7 @@ InitTaiXiuSystems()
 forward TaiXiuUpdate();
 public TaiXiuUpdate()
 {
+    if(BaoTriTaiXiuAD == 1) return 1;
     if(TX[txState] == TX_STATE_BETTING)
     {
         TX[txTimer]--;
@@ -442,7 +443,7 @@ stock StartTaiXiuSession()
     new msg[128];
     format(msg, sizeof(msg), "[THONG BAO] Phien #%d da bat dau! Ban co ( %d giay ) de dat cuoc.", TX[txSessionID], TX_TIME_BET);
     TaiXiu_SetThongBaoAll(msg);
-    printf(msg);
+    //printf(msg);
     foreach(new i: Player) {
         if(IsPlayerConnected(i) && pTaiXiuTDShowed[i]) {
             TaiXiu_UpdateConfig(i, TX_MIN_BET, TX_MAX_BET, TX[txSessionID]);
@@ -474,6 +475,40 @@ stock ProcessTaiXiuResult()
             d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
             total = d1 + d2 + d3;
         } while(total < 11);
+    }
+    else if(TX[txAdminForce] == 3) { // Ben nhieu tien hon thang
+        if(TX[txTotalTai] > TX[txTotalXiu]) {
+            do {
+                d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+                total = d1 + d2 + d3;
+            } while(total < 11);
+        } 
+        else if(TX[txTotalTai] < TX[txTotalXiu]) {
+            do {
+                d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+                total = d1 + d2 + d3;
+            } while(total > 10);
+        } else {
+            d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+            total = d1 + d2 + d3;
+        }
+    } 
+    else if(TX[txAdminForce] == 4) { // Ben it tien hon thang
+        if(TX[txTotalTai] < TX[txTotalXiu]) {
+            do {
+                d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+                total = d1 + d2 + d3;
+            } while(total < 11);
+        } 
+        else if(TX[txTotalTai] > TX[txTotalXiu]) {
+            do {
+                d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+                total = d1 + d2 + d3;
+            } while(total > 10);
+        } else {
+            d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
+            total = d1 + d2 + d3;
+        }
     } 
     else { 
         d1 = random(6) + 1; d2 = random(6) + 1; d3 = random(6) + 1;
@@ -509,7 +544,7 @@ stock ProcessTaiXiuResult()
     new msg[128];
     format(msg, sizeof(msg), "KET QUA PHIEN #%d: [ %d - %d - %d ] (Tong: %d) |=> %s", TX[txSessionID], d1, d2, d3, total, resultName);
     TaiXiu_SetThongBaoAll(msg);
-    printf(msg);
+    //printf(msg);
     // RESET TOP WIN
     for(new x; x < MAX_TAIXIU_TOP; x++)
     {
@@ -695,37 +730,79 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SendClientMessage(playerid, -1, "[TAi XIU]: Ban da roi khoi ban cuoc !");
         }
     }
+
+    if(dialogid == DIALOG_TX_ADMIN_EDIT) {
+        if(!response) return 1;
+        switch(listitem) {
+            case 0: {
+                TX[txAdminForce] = 0;
+                SendClientMessage(playerid, -1, "Phien nay se la ngau nhien.");
+            }
+            case 1: {
+                TX[txAdminForce] = 1;
+                SendClientMessage(playerid, -1, "Da can thiep: Ket qua se la XIU.");
+            }
+            case 2: {
+                TX[txAdminForce] = 2;
+                SendClientMessage(playerid, -1, "Da can thiep : Ket qua se la TAI.");
+            }
+            case 3: {
+                TX[txAdminForce] = 3;
+                SendClientMessage(playerid, -1, "Da can thiep : Ben cuoc nhieu hon se thang.");
+            }
+            case 4: {
+                TX[txAdminForce] = 4;
+                SendClientMessage(playerid, -1, "Da can thiep : Ben cuoc it hon se thang.");
+            }
+            case 5: {
+                if(BaoTriTaiXiuAD == 0)
+                {
+                    BaoTriTaiXiuAD = 1;
+                    SendClientMessageToAllEx(COLOR_RED, "[TAI XIU] He thong tai xiu da ngung nhan cuoc.!");
+                    foreach(new p: Player) {
+                        if(pTaiXiuTDShowed[p]) {
+                            HideTaixiuDisplay(p);
+                            pTaiXiuTDShowed[p] = false;
+                            pTXThongBao[p] = false;
+                            
+                        }
+                        if(PlayerBetTai[p] > 0 || PlayerBetXiu[p] > 0) {
+                            new hoanTien = PlayerBetTai[p] + PlayerBetXiu[p];
+                            SendClientMessage(p, COLOR_GREEN, "[TAI XIU] Ban da duoc hoan tra so tien da cuoc trong phien nay !");
+                            GivePlayerCash(p, hoanTien);
+                        }
+                    }
+                }
+                else
+                {
+                    BaoTriTaiXiuAD = 0;
+                    SendClientMessageToAllEx(COLOR_GREEN, "[TAI XIU] He thong tai xiu da cho phep dat cuoc.!");
+                }
+            }
+        }
+    }
     return 1;
 }
 
 
 // Commands
-CMD:taixiunew(playerid, params[]) {
-    ToggleTaiXiuDisplay(playerid);
+CMD:taixiu(playerid, params[]) {
+    if(BaoTriTaiXiuAD == 1) return SendClientMessage(playerid, COLOR_RED, "[TAI XIU] He thong tai xiu da ngung nhan cuoc.!");
+    else 
+    {
+        ToggleTaiXiuDisplay(playerid);
+    }
     return 1;
 }
 
-CMD:settaixiunew(playerid, params[])
+CMD:edittaixiucailonmamay(playerid, params[])
 {
-    if(!IsPlayerAdmin(playerid)) 
+    if(PlayerInfo[playerid][pAdmin] < 999990) 
         return SendClientMessage(playerid, -1, "Ban khong co quyen su dung lenh nay!");
         
-    new choice[10];
-    if(sscanf(params, "s[25]", choice)) 
-        return SendClientMessage(playerid, -1, "USE: /settaixiunew [tai/xiu/random]");
-
-    if(!strcmp(choice, "xiu", true)) {
-        TX[txAdminForce] = 1;
-        SendClientMessage(playerid, -1, "Da can thiep: Ket qua se la XIU.");
-    } 
-    else if(!strcmp(choice, "tai", true)) {
-        TX[txAdminForce] = 2;
-        SendClientMessage(playerid, -1, "Da can thiep : Ket qua se la TAI.");
-    } 
-    else {
-        TX[txAdminForce] = 0;
-        SendClientMessage(playerid, -1, "Phien nay se la ngau nhien.");
-    }
+    new str[1024];
+    format(str, sizeof(str), "Random\nXiu Win\nTai Win\nNhieu Tien Win\nIt Tien Win\nBao Tri TX");
+    ShowPlayerDialog(playerid, DIALOG_TX_ADMIN_EDIT, DIALOG_STYLE_LIST, "Dashboard TAi XIU", str, "Chon", "Huy");
     return 1;
 }
 CMD:settaixiutime(playerid, params[]) {

@@ -2102,6 +2102,42 @@
 			<referrer name="_@init_order"/>
 			<library>y_scriptinit</library>  <remarks>  When to call an <c>@init()</c> function.  </remarks> 
 		</member>
+		<member name="T:pInfo" value="14">
+			<tagname value="pInfo"/>
+			<member name="C:pID" value="0">
+			</member>
+			<member name="C:pLevel" value="1">
+			</member>
+			<member name="C:pCash" value="2">
+			</member>
+			<member name="C:pBank" value="3">
+			</member>
+			<member name="C:pAdmin" value="4">
+			</member>
+			<member name="C:pPosX" value="5">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:pPosY" value="6">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:pPosZ" value="7">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:pAngle" value="8">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:pInterior" value="9">
+			</member>
+			<member name="C:pVirtualWorld" value="10">
+			</member>
+			<member name="C:pSkin" value="11">
+			</member>
+			<member name="C:pGender" value="12">
+			</member>
+			<member name="C:pLogged" value="13">
+				<tagname value="bool"/>
+			</member>
+		</member>
 		<member name="T:seek_whence" value="3">
 			<tagname value="seek_whence"/>
 			<member name="C:seek_start" value="0">
@@ -2207,15 +2243,16 @@
 			<library>amx_assembly amx_header</library>
 		</member>
 		<member name="C:DIALOG_LOGIN" value="2">
-			<referrer name="Account_ShowLoginDialog"/>
+			<referrer name="OnAccountCheck"/>
+			<referrer name="ResultPasswordCheck"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_NOTHING" value="0">
 			<referrer name="TaiXiu_HandleClick"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
-		<member name="C:DIALOG_REGISTRATION" value="1">
-			<referrer name="Account_ShowRegistrationDialog"/>
+		<member name="C:DIALOG_REGISTER" value="1">
+			<referrer name="OnAccountCheck"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:EOS" value="0">
@@ -2718,7 +2755,6 @@
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
 		<member name="C:__line" value="35">
-			<referrer name="cmd_settaixiunew"/>
 			<referrer name="cmd_settaixiutime"/>
 		</member>
 		<member name="C:__local0_offset" value="-4">
@@ -3069,11 +3105,13 @@
 			<referrer name="OnRconLoginAttempt"/>
 			<referrer name="Iter_Func@VehicleOccupant"/>
 			<referrer name="_Timer_D"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
 			<referrer name="operator-(Float:)"/>
@@ -3374,10 +3412,9 @@
 			<referrer name="Iter_Func@VehiclePassenger"/>
 			<referrer name="Iter_Func@VehicleDriver"/>
 			<referrer name="Yield_OnCodeInit"/>
-			<referrer name="Account_Check"/>
-			<referrer name="IsValidPassword"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="ShowTXThongBao"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="C:true" value="1">
 			<tagname value="bool"/>
@@ -3465,10 +3502,7 @@
 			<referrer name="Iter_Func@VehicleDriver"/>
 			<referrer name="_Timer_I"/>
 			<referrer name="_Timer_D"/>
-			<referrer name="IsValidPassword"/>
-			<referrer name="OnPlayerRegister"/>
-			<referrer name="OnPasswordCheck"/>
-			<referrer name="OnDialogResponse"/>
+			<referrer name="SetPlayerSpawn"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -3477,7 +3511,6 @@
 			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnPlayerDisconnect@01"/>
 			<referrer name="@yH_OnDialogResponse@01"/>
-			<referrer name="cmd_settaixiunew"/>
 		</member>
 		<member name="C:ucharmax" value="16777215">
 			<referrer name="YSI_IsLocalVarPackedString__"/>
@@ -3678,6 +3711,11 @@
 		<member name="F:ASM_RETURN_ADDR_OFFSET">
 			<library>amx_assembly asm</library>
 		</member>
+		<member name="F:BaoTriTaiXiuAD">
+			<referrer name="TaiXiuUpdate"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="cmd_taixiu"/>
+		</member>
 		<member name="F:CELLMIN_ON_MATCHES">
 			<library>sscanf</library>  <remarks>  The <c>CELLMIN_ON_MATCHES</c> option as a constant string so you can get  compile-time spell checking on the name.  Whatever the value of  <c>MATCH_NAME_PARTIAL</c>, the first found player will always be returned,  so if you do a search for <c>_</c> on an RP server, you could get almost  anyone.  To detect this case, if more than one player will match the  specified string then <em>sscanf</em> will return an ID of <c>cellmin</c>  instead.  This can be combined with <c>U</c> for a lot more power:  <code>  sscanf(params, "?&lt;CELLMIN_ON_MATCHES=1&gt;U(-1)", id);                <br />  if (id == -1)                                                            <br />  {                                                                        <br /><indent />  // No player was entered.                                            <br />  }                                                                        <br />  else if (id == cellmin)                                                  <br />  {                                                                        <br /><indent />  // Multiple matches found                                            <br />  }                                                                        <br />  else if (id == INVALID_PLAYER_ID)                                        <br />  {                                                                        <br /><indent />  // Entered player is not connected.                                  <br />  }                                                                        <br />  else                                                                     <br />  {                                                                        <br /><indent />  // Found just one player.                                            <br />  }  </code>  </remarks> 
 		</member>
@@ -3799,6 +3837,10 @@
 			<referrer name="Indirect_Callvoid"/>
 			<referrer name="Indirect_Array"/>
 			<referrer name="Indirect_Disconnect"/>
+		</member>
+		<member name="F:InitPlayerPos">
+			<tagname value="Float"/>
+			<referrer name="OnAccountRegister"/>
 		</member>
 		<member name="F:Iter_Single@Actor">
 			<referrer name="Android_OnYSIInit"/>
@@ -3923,11 +3965,13 @@
 			<referrer name="OnRconLoginAttempt"/>
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
 			<referrer name="_Timer_D"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="F:Iterator@PlayersFromVehicles">
 			<tagname value="_no_itertag"/>
@@ -4071,6 +4115,16 @@
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
+		<member name="F:PlayerInfo">
+			<referrer name="OnAccountRegister"/>
+			<referrer name="OnPlayerDataLoaded"/>
+			<referrer name="SetPlayerSpawn"/>
+			<referrer name="GetPlayerCash"/>
+			<referrer name="GivePlayerCash"/>
+			<referrer name="OnPlayerSpawn"/>
+			<referrer name="OnPlayerUpdate"/>
+			<referrer name="cmd_edittaixiucailonmamay"/>
+		</member>
 		<member name="F:Q@">
 			<referrer name="SetTimerExAddr"/>
 			<referrer name="K@"/>
@@ -4137,7 +4191,6 @@
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
-			<referrer name="cmd_settaixiunew"/>
 		</member>
 		<member name="F:TXHistory">
 			<referrer name="TaiXiu_HandleClick"/>
@@ -4827,7 +4880,6 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
-			<referrer name="cmd_settaixiunew"/>
 			<referrer name="cmd_settaixiutime"/>
 		</member>
 		<member name="F:__file">
@@ -5558,7 +5610,9 @@
 			<referrer name="MySQL_Init"/>
 			<referrer name="MySQL_Close"/>
 			<referrer name="Account_Check"/>
-			<referrer name="Account_Create"/>
+			<referrer name="OnPasswordHash"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:g_args">
 			<referrer name="Push"/>
@@ -5646,6 +5700,7 @@
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="ShowTXThongBao"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="F:pTX_SessionID">
 			<referrer name="TaiXiu_HandleClick"/>
@@ -5666,17 +5721,7 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-		</member>
-		<member name="F:s_IsPlayerLoggedIn">
-			<tagname value="bool"/>
-			<referrer name="SetPlayerLoggedIn"/>
-		</member>
-		<member name="F:s_PlayerAccountID">
-			<referrer name="Account_Check"/>
-			<referrer name="SetPlayerAccountID"/>
-		</member>
-		<member name="F:s_PlayerLoginAttempts">
-			<referrer name="OnPasswordCheck"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="F:size_l">
 		</member>
@@ -9114,53 +9159,13 @@
 			<library>amx_assembly phys_memory</library>
 		</member>
 		<member name="M:Account_Check" syntax="Account_Check(playerid)">
-			<stacksize value="161"/>
+			<stacksize value="264"/>
 			<referrer name="Timers_OnPlayerConnect"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="SetPlayerLoggedIn"/>
-			<dependency name="false"/>
-			<dependency name="g_DatabaseHandle"/>
-			<dependency name="mysql_format"/>
-			<dependency name="mysql_tquery"/>
-			<dependency name="s_PlayerAccountID"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:Account_Create" syntax="Account_Create(playerid, hash[])">
-			<stacksize value="289"/>
-			<referrer name="OnPasswordHash"/>
-			<dependency name="ReturnPlayerName"/>
-			<dependency name="ReturnPlayerName"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
 			<dependency name="mysql_tquery"/>
 			<param name="playerid">
-			</param>
-			<param name="hash">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:Account_ShowLoginDialog" syntax="Account_ShowLoginDialog(playerid)">
-			<stacksize value="9"/>
-			<referrer name="OnPasswordCheck"/>
-			<referrer name="OnPlayerAccountCheck"/>
-			<dependency name="DIALOG_LOGIN"/>
-			<dependency name="ShowPlayerDialog"/>
-			<param name="playerid">
-			</param>
-		</member>
-		<member name="M:Account_ShowRegistrationDialog" syntax="Account_ShowRegistrationDialog(playerid, badpass)">
-			<stacksize value="11"/>
-			<referrer name="OnPlayerAccountCheck"/>
-			<referrer name="OnDialogResponse"/>
-			<dependency name="DIALOG_REGISTRATION"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="ShowPlayerDialog"/>
-			<param name="playerid">
-			</param>
-			<param name="badpass">
-				<paraminfo>bool </paraminfo>
 			</param>
 		</member>
 		<member name="M:AddStaticVehicle" syntax="AddStaticVehicle(modelid, spawnX, spawnY, spawnZ, angle, colour1, colour2)">
@@ -12328,7 +12333,6 @@
 			<referrer name="zcmd_OnGameModeInit"/>
 			<referrer name="K@"/>
 			<referrer name="D@"/>
-			<referrer name="OnPasswordCheck"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
 				Public function's name
@@ -14001,19 +14005,6 @@
 			</param>
 			<param name="addr">
 			</param>
-		</member>
-		<member name="M:DeletePVar" syntax="DeletePVar(playerid, pvar[])">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="OnPasswordCheck"/>
-			<param name="playerid">
-				The ID of the player whose player variable to delete
-			</param>
-			<param name="pvar">
-				<paraminfo> [] </paraminfo>
-				The name of the player variable to delete
-			</param>
-			<library>omp_variable</library>  <summary>Deletes a previously set player variable.</summary>      <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <remarks>Once a variable is deleted, attempts to retrieve the value will return <b><c>0</c></b> (for  integers and floats and <b><c>NULL</c></b> for strings).</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified isn't connected or  there is no variable set with the given name.  </returns> 
 		</member>
 		<member name="M:DestroyActor" syntax="DestroyActor(actorid)">
 			<tagname value="bool"/>
@@ -15763,7 +15754,6 @@
 		</member>
 		<member name="M:GetPVarString" syntax="GetPVarString(playerid, pvar[], output[], len)">
 			<attribute name="native"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<param name="playerid">
@@ -15781,6 +15771,13 @@
 				The maximum length of the returned string
 			</param>
 			<library>omp_variable</library>  <summary>Gets a player variable as a string.</summary>          <seealso name="SetPVarString" />  <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <remarks>If length of string is zero (value not set), output text will not be updated or set to anything  and will remain with old data, neccesying that you clear the variable to blank value if <a href="#GetPVarString">GetPVarString</a>  returns <b><c>0</c></b> if that behavior is undesired </remarks>  <returns>The length of the string.</returns> 
+		</member>
+		<member name="M:GetPlayerCash" syntax="GetPlayerCash(playerid)">
+			<stacksize value="1"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pCash"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:GetPlayerInterior" syntax="GetPlayerInterior(playerid)">
 			<attribute name="native"/>
@@ -15807,6 +15804,7 @@
 		</member>
 		<member name="M:GetPlayerMoney" syntax="GetPlayerMoney(playerid)">
 			<attribute name="native"/>
+			<referrer name="OnPlayerUpdate"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 			<param name="playerid">
 				The ID of the player to get the money of
@@ -15821,6 +15819,7 @@
 			<referrer name="GetPlayerRPName"/>
 			<referrer name="GetPlayerRPComponents"/>
 			<referrer name="HasRPName"/>
+			<referrer name="GetPlayerNameEx"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<param name="playerid">
 				The ID of the player to get the name of
@@ -15833,6 +15832,17 @@
 				The length of the string that should be stored.  Recommended to be <b><c>MAX_PLAYER_NAME</c></b>
 			</param>
 			<library>omp_player</library>  <summary>Get a player's name.</summary>        <seealso name="SetPlayerName" />  <seealso name="GetPlayerIp" />  <seealso name="GetPlayerPing" />  <seealso name="GetPlayerScore" />  <seealso name="GetPlayerVersion" />  <remarks>A player's name can be up to 24 characters long (as of <b>0.3d R2</b>) by using <a href="#SetPlayerName">SetPlayerName</a>.  This is defined as <b><c>24</c></b> by default.  However, the client can  only join with a nickname between 3 and 20 characters, otherwise the connection will be rejected  and the player has to quit to choose a valid name.</remarks>  <returns>The length of the player's name. <b><c>0</c></b> if player specified doesn't exist.</returns> 
+		</member>
+		<member name="M:GetPlayerNameEx" syntax="GetPlayerNameEx(playerid)">
+			<stacksize value="5"/>
+			<referrer name="Account_Check"/>
+			<referrer name="OnPasswordHash"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="OnDialogResponse"/>
+			<dependency name="GetPlayerName"/>
+			<dependency name="GetPlayerNameEx"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:GetPlayerPoolSize" syntax="GetPlayerPoolSize()">
 			<stacksize value="1"/>
@@ -16303,9 +16313,25 @@
 			</param>
 			<library>y_utils - files</library>    <returns>  A directory.  </returns>  <remarks>  Get a YSI scriptfiles directory, or a fallback.  </remarks> 
 		</member>
+		<member name="M:GivePlayerCash" syntax="GivePlayerCash(playerid, amount)">
+			<stacksize value="4"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<dependency name="GivePlayerMoney"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerMoney"/>
+			<dependency name="pCash"/>
+			<param name="playerid">
+			</param>
+			<param name="amount">
+			</param>
+		</member>
 		<member name="M:GivePlayerMoney" syntax="GivePlayerMoney(playerid, money)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="SetPlayerSpawn"/>
+			<referrer name="GivePlayerCash"/>
+			<referrer name="OnPlayerUpdate"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 			<param name="playerid">
@@ -16367,16 +16393,6 @@
 			</param>
 			<library>y_utils - names</library>  <summary>  HasRPName  </summary>        <remarks>  Is this player's name in the form <c>First_Last</c>?  </remarks> 
 		</member>
-		<member name="M:HashPassword" syntax="HashPassword(playerid, password[])">
-			<stacksize value="7"/>
-			<referrer name="OnDialogResponse"/>
-			<dependency name="bcrypt_hash"/>
-			<param name="playerid">
-			</param>
-			<param name="password">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
 		<member name="M:HaveToRelocateOpcodes" syntax="HaveToRelocateOpcodes()">
 			<tagname value="bool"/>
 			<stacksize value="4"/>
@@ -16424,6 +16440,7 @@
 		<member name="M:HideTaixiuDisplay" syntax="HideTaixiuDisplay(playerid)">
 			<stacksize value="5"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 			<dependency name="CancelSelectTextDraw"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="LSuPhien"/>
@@ -17899,7 +17916,6 @@
 			<attribute name="native"/>
 			<referrer name="Android_OnYSIInit"/>
 			<referrer name="OnRconLoginAttempt"/>
-			<referrer name="cmd_settaixiunew"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="playerid">
 				The ID of the player to check
@@ -17913,7 +17929,6 @@
 			<referrer name="IsPCPlayer"/>
 			<referrer name="IsAndroidPlayer"/>
 			<referrer name="Android_OnYSIInit"/>
-			<referrer name="SetPlayerLoggedIn"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -18076,17 +18091,6 @@
 				The ID of the actor to check
 			</param>
 			<library>omp_actor</library>  <summary>Checks if an actor ID is valid.</summary>    <returns><b><c>1</c></b> if the actor is valid, <b><c>0</c></b> if not.</returns> 
-		</member>
-		<member name="M:IsValidPassword" syntax="IsValidPassword(password[])">
-			<tagname value="bool"/>
-			<stacksize value="3"/>
-			<referrer name="OnDialogResponse"/>
-			<dependency name="false"/>
-			<dependency name="strlen"/>
-			<dependency name="true"/>
-			<param name="password">
-				<paraminfo> [] </paraminfo>
-			</param>
 		</member>
 		<member name="M:IsVehicleStreamedIn" syntax="IsVehicleStreamedIn(vehicleid, playerid)">
 			<tagname value="bool"/>
@@ -19930,7 +19934,6 @@
 		<member name="M:Kick" syntax="Kick(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="OnPasswordCheck"/>
 			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 				The ID of the player to kick
@@ -19998,6 +20001,16 @@
 				The <a href="https://www.open.mp/docs/scripting/resources/interiorids">Interior  ID</a> to  link it to
 			</param>
 			<library>omp_vehicle</library>  <summary>Links a vehicle to an interior.  Vehicles can only be seen by players in the same interior  (<a href="#SetPlayerInterior">SetPlayerInterior</a>).</summary>      <seealso name="SetVehicleVirtualWorld" />  <seealso name="SetPlayerInterior" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the vehicle does not exist.<br />  </returns> 
+		</member>
+		<member name="M:LoadPlayerData" syntax="LoadPlayerData(playerid)">
+			<stacksize value="264"/>
+			<referrer name="ResultPasswordCheck"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="g_DatabaseHandle"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:Malloc_Allocate" syntax="Malloc_Allocate(size, clear)">
 			<tagname value="Alloc"/>
@@ -20572,6 +20585,40 @@
 			<dependency name="false"/>
 			<library>amx_assembly addressof</library>
 		</member>
+		<member name="M:OnAccountCheck" syntax="OnAccountCheck(playerid)">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<dependency name="DIALOG_LOGIN"/>
+			<dependency name="DIALOG_REGISTER"/>
+			<dependency name="ShowPlayerDialog"/>
+			<dependency name="cache_num_rows"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:OnAccountRegister" syntax="OnAccountRegister(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="InitPlayerPos"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPlayerSpawn"/>
+			<dependency name="cache_insert_id"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pAngle"/>
+			<dependency name="pBank"/>
+			<dependency name="pCash"/>
+			<dependency name="pGender"/>
+			<dependency name="pID"/>
+			<dependency name="pInterior"/>
+			<dependency name="pLevel"/>
+			<dependency name="pPosX"/>
+			<dependency name="pPosY"/>
+			<dependency name="pPosZ"/>
+			<dependency name="pSkin"/>
+			<dependency name="pVirtualWorld"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:OnActorStreamIn" syntax="OnActorStreamIn(actorid, forplayerid)">
 			<attribute name="public"/>
 			<stacksize value="7"/>
@@ -20653,16 +20700,16 @@
 		</member>
 		<member name="M:OnDialogResponse" syntax="OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="68"/>
-			<dependency name="Account_ShowRegistrationDialog"/>
+			<stacksize value="289"/>
 			<dependency name="DIALOG_LOGIN"/>
-			<dependency name="DIALOG_REGISTRATION"/>
-			<dependency name="GetPVarString"/>
-			<dependency name="HashPassword"/>
-			<dependency name="IsValidPassword"/>
+			<dependency name="DIALOG_REGISTER"/>
+			<dependency name="GetPlayerNameEx"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="Kick"/>
-			<dependency name="bcrypt_verify"/>
-			<dependency name="true"/>
+			<dependency name="bcrypt_hash"/>
+			<dependency name="g_DatabaseHandle"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
 			<param name="playerid">
 				The ID of the player that responded to the dialog
 			</param>
@@ -20942,28 +20989,25 @@
 			</param>
 			<summary>This callback is called when an object is moved after <a href="#MoveObject">MoveObject</a>  (when it stops moving).</summary>    <seealso name="MoveObject" />  <seealso name="IsObjectMoving" />  <seealso name="StopObject" />  <seealso name="OnPlayerObjectMoved" />  <remarks><a href="#SetObjectPos">SetObjectPos</a> does not work when used in this callback.  To fix  it, recreate the object.</remarks>  <returns>  This callback does not handle returns.<br />  It is always called first in filterscripts.  </returns> 
 		</member>
-		<member name="M:OnPasswordCheck" syntax="OnPasswordCheck(playerid, match)">
+		<member name="M:OnPasswordCheck" syntax="OnPasswordCheck(playerid, password[])">
 			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="Account_ShowLoginDialog"/>
-			<dependency name="CallLocalFunction"/>
-			<dependency name="DeletePVar"/>
-			<dependency name="Kick"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SetPlayerLoggedIn"/>
-			<dependency name="s_PlayerLoginAttempts"/>
-			<dependency name="true"/>
+			<stacksize value="68"/>
+			<dependency name="bcrypt_verify"/>
+			<dependency name="cache_get_value_name"/>
 			<param name="playerid">
 			</param>
-			<param name="match">
-				<paraminfo>bool </paraminfo>
+			<param name="password">
+				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
 		<member name="M:OnPasswordHash" syntax="OnPasswordHash(playerid)">
 			<attribute name="public"/>
-			<stacksize value="66"/>
-			<dependency name="Account_Create"/>
+			<stacksize value="582"/>
+			<dependency name="GetPlayerNameEx"/>
 			<dependency name="bcrypt_get_hash"/>
+			<dependency name="g_DatabaseHandle"/>
+			<dependency name="mysql_format"/>
+			<dependency name="mysql_tquery"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -20988,17 +21032,6 @@
 				The ID of the player that picked up the pickup
 			</param>
 			<summary>Called when a pickup leaves the visual range of a player.</summary>      <seealso name="CreatePickup" />  <seealso name="DestroyPickup" />  <returns>  This callback does not handle returns.<br />  It is always called first in gamemode.  </returns> 
-		</member>
-		<member name="M:OnPlayerAccountCheck" syntax="OnPlayerAccountCheck(playerid)">
-			<attribute name="public"/>
-			<stacksize value="67"/>
-			<dependency name="Account_ShowLoginDialog"/>
-			<dependency name="Account_ShowRegistrationDialog"/>
-			<dependency name="SetPVarString"/>
-			<dependency name="cache_get_value_name"/>
-			<dependency name="cache_num_rows"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:OnPlayerClickGangZone" syntax="OnPlayerClickGangZone(playerid, zoneid)">
 			<attribute name="public"/>
@@ -21129,6 +21162,31 @@
 				The ID of the player that connected
 			</param>
 			<summary>This callback is called when a player connects to the server.</summary>    <seealso name="OnPlayerDisconnect" />  <seealso name="OnIncomingConnection" />  <seealso name="OnPlayerFinishedDownloading" />  <remarks>This callback can also be called by NPC.</remarks>  <returns>  <b><c>0</c></b> - Will prevent other filterscripts from receiving this callback.<br />  <b><c>1</c></b> - Indicates that this callback will be passed to the next filterscript.<br />  It is always called first in filterscripts.  </returns> <p/> <library>sscanf</library>  <remarks>  Called when a player connects.  Actually increments an internal count so that  if a script ends and <c>OnPlayerDisconnect</c> is called then <c>sscanf</c>  still knows that the player is really connected.  Also stores their name  internally.  </remarks> 
+		</member>
+		<member name="M:OnPlayerDataLoaded" syntax="OnPlayerDataLoaded(playerid)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPlayerSpawn"/>
+			<dependency name="cache_get_value_name_float"/>
+			<dependency name="cache_get_value_name_int"/>
+			<dependency name="cache_num_rows"/>
+			<dependency name="pAdmin"/>
+			<dependency name="pAngle"/>
+			<dependency name="pBank"/>
+			<dependency name="pCash"/>
+			<dependency name="pGender"/>
+			<dependency name="pID"/>
+			<dependency name="pInterior"/>
+			<dependency name="pLevel"/>
+			<dependency name="pPosX"/>
+			<dependency name="pPosY"/>
+			<dependency name="pPosZ"/>
+			<dependency name="pSkin"/>
+			<dependency name="pVirtualWorld"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:OnPlayerDeath" syntax="OnPlayerDeath(playerid, killerid, reason)">
 			<attribute name="public"/>
@@ -21443,13 +21501,6 @@
 			</param>
 			<summary>This callback is called when a player leaves the race checkpoint.</summary>    <seealso name="OnPlayerEnterCheckpoint" />  <seealso name="OnPlayerLeaveCheckpoint" />  <seealso name="OnPlayerEnterRaceCheckpoint" />  <seealso name="SetPlayerCheckpoint" />  <seealso name="DisablePlayerCheckpoint" />  <seealso name="IsPlayerInCheckpoint" />  <seealso name="SetPlayerRaceCheckpoint" />  <seealso name="DisablePlayerRaceCheckpoint" />  <seealso name="IsPlayerInRaceCheckpoint" />  <remarks>This callback can also be called by NPC.</remarks>  <returns>  This callback does not handle returns.<br />  It is always called first in filterscripts.  </returns> 
 		</member>
-		<member name="M:OnPlayerLogin" syntax="OnPlayerLogin(playerid)">
-			<attribute name="public"/>
-			<stacksize value="3"/>
-			<dependency name="SpawnPlayer"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:OnPlayerObjectMoved" syntax="OnPlayerObjectMoved(playerid, objectid)">
 			<attribute name="public"/>
 			<stacksize value="1"/>
@@ -21504,16 +21555,6 @@
 				The ID of the player that picked up the pickup
 			</param>
 			<summary>Called when a pickup leaves the visual range of a player.</summary>      <seealso name="CreatePickup" />  <seealso name="DestroyPickup" />  <returns>  This callback does not handle returns.<br />  It is always called first in gamemode.  </returns> 
-		</member>
-		<member name="M:OnPlayerRegister" syntax="OnPlayerRegister(playerid)">
-			<attribute name="public"/>
-			<stacksize value="6"/>
-			<dependency name="SetPlayerAccountID"/>
-			<dependency name="SetPlayerLoggedIn"/>
-			<dependency name="cache_insert_id"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:OnPlayerRequestClass" syntax="OnPlayerRequestClass(playerid, classid)">
 			<stacksize value="1"/>
@@ -21586,8 +21627,9 @@
 		</member>
 		<member name="M:OnPlayerSpawn" syntax="OnPlayerSpawn(playerid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
-			<dependency name="SetPlayerInterior"/>
+			<stacksize value="1"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="pLogged"/>
 			<param name="playerid">
 				The ID of the player that spawned
 			</param>
@@ -21703,7 +21745,13 @@
 		</member>
 		<member name="M:OnPlayerUpdate" syntax="OnPlayerUpdate(playerid)">
 			<attribute name="public"/>
-			<stacksize value="1"/>
+			<stacksize value="4"/>
+			<dependency name="GetPlayerMoney"/>
+			<dependency name="GivePlayerMoney"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="ResetPlayerMoney"/>
+			<dependency name="pCash"/>
 			<param name="playerid">
 				ID of the player sending an update packet
 			</param>
@@ -22222,26 +22270,12 @@
 			</param>
 			<library>omp_textdraw</library>  <summary>Sets the colour of a textdraw's box (<a href="#PlayerTextDrawUseBox">PlayerTextDrawUseBox</a>).</summary>        <seealso name="CreatePlayerTextDraw" />  <seealso name="PlayerTextDrawDestroy" />  <seealso name="PlayerTextDrawColour" />  <seealso name="PlayerTextDrawBackgroundColour" />  <seealso name="PlayerTextDrawAlignment" />  <seealso name="PlayerTextDrawFont" />  <seealso name="PlayerTextDrawLetterSize" />  <seealso name="PlayerTextDrawTextSize" />  <seealso name="PlayerTextDrawSetOutline" />  <seealso name="PlayerTextDrawSetShadow" />  <seealso name="PlayerTextDrawSetProportional" />  <seealso name="PlayerTextDrawUseBox" />  <seealso name="PlayerTextDrawSetString" />  <seealso name="PlayerTextDrawShow" />  <seealso name="PlayerTextDrawHide" /> 
 		</member>
-		<member name="M:PlayerTextDrawColor" syntax="PlayerTextDrawColor(playerid, textid, textColor)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="TaiXiu_SetHistory"/>
-			<referrer name="TaiXiu_UpdateResult"/>
-			<param name="playerid">
-				The ID of the player who's textdraw to set the colour of
-			</param>
-			<param name="textid">
-				<paraminfo>PlayerText </paraminfo>
-				The TextDraw to change
-			</param>
-			<param name="textColor">
-			</param>
-			<library>omp_textdraw</library>  <summary>Sets the text colour of a player-textdraw.</summary>      <param name="textColour">The colour in hexadecimal format</param>  <seealso name="CreatePlayerTextDraw" />  <seealso name="PlayerTextDrawDestroy" />  <seealso name="PlayerTextDrawBoxColour" />  <seealso name="PlayerTextDrawBackgroundColour" />  <seealso name="PlayerTextDrawAlignment" />  <seealso name="PlayerTextDrawFont" />  <seealso name="PlayerTextDrawLetterSize" />  <seealso name="PlayerTextDrawTextSize" />  <seealso name="PlayerTextDrawSetOutline" />  <seealso name="PlayerTextDrawSetShadow" />  <seealso name="PlayerTextDrawSetProportional" />  <seealso name="PlayerTextDrawUseBox" />  <seealso name="PlayerTextDrawSetString" />  <seealso name="PlayerTextDrawShow" />  <seealso name="PlayerTextDrawHide" />  <remarks>You can also use Gametext colours in textdraws.</remarks>  <remarks>The textdraw must be re-shown to the player in order to update the colour.</remarks> 
-		</member>
 		<member name="M:PlayerTextDrawColour" syntax="PlayerTextDrawColour(playerid, textid, textColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="CreateTaiXiuTD"/>
+			<referrer name="TaiXiu_SetHistory"/>
+			<referrer name="TaiXiu_UpdateResult"/>
 			<param name="playerid">
 				The ID of the player who's textdraw to set the colour of
 			</param>
@@ -22584,7 +22618,6 @@
 			<dependency name="TaiXiu_SetThongBaoAll"/>
 			<dependency name="TaiXiu_SetTop"/>
 			<dependency name="TaiXiu_UpdateResult"/>
-			<dependency name="__printf"/>
 			<dependency name="cellmax"/>
 			<dependency name="format"/>
 			<dependency name="gTXTopMoney"/>
@@ -22599,6 +22632,8 @@
 			<dependency name="txSessionID"/>
 			<dependency name="txState"/>
 			<dependency name="txTimer"/>
+			<dependency name="txTotalTai"/>
+			<dependency name="txTotalXiu"/>
 		</member>
 		<member name="M:Push" syntax="Push(arg)">
 			<tagname value="bool"/>
@@ -23264,6 +23299,16 @@
 			</param>
 			<library>amx_assembly opcode</library> <remarks> Based on this idea: http://forum.sa-mp.com/showthread.php?t=358084 </remarks>
 		</member>
+		<member name="M:ResetPlayerMoney" syntax="ResetPlayerMoney(playerid)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="GivePlayerCash"/>
+			<referrer name="OnPlayerUpdate"/>
+			<param name="playerid">
+				The ID of the player to reset the money of
+			</param>
+			<library>omp_player</library>  <summary>Reset a player's money to $0.</summary>    <seealso name="GetPlayerMoney" />  <seealso name="GivePlayerMoney" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute. This means the player is not connected.  </returns> 
+		</member>
 		<member name="M:ResetStaticAmxHeader" syntax="ResetStaticAmxHeader()">
 			<stacksize value="4"/>
 			<referrer name="GetAmxHeader"/>
@@ -23324,10 +23369,20 @@
 			<dependency name="true"/>
 			<library>y_utils - files</library>  <remarks>  Check if all the YSI scriptfiles directories exist.  Checks for `.gitkeep`  in each folder, then each folder without `YSI/` prefix, then just nothing.  </remarks> 
 		</member>
+		<member name="M:ResultPasswordCheck" syntax="ResultPasswordCheck(playerid, match)">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<dependency name="DIALOG_LOGIN"/>
+			<dependency name="LoadPlayerData"/>
+			<dependency name="ShowPlayerDialog"/>
+			<param name="playerid">
+			</param>
+			<param name="match">
+				<paraminfo>bool </paraminfo>
+			</param>
+		</member>
 		<member name="M:ReturnPlayerName" syntax="ReturnPlayerName(playerid)">
 			<stacksize value="29"/>
-			<referrer name="Account_Check"/>
-			<referrer name="Account_Create"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="ReturnPlayerName"/>
 			<param name="playerid">
@@ -23708,7 +23763,6 @@
 		</member>
 		<member name="M:SSCANF__" syntax="SSCANF__(file[], line, data[], format[], ...)">
 			<attribute name="native"/>
-			<referrer name="cmd_settaixiunew"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="file">
 				<paraminfo> [] </paraminfo>
@@ -24151,11 +24205,12 @@
 		<member name="M:SendClientMessage" syntax="SendClientMessage(playerid, colour, format[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="Account_ShowRegistrationDialog"/>
-			<referrer name="OnPasswordCheck"/>
+			<referrer name="SendClientMessageEx"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
-			<referrer name="cmd_settaixiunew"/>
+			<referrer name="cmd_taixiu"/>
+			<referrer name="cmd_edittaixiucailonmamay"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="playerid">
 				The ID of the player to display the message to
@@ -24171,6 +24226,29 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_player</library>  <summary>This function sends a message to a specific player with a chosen colour in the chat.  The  whole line in the chatbox will be in the set colour unless colour embedding is used (since <b><c>0.3c</c></b>).</summary>        <seealso name="SendClientMessageToAll" />  <seealso name="SendPlayerMessageToPlayer" />  <seealso name="SendPlayerMessageToAll" />  <remarks>If a message is longer than 144 characters, it will not be sent.  Truncation can be used  to prevent this.  Displaying a message on multiple lines will also solve this issue. </remarks>  <remarks>Avoid using the percent sign (or format specifiers) in the actual message text without properly  escaping it (like <b><c>%%</c></b>).  It will result in crashes otherwise. </remarks>  <remarks>You can use colour embedding for multiple colours in the message. </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.  Success is reported when the string is over  144 characters, but the message won't be sent.<br />  <b><c>0</c></b>: The function failed to execute.  The player is not connected.  </returns> 
+		</member>
+		<member name="M:SendClientMessageEx" syntax="SendClientMessageEx(playerid, color, string[])">
+			<stacksize value="5"/>
+			<dependency name="SendClientMessage"/>
+			<param name="playerid">
+			</param>
+			<param name="color">
+			</param>
+			<param name="string">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:SendClientMessageToAllEx" syntax="SendClientMessageToAllEx(color, string[])">
+			<stacksize value="6"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<dependency name="Iterator@Player"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="cellmax"/>
+			<param name="color">
+			</param>
+			<param name="string">
+				<paraminfo> [] </paraminfo>
+			</param>
 		</member>
 		<member name="M:SendRconCommand" syntax="SendRconCommand(format[], ...)">
 			<tagname value="bool"/>
@@ -24734,7 +24812,6 @@
 		<member name="M:SetPVarString" syntax="SetPVarString(playerid, pvar[], value[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="OnPlayerAccountCheck"/>
 			<referrer name="TaiXiu_SetThongBao"/>
 			<param name="playerid">
 				The ID of the player whose player variable will be set
@@ -24751,15 +24828,6 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_variable</library>  <summary>Saves a string into a player variable.</summary>        <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" /> 
-		</member>
-		<member name="M:SetPlayerAccountID" syntax="SetPlayerAccountID(playerid, accountid)">
-			<stacksize value="1"/>
-			<referrer name="OnPlayerRegister"/>
-			<dependency name="s_PlayerAccountID"/>
-			<param name="playerid">
-			</param>
-			<param name="accountid">
-			</param>
 		</member>
 		<member name="M:SetPlayerArmedWeapon" syntax="SetPlayerArmedWeapon(playerid, weaponid)">
 			<tagname value="bool"/>
@@ -24791,7 +24859,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="Utils_ChaosMod"/>
-			<referrer name="OnPlayerSpawn"/>
+			<referrer name="SetPlayerSpawn"/>
 			<param name="playerid">
 				The ID of the player to set the interior of
 			</param>
@@ -24800,17 +24868,42 @@
 			</param>
 			<library>omp_player</library>  <summary>Set a player's interior.  A list of currently known interiors and their positions can be  found <a href="https://www.open.mp/docs/scripting/resources/interiorids">here</a>.</summary>      <seealso name="GetPlayerInterior" />  <seealso name="LinkVehicleToInterior" />  <seealso name="OnPlayerInteriorChange" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
 		</member>
-		<member name="M:SetPlayerLoggedIn" syntax="SetPlayerLoggedIn(playerid, set)">
-			<stacksize value="3"/>
-			<referrer name="Account_Check"/>
-			<referrer name="OnPlayerRegister"/>
-			<referrer name="OnPasswordCheck"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="s_IsPlayerLoggedIn"/>
+		<member name="M:SetPlayerScore" syntax="SetPlayerScore(playerid, score)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="SetPlayerSpawn"/>
 			<param name="playerid">
+				The ID of the player to set the score of
 			</param>
-			<param name="set">
-				<paraminfo>bool </paraminfo>
+			<param name="score">
+				The value to set the player's score to
+			</param>
+			<library>omp_player</library>  <summary>Set a player's score.  Players' scores are shown in the scoreboard (shown by holding the  TAB key).</summary>      <seealso name="GetPlayerScore" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player specified does not exist.  </returns> 
+		</member>
+		<member name="M:SetPlayerSpawn" syntax="SetPlayerSpawn(playerid)">
+			<stacksize value="15"/>
+			<referrer name="OnAccountRegister"/>
+			<referrer name="OnPlayerDataLoaded"/>
+			<dependency name="GivePlayerMoney"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="PlayerInfo"/>
+			<dependency name="SetPlayerInterior"/>
+			<dependency name="SetPlayerScore"/>
+			<dependency name="SetPlayerVirtualWorld"/>
+			<dependency name="SetSpawnInfo"/>
+			<dependency name="SpawnPlayer"/>
+			<dependency name="pAngle"/>
+			<dependency name="pCash"/>
+			<dependency name="pInterior"/>
+			<dependency name="pLevel"/>
+			<dependency name="pLogged"/>
+			<dependency name="pPosX"/>
+			<dependency name="pPosY"/>
+			<dependency name="pPosZ"/>
+			<dependency name="pSkin"/>
+			<dependency name="pVirtualWorld"/>
+			<dependency name="true"/>
+			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:SetPlayerVelocity" syntax="SetPlayerVelocity(playerid, x, y, z)">
@@ -24833,6 +24926,18 @@
 				The velocity (speed) on the z axis
 			</param>
 			<library>omp_player</library>  <summary>Set a player's velocity on the x, y and z axes.</summary>          <seealso name="GetPlayerVelocity" />  <seealso name="SetVehicleVelocity" />  <seealso name="GetVehicleVelocity" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
+		</member>
+		<member name="M:SetPlayerVirtualWorld" syntax="SetPlayerVirtualWorld(playerid, virtualWorld)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="SetPlayerSpawn"/>
+			<param name="playerid">
+				The ID of the player you want to set the virtual world of
+			</param>
+			<param name="virtualWorld">
+				The virtual world ID to put the player in
+			</param>
+			<library>omp_player</library>  <summary>Set the virtual world of a player.  They can only see other players or vehicles that are  in that same world.</summary>      <seealso name="GetPlayerVirtualWorld" />  <seealso name="SetVehicleVirtualWorld" />  <remarks>The default virtual world is <b><c>0</c></b></remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
 		</member>
 		<member name="M:SetPlayerWorldBounds" syntax="SetPlayerWorldBounds(playerid, maxX, minX, maxY, minY)">
 			<tagname value="bool"/>
@@ -24880,6 +24985,58 @@
 			<param name="value">
 			</param>
 			<library>amx_assembly amx_header</library>
+		</member>
+		<member name="M:SetSpawnInfo" syntax="SetSpawnInfo(playerid, team, skin, spawnX, spawnY, spawnZ, angle, weapon1, ammo1, weapon2, ammo2, weapon3, ammo3)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="SetPlayerSpawn"/>
+			<param name="playerid">
+				The Playerid of who you want to set the spawn information
+			</param>
+			<param name="team">
+				The Team-ID of the chosen player
+			</param>
+			<param name="skin">
+				The <a href="https://open.mp/docs/scripting/resources/skins">skin</a> which the player  will  spawn with
+			</param>
+			<param name="spawnX">
+				<paraminfo>Float </paraminfo>
+				The x coordinate of the player's spawn position
+			</param>
+			<param name="spawnY">
+				<paraminfo>Float </paraminfo>
+				The y coordinate of the player's spawn position
+			</param>
+			<param name="spawnZ">
+				<paraminfo>Float </paraminfo>
+				The z coordinate of the player's spawn position
+			</param>
+			<param name="angle">
+				<paraminfo>Float </paraminfo>
+				The direction in which the player should face after spawning
+			</param>
+			<param name="weapon1">
+				<paraminfo>t_WEAPON </paraminfo>
+				The first spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo1">
+				The amount of ammunition for the primary spawnweapon
+			</param>
+			<param name="weapon2">
+				<paraminfo>t_WEAPON </paraminfo>
+				The second spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo2">
+				The amount of ammunition for the second spawnweapon
+			</param>
+			<param name="weapon3">
+				<paraminfo>t_WEAPON </paraminfo>
+				The third spawn-<a href="https://open.mp/docs/scripting/resources/weaponids">weapon</a>  for  the player
+			</param>
+			<param name="ammo3">
+				The amount of ammunition for the third spawnweapon
+			</param>
+			<library>omp_class</library>  <summary>This function can be used to change the spawn information of a specific player.  It allows  you to automatically set someone's spawn weapons, their team, skin and spawn position, normally used  in case of minigames or automatic-spawn systems.</summary>                            <seealso name="SetPlayerSkin" />  <seealso name="SetPlayerTeam" />  <seealso name="SpawnPlayer" /> 
 		</member>
 		<member name="M:SetTeamCount" syntax="SetTeamCount(count)">
 			<stacksize value="1"/>
@@ -25011,10 +25168,11 @@
 		<member name="M:ShowPlayerDialog" syntax="ShowPlayerDialog(playerid, dialogid, style, title[], body[], button1[], button2[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="Account_ShowRegistrationDialog"/>
-			<referrer name="Account_ShowLoginDialog"/>
+			<referrer name="OnAccountCheck"/>
+			<referrer name="ResultPasswordCheck"/>
 			<referrer name="TaiXiu_HandleClick"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="cmd_edittaixiucailonmamay"/>
 			<param name="playerid">
 				The ID of the player to show the dialog to
 			</param>
@@ -25109,7 +25267,7 @@
 		<member name="M:SpawnPlayer" syntax="SpawnPlayer(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="OnPlayerLogin"/>
+			<referrer name="SetPlayerSpawn"/>
 			<param name="playerid">
 				The ID of the player to spawn
 			</param>
@@ -25134,7 +25292,6 @@
 			<dependency name="TaiXiu_SetThongBaoAll"/>
 			<dependency name="TaiXiu_UpdateConfig"/>
 			<dependency name="TaiXiu_UpdateMainInfo"/>
-			<dependency name="__printf"/>
 			<dependency name="cellmax"/>
 			<dependency name="format"/>
 			<dependency name="formketqua"/>
@@ -25388,6 +25545,7 @@
 		<member name="M:TaiXiuUpdate" syntax="TaiXiuUpdate()">
 			<attribute name="public"/>
 			<stacksize value="11"/>
+			<dependency name="BaoTriTaiXiuAD"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerBetTai"/>
@@ -25441,7 +25599,7 @@
 			<referrer name="ProcessTaiXiuResult"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="LSuPhien"/>
-			<dependency name="PlayerTextDrawColor"/>
+			<dependency name="PlayerTextDrawColour"/>
 			<dependency name="PlayerTextDrawSetString"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="pTaiXiuTDShowed"/>
@@ -25546,7 +25704,7 @@
 			<stacksize value="5"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<dependency name="PicXucXac"/>
-			<dependency name="PlayerTextDrawColor"/>
+			<dependency name="PlayerTextDrawColour"/>
 			<dependency name="PlayerTextDrawHide"/>
 			<dependency name="PlayerTextDrawSetString"/>
 			<dependency name="PlayerTextDrawShow"/>
@@ -25638,7 +25796,7 @@
 		<member name="M:ToggleTaiXiuDisplay" syntax="ToggleTaiXiuDisplay(playerid)">
 			<stacksize value="8"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
-			<referrer name="cmd_taixiunew"/>
+			<referrer name="cmd_taixiu"/>
 			<dependency name="HideTaixiuDisplay"/>
 			<dependency name="ShowTaiXiuDisplay"/>
 			<dependency name="TaiXiu_SetThongBao"/>
@@ -26662,20 +26820,30 @@
 			<attribute name="public"/>
 			<stacksize value="42"/>
 			<referrer name="@yH_OnDialogResponse@01"/>
+			<dependency name="BaoTriTaiXiuAD"/>
 			<dependency name="DIALOG_NOTHING"/>
 			<dependency name="GetPlayerMoney"/>
+			<dependency name="GivePlayerCash"/>
 			<dependency name="GivePlayerMoney"/>
+			<dependency name="HideTaixiuDisplay"/>
 			<dependency name="IsNumeric"/>
+			<dependency name="Iterator@Player"/>
 			<dependency name="PlayerBetTai"/>
 			<dependency name="PlayerBetXiu"/>
 			<dependency name="SendClientMessage"/>
+			<dependency name="SendClientMessageToAllEx"/>
 			<dependency name="ShowPlayerDialog"/>
 			<dependency name="TX"/>
 			<dependency name="TaiXiu_SetThongBao"/>
 			<dependency name="ToggleTaiXiuDisplay"/>
+			<dependency name="cellmax"/>
+			<dependency name="false"/>
 			<dependency name="format"/>
+			<dependency name="pTXThongBao"/>
 			<dependency name="pTX_SessionID"/>
+			<dependency name="pTaiXiuTDShowed"/>
 			<dependency name="strval"/>
+			<dependency name="txAdminForce"/>
 			<dependency name="txPlayersTai"/>
 			<dependency name="txPlayersXiu"/>
 			<dependency name="txSessionID"/>
@@ -27136,8 +27304,6 @@
 			<referrer name="OnRuntimeError"/>
 			<referrer name="Iter_Debug_InternalC"/>
 			<referrer name="Iter_Debug_InternalD"/>
-			<referrer name="StartTaiXiuSession"/>
-			<referrer name="ProcessTaiXiuResult"/>
 			<param name="format">
 				<paraminfo> [] </paraminfo>
 				The format string
@@ -27237,7 +27403,7 @@
 		</member>
 		<member name="M:bcrypt_hash" syntax="bcrypt_hash(playerid, callback[], input[], cost, args[], ...)">
 			<attribute name="native"/>
-			<referrer name="HashPassword"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="playerid">
 			</param>
 			<param name="callback">
@@ -27257,7 +27423,7 @@
 		</member>
 		<member name="M:bcrypt_verify" syntax="bcrypt_verify(playerid, callback[], input[], hash[], args[], ...)">
 			<attribute name="native"/>
-			<referrer name="OnDialogResponse"/>
+			<referrer name="OnPasswordCheck"/>
 			<param name="playerid">
 			</param>
 			<param name="callback">
@@ -27347,7 +27513,7 @@
 		</member>
 		<member name="M:cache_get_value_name" syntax="cache_get_value_name(row_idx, column_name[], destination[], max_len)">
 			<attribute name="native"/>
-			<referrer name="OnPlayerAccountCheck"/>
+			<referrer name="OnPasswordCheck"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -27371,9 +27537,22 @@
 				<paraminfo>bool &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:cache_get_value_name_float" syntax="cache_get_value_name_float(row_idx, column_name[], &amp;destination)">
+			<attribute name="native"/>
+			<referrer name="OnPlayerDataLoaded"/>
+			<param name="row_idx">
+			</param>
+			<param name="column_name">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="destination">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:cache_get_value_name_int" syntax="cache_get_value_name_int(row_idx, column_name[], &amp;destination)">
 			<attribute name="native"/>
 			<referrer name="cache_get_value_name_bool"/>
+			<referrer name="OnPlayerDataLoaded"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -27385,7 +27564,7 @@
 		</member>
 		<member name="M:cache_insert_id" syntax="cache_insert_id()">
 			<attribute name="native"/>
-			<referrer name="OnPlayerRegister"/>
+			<referrer name="OnAccountRegister"/>
 		</member>
 		<member name="M:cache_num_fields" syntax="cache_num_fields()">
 			<stacksize value="4"/>
@@ -27397,7 +27576,8 @@
 		</member>
 		<member name="M:cache_num_rows" syntax="cache_num_rows()">
 			<stacksize value="4"/>
-			<referrer name="OnPlayerAccountCheck"/>
+			<referrer name="OnAccountCheck"/>
+			<referrer name="OnPlayerDataLoaded"/>
 			<dependency name="cache_get_row_count"/>
 		</member>
 		<member name="M:calloc" syntax="calloc(size)">
@@ -27473,18 +27653,14 @@
 			<stacksize value="1"/>
 			<library>console</library>  <summary>Clear the screen.</summary>  <seealso name="clreol"/>  <return>This function always returns 0.</return>  <remarks>Clears the display and moves the cursor to the upper left corner.</remarks> 
 		</member>
-		<member name="M:cmd_settaixiunew" syntax="cmd_settaixiunew(playerid, params[])">
+		<member name="M:cmd_edittaixiucailonmamay" syntax="cmd_edittaixiucailonmamay(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="17"/>
-			<dependency name="IsPlayerAdmin"/>
-			<dependency name="SSCANF__"/>
+			<stacksize value="1033"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessage"/>
-			<dependency name="TX"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="strcmp"/>
-			<dependency name="true"/>
-			<dependency name="txAdminForce"/>
+			<dependency name="ShowPlayerDialog"/>
+			<dependency name="format"/>
+			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -27507,9 +27683,11 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:cmd_taixiunew" syntax="cmd_taixiunew(playerid, params[])">
+		<member name="M:cmd_taixiu" syntax="cmd_taixiu(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="5"/>
+			<dependency name="BaoTriTaiXiuAD"/>
+			<dependency name="SendClientMessage"/>
 			<dependency name="ToggleTaiXiuDisplay"/>
 			<param name="playerid">
 			</param>
@@ -28000,6 +28178,7 @@
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="cmd_edittaixiucailonmamay"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="output">
 				<paraminfo> [] </paraminfo>
@@ -28622,7 +28801,9 @@
 		<member name="M:mysql_format" syntax="mysql_format(handle, output[], max_len, format[], ...)">
 			<attribute name="native"/>
 			<referrer name="Account_Check"/>
-			<referrer name="Account_Create"/>
+			<referrer name="OnPasswordHash"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -28641,7 +28822,9 @@
 		<member name="M:mysql_tquery" syntax="mysql_tquery(handle, query[], callback[], format[], ...)">
 			<attribute name="native"/>
 			<referrer name="Account_Check"/>
-			<referrer name="Account_Create"/>
+			<referrer name="OnPasswordHash"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="OnDialogResponse"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -29004,7 +29187,6 @@
 			<referrer name="Hooks_MakeShortName"/>
 			<referrer name="_@Hy"/>
 			<referrer name="Hooks_Collate"/>
-			<referrer name="cmd_settaixiunew"/>
 			<param name="string1">
 				<paraminfo> [] </paraminfo>
 				The first string to compare
@@ -29146,7 +29328,6 @@
 			<referrer name="Malloc_SetS"/>
 			<referrer name="Malloc_SetVAS"/>
 			<referrer name="_Timer_S"/>
-			<referrer name="IsValidPassword"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to get the length of
