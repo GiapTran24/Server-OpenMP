@@ -1,0 +1,7 @@
+[5/30/2026 12:49:17 AM] [ERROR] mysql_connect_file: handle error: no database specified
+[5/30/2026 12:49:17 AM] [ERROR] mysql_errno: invalid connection handle '0'
+[5/30/2026 12:49:35 AM] [WARNING] mysql_connect_file: no password specified
+[5/30/2026 12:49:35 AM] [ERROR] CConnection::CConnection - establishing connection to MySQL database failed: #1045 'Access denied for user 'root'@'localhost' (using password: NO)'
+[5/30/2026 12:49:35 AM] [ERROR] CConnection::CConnection - establishing connection to MySQL database failed: #1045 'Access denied for user 'root'@'localhost' (using password: NO)'
+[5/30/2026 12:49:35 AM] [ERROR] CConnection::CConnection - establishing connection to MySQL database failed: #1045 'Access denied for user 'root'@'localhost' (using password: NO)'
+[5/30/2026 12:49:35 AM] [ERROR] CConnection::CConnection - establishing connection to MySQL database failed: #1045 'Access denied for user 'root'@'localhost' (using password: NO)'
