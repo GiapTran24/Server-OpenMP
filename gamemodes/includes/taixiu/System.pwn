@@ -560,7 +560,7 @@ stock ProcessTaiXiuResult()
             if(isTai == 1 && PlayerBetTai[i] > 0)
             {
                 tx_give_money = PlayerBetTai[i] * 2;
-                GivePlayerMoney(i, tx_give_money);
+                GivePlayerCash(i, tx_give_money);
                 pTX_WinMoney[i] += tx_give_money;
                 format(msg, sizeof(msg), "[TAI XIU] Ban da thang %d$ tu cuoc TAI!", tx_give_money);
                 if(pTaiXiuTDShowed[i]) {
@@ -573,7 +573,7 @@ stock ProcessTaiXiuResult()
             else if(isTai == 2 && PlayerBetXiu[i] > 0)
             {
                 tx_give_money = PlayerBetXiu[i] * 2;
-                GivePlayerMoney(i, tx_give_money);
+                GivePlayerCash(i, tx_give_money);
                 pTX_WinMoney[i] += tx_give_money;
                 format(msg, sizeof(msg), "[TAI XIU] Ban da thang %d$ tu cuoc XIU!", tx_give_money);
                 if(pTaiXiuTDShowed[i]) {
@@ -642,14 +642,27 @@ hook OnGameModeInit() {
     return 1;
 }
 
-// hook OnPlayerConnected(playerid) {
-//     CreateTaiXiuTD(playerid);
-//     return 1;
-// }
+hook OnPlayerConnect(playerid) {
+    CreateTaiXiuTD(playerid);
+    return 1;
+}
 
 hook OnPlayerDisconnect(playerid, reason) {
     DestroyTaiXiuTD(playerid);
     return 1;
+}
+
+hook OnPlayerClickTextDraw(playerid, Text:clickedid)
+{
+    if(clickedid == INVALID_TEXT_DRAW) {
+        if(pTaiXiuTDShowed[playerid]) {
+            HideTaixiuDisplay(playerid);
+            pTaiXiuTDShowed[playerid] = false;
+            pTXThongBao[playerid] = false;
+        }
+    }
+
+	return 1;
 }
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -665,12 +678,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new str[32];
             new bet_amount = strval(inputtext);
-            if(bet_amount < TX_MIN_BET || bet_amount > TX_MAX_BET || GetPlayerMoney(playerid) < bet_amount) {
+            if(bet_amount < TX_MIN_BET || bet_amount > TX_MAX_BET || GetPlayerCash(playerid) < bet_amount) {
                 ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "So tien khong hop le hoac ban khong du tien!", "OK", "");
                 return 1;
             }
             format(str, sizeof str, "Ban dat $%d vao TAI", bet_amount);
-            GivePlayerMoney(playerid, -bet_amount);
+            GivePlayerCash(playerid, -bet_amount);
             PlayerBetTai[playerid] += bet_amount;
             TX[txTotalTai] += bet_amount;
             TX[txPlayersTai]++;
@@ -689,12 +702,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             
             new str[32];
             new bet_amount = strval(inputtext);
-            if(bet_amount < TX_MIN_BET || bet_amount > TX_MAX_BET || GetPlayerMoney(playerid) < bet_amount) {
+            if(bet_amount < TX_MIN_BET || bet_amount > TX_MAX_BET || GetPlayerCash(playerid) < bet_amount) {
                 ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "So tien khong hop le hoac ban khong du tien!", "OK", "");
                 return 1;
             }
             format(str, sizeof str, "Ban dat $%d vao XIU", bet_amount);
-            GivePlayerMoney(playerid, -bet_amount);
+            GivePlayerCash(playerid, -bet_amount);
             PlayerBetXiu[playerid] += bet_amount;
             TX[txTotalXiu] += bet_amount;
             TX[txPlayersXiu]++;
@@ -706,14 +719,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         if(response) {
             if(TX[txSessionID] != pTX_SessionID[playerid]) return ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "Thao tac khong cung phien cuoc!", "OK", "");
             if(PlayerBetTai[playerid] > 0) {
-                GivePlayerMoney(playerid, PlayerBetTai[playerid]);
+                GivePlayerCash(playerid, PlayerBetTai[playerid]);
                 TX[txTotalTai] -= PlayerBetTai[playerid];
                 TX[txPlayersTai]--;
                 PlayerBetTai[playerid] = 0;
                 ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "THU HOI CUOC", "Ban da thu hoi cuoc TAI!", "OK", "");
             } 
             else if(PlayerBetXiu[playerid] > 0) {
-                GivePlayerMoney(playerid, PlayerBetXiu[playerid]);
+                GivePlayerCash(playerid, PlayerBetXiu[playerid]);
                 TX[txTotalXiu] -= PlayerBetXiu[playerid];
                 TX[txPlayersXiu]--;
                 PlayerBetXiu[playerid] = 0;
@@ -782,6 +795,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
     }
     return 1;
+}
+
+hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
+{
+    TaiXiu_HandleClick(playerid, playertextid);
+	return 1;
 }
 
 

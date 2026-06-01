@@ -16,8 +16,11 @@ enum
 {
 	DIALOG_NOTHING,
     DIALOG_REGISTER,
-    DIALOG_LOGIN
+    DIALOG_LOGIN,
+    DIALOG_SETADMIN,
+    DIALOG_GOTO
 };
+
 // Pinfo
 enum pInfo {
 	pID,
@@ -48,11 +51,51 @@ new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 //-----------------------------------------------------------------------------
 new MySQL:g_DatabaseHandle;
 
+enum E_ADMIN_LEVEL
+{
+    adminLevel,
+    adminName[32]
+};
 
+new AdminLevels[][E_ADMIN_LEVEL] =
+{
+    {1, "Trial Admin"},
+    {2, "Junior Admin"},
+    {3, "Senior Admin"},
+    {4, "Lead Admin"},
+    {5, "Head Admin"},
+    {6, "Developer"}
+};
+
+enum E_GOTO_LOC
+{
+    gotoName[32],
+    Float:gotoX,
+    Float:gotoY,
+    Float:gotoZ,
+    gotoInt,
+    gotoVW
+};
+new SetAdminTarget[MAX_PLAYERS];
+
+new GotoLocations[][E_GOTO_LOC] =
+{
+    {"LS",        1529.6,  -1691.2, 13.3,    0, 0},
+    {"SF",       -1605.0,   720.0,  12.0,    0, 0},
+    {"LV",        1699.2,  1435.1,  10.7,    0, 0},
+    {"RC",        1253.70, 343.73,  19.41,   0, 0},
+    {"El Que",   -1446.59,2608.44,  55.83,   0, 0},
+    {"Bayside",  -2465.13,2333.65,   4.83,   0, 0},
+    {"Bank",      1487.91,-1030.60, 23.66,   0, 0},
+    {"FBI",         344.77,-1526.08, 33.28,   0, 0},
+    {"DOC",      -2029.23, -78.33, 35.32,    0, 0},
+    {"IC Prison",-2069.76,-200.05,991.53,   10, 0}
+};
 //-----------------------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------------------
 MySQL_Init() {
+    AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
 	g_DatabaseHandle = mysql_connect_file("mysql.ini");
 
     if (mysql_errno(g_DatabaseHandle) == 0) 
@@ -82,7 +125,7 @@ MySQL_Close() {
 // Login / Register Stock
 Account_Check(playerid) {
 	new query[256];
-
+    TogglePlayerSpectating(playerid, true);
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "SELECT * FROM Accounts WHERE Username='%e'",
         GetPlayerNameEx(playerid));
@@ -113,7 +156,7 @@ public OnAccountCheck(playerid)
             DIALOG_REGISTER,
             DIALOG_STYLE_PASSWORD,
             "Dang ky",
-            "Tao mat khau moi:",
+            "Chua co du lieu tai khoan.\nHay nhap vao o de tao mat khau moi:",
             "Register",
             "Thoat"
         );
@@ -178,7 +221,7 @@ public ResultPasswordCheck(playerid, bool:match) {
             DIALOG_LOGIN,
             DIALOG_STYLE_PASSWORD,
             "Dang nhap",
-            "Nhap lai mat khau:",
+            "Sai mat khau.\nVui long nhap lai:",
             "Login",
             "Thoat"
         );
@@ -252,6 +295,7 @@ public OnPlayerDataLoaded(playerid)
 }
 
 SetPlayerSpawn(playerid) {
+    TogglePlayerSpectating(playerid, false);
 	SetSpawnInfo(
         playerid,
         0,
@@ -328,19 +372,70 @@ stock SendClientMessageToAllEx(color, const string[])
 	return 1;
 }
 
+stock TeleportPlayerToLocation(playerid, locationid)
+{
+    if(locationid < 0 || locationid >= sizeof(GotoLocations))
+        return 0;
+
+    if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+    {
+        new vehicleid = GetPlayerVehicleID(playerid);
+
+        SetVehiclePos(vehicleid,
+            GotoLocations[locationid][gotoX],
+            GotoLocations[locationid][gotoY],
+            GotoLocations[locationid][gotoZ]);
+
+        LinkVehicleToInterior(vehicleid,
+            GotoLocations[locationid][gotoInt]);
+
+        SetVehicleVirtualWorld(vehicleid,
+            GotoLocations[locationid][gotoVW]);
+    }
+    else
+    {
+        SetPlayerPos(playerid,
+            GotoLocations[locationid][gotoX],
+            GotoLocations[locationid][gotoY],
+            GotoLocations[locationid][gotoZ]);
+    }
+
+    SetPlayerInterior(playerid,
+        GotoLocations[locationid][gotoInt]);
+
+    SetPlayerVirtualWorld(playerid,
+        GotoLocations[locationid][gotoVW]);
+
+    PlayerInfo[playerid][pInterior] =
+        GotoLocations[locationid][gotoInt];
+
+    PlayerInfo[playerid][pVirtualWorld] =
+        GotoLocations[locationid][gotoVW];
+
+    SendClientMessageEx(playerid, COLOR_YELLOW,
+        "Ban da duoc dich chuyen!");
+
+    return 1;
+}
+
 //-----------------------------------------------------------------------------
 // Callbacks Main
 //-----------------------------------------------------------------------------
 public OnPlayerConnect(playerid)
 {
 	Account_Check(playerid);
-    CreateTaiXiuTD(playerid);
 	return 1;
 }
 
 public OnPlayerDisconnect(playerid, reason)
 {
 	return 1;
+}
+
+public OnPlayerRequestClass(playerid, classid)
+{
+    if(!PlayerInfo[playerid][pLogged]) return 0;
+    return 1;
 }
 
 public OnPlayerSpawn(playerid)
@@ -464,6 +559,42 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				inputtext
 			);
             return 1;  
+        }
+        case DIALOG_GOTO:
+        {
+            if(!response) return 1;
+
+            TeleportPlayerToLocation(playerid, listitem);
+            return 1;
+        }
+        case DIALOG_SETADMIN: {
+            if(!response) return 1;
+
+            new targetid = SetAdminTarget[playerid];
+
+            if(!IsPlayerConnected(targetid))
+                return SendClientMessageEx(playerid, COLOR_GREY,
+                    "Nguoi choi da thoat.");
+
+            PlayerInfo[targetid][pAdmin] =
+                AdminLevels[listitem][adminLevel];
+
+            new str[128];
+
+            format(str, sizeof(str),
+                "Ban da cap %s cho %s.",
+                AdminLevels[listitem][adminName],
+                GetPlayerNameEx(targetid));
+
+            SendClientMessageEx(playerid, COLOR_GREEN, str);
+
+            format(str, sizeof(str),
+                "%s da cap cho ban quyen %s.",
+                GetPlayerNameEx(playerid),
+                AdminLevels[listitem][adminName]);
+
+            SendClientMessageEx(targetid, COLOR_GREEN, str);
+
         }
     }
 	return 1;
@@ -641,7 +772,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 
 public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
-    TaiXiu_HandleClick(playerid, playertextid);
+    // TaiXiu_HandleClick(playerid, playertextid);
 	return 1;
 }
 
@@ -693,4 +824,63 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 {
 	return 1;
+}
+
+
+// COMMANDS
+CMD:setadmin(playerid, params[])
+{
+    new targetid;
+
+    if(sscanf(params, "u", targetid))
+        return SendClientMessageEx(playerid, COLOR_GREY,
+            "SU DUNG: /setadmin [player]");
+
+    if(!IsPlayerConnected(targetid))
+        return SendClientMessageEx(playerid, COLOR_GREY,
+            "Nguoi choi khong ton tai.");
+
+    SetAdminTarget[playerid] = targetid;
+
+    new dialog[1024];
+
+    for(new i; i < sizeof(AdminLevels); i++)
+    {
+        format(dialog, sizeof(dialog),
+            "%s%s\n",
+            dialog,
+            AdminLevels[i][adminName]);
+    }
+
+    ShowPlayerDialog(playerid,
+        DIALOG_SETADMIN,
+        DIALOG_STYLE_LIST,
+        "Chon Cap Admin",
+        dialog,
+        "Chon",
+        "Dong");
+
+    return 1;
+}
+
+CMD:goto(playerid, params[])
+{
+    new str[2048];
+    for(new i; i < sizeof(GotoLocations); i++)
+    {
+        format(str, sizeof(str),
+            "%s%s\n",
+            str,
+            GotoLocations[i][gotoName]);
+    }
+
+    ShowPlayerDialog(playerid,
+        DIALOG_GOTO,
+        DIALOG_STYLE_LIST,
+        "Goto Locations",
+        str,
+        "Chon",
+        "Dong");
+
+    return 1;
 }
