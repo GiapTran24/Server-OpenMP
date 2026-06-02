@@ -28,3 +28,15 @@ CREATE TABLE `Accounts` (
     PRIMARY KEY (`ID`),
     UNIQUE KEY `Username` (`Username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `p_weapons`
+(
+    `ID` INT NOT NULL AUTO_INCREMENT,
+    `PlayerID` INT UNSIGNED NOT NULL,
+
+    `WeaponID` INT NOT NULL DEFAULT 0,
+    `Ammo` INT NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (`PlayerID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
+);

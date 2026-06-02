@@ -1,2 +1,3 @@
 # Ignore the compiled code (AMX)
 *.amx
+*.xml

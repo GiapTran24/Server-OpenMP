@@ -718,6 +718,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     if(dialogid == DIALOG_TX_XACNHAN_THUHOI) {
         if(response) {
             if(TX[txSessionID] != pTX_SessionID[playerid]) return ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "Thao tac khong cung phien cuoc!", "OK", "");
+            if(TX[txState] != TX_STATE_BETTING)  return ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Error", "He thong dang tra ket qua, khong the thu hoi cuoc luc nay!", "OK", "");
             if(PlayerBetTai[playerid] > 0) {
                 GivePlayerCash(playerid, PlayerBetTai[playerid]);
                 TX[txTotalTai] -= PlayerBetTai[playerid];
@@ -737,6 +738,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+   
     if(dialogid == DIALOG_TX_XACNHAN_ROIBAN) {
         if(response) {
             ToggleTaiXiuDisplay(playerid);

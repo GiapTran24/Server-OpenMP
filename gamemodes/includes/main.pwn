@@ -1,11 +1,5 @@
 #define ACCOUNT_MIN_PASSWORD_LENGTH (6)
-
-//-----------------------------------------------------------------------------
-// Embedded Colors
-//-----------------------------------------------------------------------------
-
-#define EMBED_WHITE "{FFFFFF}"
-#define EMBED_RED   "{FFDE97}"
+#define MAX_WEAPON_SLOTS 13
 
 
 //-----------------------------------------------------------------------------
@@ -20,6 +14,8 @@ enum
     DIALOG_SETADMIN,
     DIALOG_GOTO
 };
+
+new MySQL:g_DatabaseHandle;
 
 // Pinfo
 enum pInfo {
@@ -46,10 +42,12 @@ enum pInfo {
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 
-//-----------------------------------------------------------------------------
-// Variables
-//-----------------------------------------------------------------------------
-new MySQL:g_DatabaseHandle;
+enum E_WEAPON_DATA
+{
+    WeaponID,
+    Ammo
+};
+new PlayerWeapon[MAX_PLAYERS][MAX_WEAPON_SLOTS][E_WEAPON_DATA];
 
 enum E_ADMIN_LEVEL
 {
@@ -77,7 +75,6 @@ enum E_GOTO_LOC
     gotoVW
 };
 new SetAdminTarget[MAX_PLAYERS];
-
 new GotoLocations[][E_GOTO_LOC] =
 {
     {"LS",        1529.6,  -1691.2, 13.3,    0, 0},
@@ -88,8 +85,7 @@ new GotoLocations[][E_GOTO_LOC] =
     {"Bayside",  -2465.13,2333.65,   4.83,   0, 0},
     {"Bank",      1487.91,-1030.60, 23.66,   0, 0},
     {"FBI",         344.77,-1526.08, 33.28,   0, 0},
-    {"DOC",      -2029.23, -78.33, 35.32,    0, 0},
-    {"IC Prison",-2069.76,-200.05,991.53,   10, 0}
+    {"DOC",      -2029.23, -78.33, 35.32,    0, 0}
 };
 //-----------------------------------------------------------------------------
 // Functions
@@ -229,68 +225,7 @@ public ResultPasswordCheck(playerid, bool:match) {
 	} 
 
 	LoadPlayerData(playerid);
-    return 1;
-}
-
-LoadPlayerData(playerid)
-{
-    new query[256];
-
-    mysql_format(g_DatabaseHandle, query, sizeof(query),
-        "SELECT * FROM Accounts WHERE Username='%e'",
-        GetPlayerNameEx(playerid)
-    );
-
-    mysql_tquery(g_DatabaseHandle, query, "OnPlayerDataLoaded", "d", playerid);
-}
-
-forward OnPlayerDataLoaded(playerid);
-public OnPlayerDataLoaded(playerid)
-{
-    if(!cache_num_rows())
-        return 1;
-
-    cache_get_value_name_int(0, "ID",
-        PlayerInfo[playerid][pID]);
-
-    cache_get_value_name_int(0, "Level",
-        PlayerInfo[playerid][pLevel]);
-
-    cache_get_value_name_int(0, "Cash",
-        PlayerInfo[playerid][pCash]);
-
-    cache_get_value_name_int(0, "Bank",
-        PlayerInfo[playerid][pBank]);
-
-    cache_get_value_name_int(0, "Admin",
-        PlayerInfo[playerid][pAdmin]);
-
-    cache_get_value_name_float(0, "PosX",
-        PlayerInfo[playerid][pPosX]);
-
-    cache_get_value_name_float(0, "PosY",
-        PlayerInfo[playerid][pPosY]);
-
-    cache_get_value_name_float(0, "PosZ",
-        PlayerInfo[playerid][pPosZ]);
-
-    cache_get_value_name_float(0, "Angle",
-        PlayerInfo[playerid][pAngle]);
-
-    cache_get_value_name_int(0, "Interior",
-        PlayerInfo[playerid][pInterior]);
-
-    cache_get_value_name_int(0, "VirtualWorld",
-        PlayerInfo[playerid][pVirtualWorld]);
-
-    cache_get_value_name_int(0, "Skin",
-        PlayerInfo[playerid][pSkin]);
-
-    cache_get_value_name_int(0, "Gender",
-        PlayerInfo[playerid][pGender]);
-
-    
-	SetPlayerSpawn(playerid);
+    LoadPlayerWeapons(playerid);
     return 1;
 }
 
@@ -332,47 +267,7 @@ SetPlayerSpawn(playerid) {
 	return 1;
 }
 
-//-----------------------------------------------------------------------------
-// Functions Support
-//-----------------------------------------------------------------------------
-stock GetPlayerNameEx(playerid)
-{
-    static name[MAX_PLAYER_NAME];
-    GetPlayerName(playerid, name, sizeof(name));
-    return name;
-}
-
-stock GetPlayerCash(playerid)
-{
-    return PlayerInfo[playerid][pCash];
-}
-
-stock GivePlayerCash(playerid, amount)
-{
-    PlayerInfo[playerid][pCash] += amount;
-
-    ResetPlayerMoney(playerid);
-    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
-
-    return 1;
-}
-
-stock SendClientMessageEx(playerid, color, const string[])
-{
-	SendClientMessage(playerid, color, string);
-	return 1;
-}
-
-stock SendClientMessageToAllEx(color, const string[])
-{
-	foreach(new i: Player)
-	{
-		SendClientMessage(i, color, string);
-	}
-	return 1;
-}
-
-stock TeleportPlayerToLocation(playerid, locationid)
+TeleportPlayerToLocation(playerid, locationid)
 {
     if(locationid < 0 || locationid >= sizeof(GotoLocations))
         return 0;
@@ -417,6 +312,45 @@ stock TeleportPlayerToLocation(playerid, locationid)
 
     return 1;
 }
+//-----------------------------------------------------------------------------
+// Functions Support
+//-----------------------------------------------------------------------------
+stock GetPlayerNameEx(playerid)
+{
+    static name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, sizeof(name));
+    return name;
+}
+
+stock GetPlayerCash(playerid)
+{
+    return PlayerInfo[playerid][pCash];
+}
+
+stock GivePlayerCash(playerid, amount)
+{
+    PlayerInfo[playerid][pCash] += amount;
+
+    ResetPlayerMoney(playerid);
+    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+
+    return 1;
+}
+
+stock SendClientMessageEx(playerid, color, const string[])
+{
+	SendClientMessage(playerid, color, string);
+	return 1;
+}
+
+stock SendClientMessageToAllEx(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		SendClientMessage(i, color, string);
+	}
+	return 1;
+}
 
 //-----------------------------------------------------------------------------
 // Callbacks Main
@@ -429,6 +363,8 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
+    Account_Save(playerid);
+    SavePlayerWeapons(playerid);
 	return 1;
 }
 
@@ -482,6 +418,7 @@ public OnPlayerUpdate(playerid)
         ResetPlayerMoney(playerid);
         GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
     }
+
 	return 1;
 }
 
@@ -824,63 +761,4 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 {
 	return 1;
-}
-
-
-// COMMANDS
-CMD:setadmin(playerid, params[])
-{
-    new targetid;
-
-    if(sscanf(params, "u", targetid))
-        return SendClientMessageEx(playerid, COLOR_GREY,
-            "SU DUNG: /setadmin [player]");
-
-    if(!IsPlayerConnected(targetid))
-        return SendClientMessageEx(playerid, COLOR_GREY,
-            "Nguoi choi khong ton tai.");
-
-    SetAdminTarget[playerid] = targetid;
-
-    new dialog[1024];
-
-    for(new i; i < sizeof(AdminLevels); i++)
-    {
-        format(dialog, sizeof(dialog),
-            "%s%s\n",
-            dialog,
-            AdminLevels[i][adminName]);
-    }
-
-    ShowPlayerDialog(playerid,
-        DIALOG_SETADMIN,
-        DIALOG_STYLE_LIST,
-        "Chon Cap Admin",
-        dialog,
-        "Chon",
-        "Dong");
-
-    return 1;
-}
-
-CMD:goto(playerid, params[])
-{
-    new str[2048];
-    for(new i; i < sizeof(GotoLocations); i++)
-    {
-        format(str, sizeof(str),
-            "%s%s\n",
-            str,
-            GotoLocations[i][gotoName]);
-    }
-
-    ShowPlayerDialog(playerid,
-        DIALOG_GOTO,
-        DIALOG_STYLE_LIST,
-        "Goto Locations",
-        str,
-        "Chon",
-        "Dong");
-
-    return 1;
 }
