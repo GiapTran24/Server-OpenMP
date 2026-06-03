@@ -1,3 +1,34 @@
+
+MySQL_Init() {
+    AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
+	g_DatabaseHandle = mysql_connect_file("mysql.ini");
+
+    if (mysql_errno(g_DatabaseHandle) == 0) 
+    {
+        print("-----------------------------------------------");
+        print("Successfully connected to database!");
+        print("-----------------------------------------------");
+    }
+    else 
+    {
+        print("-----------------------------------------------");
+        print("Failed to connect to database!");
+        print("Please verify your mysql.ini settings");
+        print("Server will be locked for maintenance...");
+        print("-----------------------------------------------");
+
+        SendRconCommand("password TvHRY2FmQjXEsCq");
+        SendRconCommand("name Server is under maintenance!");
+    }
+	return 1;
+}
+
+MySQL_Close() {
+	mysql_close(g_DatabaseHandle);
+	return 1;
+}
+
+/// Accounts
 LoadPlayerData(playerid)
 {
     new query[256];
@@ -121,13 +152,4 @@ Account_Save(playerid)
     mysql_tquery(g_DatabaseHandle, query);
 
     return 1;
-}
-
-// 2 Phút 1 lần sẽ lưu tất cả tài khoản đang online
-task SaveAllAccounts[12000]()
-{
-    foreach(new p: Player) {
-        if(IsPlayerConnected(p))
-            Account_Save(p);
-    }
 }

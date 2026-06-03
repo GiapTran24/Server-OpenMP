@@ -1,0 +1,19 @@
+// Enum Dialogs
+enum
+{
+	DIALOG_NOTHING,
+    DIALOG_REGISTER,
+    DIALOG_LOGIN,
+
+    // Dialog Taixiu
+    DIALOG_TX_HISTORY,
+    DIALOG_TX_TAI,
+    DIALOG_TX_XIU,
+    DIALOG_TX_XACNHAN_THUHOI,
+    DIALOG_TX_XACNHAN_ROIBAN,
+    DIALOG_TX_ADMIN_EDIT,
+
+    // Dialog Admin
+    DIALOG_SETADMIN,
+    DIALOG_GOTO
+};

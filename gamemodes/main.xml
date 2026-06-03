@@ -580,14 +580,6 @@
 			<referrer name="_@E_SCRIPTINIT_STATE"/>
 			<library>y_scriptinit</library>  <remarks>  Where in initialisation the script currently is.  Handles multiple ways of  starting the script, including cache loads and JIT.  </remarks> 
 		</member>
-		<member name="T:E_WEAPON_DATA" value="2">
-			<tagname value="E_WEAPON_DATA"/>
-			<member name="C:WeaponID" value="0">
-				<tagname value="t_WEAPON"/>
-			</member>
-			<member name="C:Ammo" value="1">
-			</member>
-		</member>
 		<member name="T:E_YSI_DIR" value="2">
 			<tagname value="E_YSI_DIR"/>
 			<member name="C:E_YSI_DIR_FIXES" value="0">
@@ -2277,9 +2269,9 @@
 			<referrer name="GetAmxHeaderNow"/>
 			<library>amx_assembly amx_header</library>
 		</member>
-		<member name="C:DIALOG_GOTO" value="4">
-			<referrer name="OnDialogResponse"/>
+		<member name="C:DIALOG_GOTO" value="10">
 			<referrer name="cmd_goto"/>
+			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_LOGIN" value="2">
 			<referrer name="OnAccountCheck"/>
@@ -2294,9 +2286,32 @@
 			<referrer name="OnAccountCheck"/>
 			<referrer name="OnDialogResponse"/>
 		</member>
-		<member name="C:DIALOG_SETADMIN" value="3">
-			<referrer name="OnDialogResponse"/>
+		<member name="C:DIALOG_SETADMIN" value="9">
 			<referrer name="cmd_setadmin"/>
+			<referrer name="OnDialogResponse"/>
+		</member>
+		<member name="C:DIALOG_TX_ADMIN_EDIT" value="8">
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="cmd_edittaixiucailonmamay"/>
+		</member>
+		<member name="C:DIALOG_TX_HISTORY" value="3">
+			<referrer name="TaiXiu_HandleClick"/>
+		</member>
+		<member name="C:DIALOG_TX_TAI" value="4">
+			<referrer name="TaiXiu_HandleClick"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+		</member>
+		<member name="C:DIALOG_TX_XACNHAN_ROIBAN" value="7">
+			<referrer name="TaiXiu_HandleClick"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+		</member>
+		<member name="C:DIALOG_TX_XACNHAN_THUHOI" value="6">
+			<referrer name="TaiXiu_HandleClick"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+		</member>
+		<member name="C:DIALOG_TX_XIU" value="5">
+			<referrer name="TaiXiu_HandleClick"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="C:EOS" value="0">
 			<referrer name="strcopy"/>
@@ -2797,11 +2812,10 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="42">
+		<member name="C:__line" value="41">
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
@@ -3465,7 +3479,6 @@
 			<referrer name="Yield_OnCodeInit"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="OnPlayerSpawn"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="ShowTXThongBao"/>
 			<referrer name="_@yHOnPlayerClickTextDraw@01"/>
@@ -3559,8 +3572,6 @@
 			<referrer name="_Timer_D"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -3774,8 +3785,8 @@
 		</member>
 		<member name="F:AdminLevels">
 			<referrer name="GetAdminName"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_setadmin"/>
+			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:BaoTriTaiXiuAD">
 			<referrer name="TaiXiuUpdate"/>
@@ -4190,35 +4201,24 @@
 			<referrer name="_@yHOnDialogResponse@01"/>
 		</member>
 		<member name="F:PlayerInfo">
+			<referrer name="OnPlayerDataLoaded"/>
+			<referrer name="Account_Save"/>
 			<referrer name="OnAccountRegister"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="TeleportPlayerToLocation"/>
 			<referrer name="GetPlayerCash"/>
 			<referrer name="GivePlayerCash"/>
-			<referrer name="OnPlayerRequestClass"/>
-			<referrer name="OnPlayerSpawn"/>
-			<referrer name="OnPlayerUpdate"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_god"/>
-			<referrer name="OnPlayerDataLoaded"/>
-			<referrer name="Account_Save"/>
-			<referrer name="LoadPlayerWeapons"/>
-			<referrer name="SavePlayerWeapons"/>
+			<referrer name="OnPlayerRequestClass"/>
+			<referrer name="OnPlayerSpawn"/>
+			<referrer name="OnPlayerUpdate"/>
+			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
-		</member>
-		<member name="F:PlayerWeapon">
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<referrer name="GivePlayerWeaponEx"/>
-			<referrer name="OnPlayerWeaponsLoaded"/>
-			<referrer name="SavePlayerWeapons"/>
 		</member>
 		<member name="F:Q@">
 			<referrer name="SetTimerExAddr"/>
@@ -4276,8 +4276,8 @@
 			<library>sscanf</library>  <remarks>  Has sscanf been initialised at least once already in this script?  Avoids the  need to define <c>FILTERSCRIPT</c> by including <c>OnFilterScriptInit</c>  and <c>OnGameModeInit</c> (plus <c>OnNPCModeInit</c>) and seeing which one  gets called first.  </remarks> 
 		</member>
 		<member name="F:SetAdminTarget">
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_setadmin"/>
+			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="F:TRUE">
 			<tagname value="bool"/>
@@ -4993,10 +4993,21 @@
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -5537,9 +5548,9 @@
 		</member>
 		<member name="F:gAdminGod">
 			<tagname value="bool"/>
+			<referrer name="cmd_god"/>
 			<referrer name="OnPlayerDeath"/>
 			<referrer name="OnPlayerTakeDamage"/>
-			<referrer name="cmd_god"/>
 		</member>
 		<member name="F:gAmxAssemblyAddress_">
 			<referrer name="ReadAmxMemoryArray"/>
@@ -5729,14 +5740,11 @@
 			<tagname value="MySQL"/>
 			<referrer name="MySQL_Init"/>
 			<referrer name="MySQL_Close"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="Account_Save"/>
 			<referrer name="Account_Check"/>
 			<referrer name="OnPasswordHash"/>
 			<referrer name="OnDialogResponse"/>
-			<referrer name="LoadPlayerData"/>
-			<referrer name="Account_Save"/>
-			<referrer name="CreateWeaponTable"/>
-			<referrer name="LoadPlayerWeapons"/>
-			<referrer name="SavePlayerWeapons"/>
 		</member>
 		<member name="F:g_args">
 			<referrer name="Push"/>
@@ -9352,8 +9360,8 @@
 		</member>
 		<member name="M:Account_Save" syntax="Account_Save(playerid)">
 			<stacksize value="1043"/>
-			<referrer name="Timers_OnPlayerDisconnect"/>
 			<referrer name="SaveAllAccounts"/>
+			<referrer name="Timers_OnPlayerDisconnect"/>
 			<dependency name="GetPlayerFacingAngle"/>
 			<dependency name="GetPlayerInterior"/>
 			<dependency name="GetPlayerPos"/>
@@ -13935,16 +13943,6 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Creates a vehicle in the world.  Can be used in place of <a href="#AddStaticVehicleEx">AddStaticVehicleEx</a>  at any time in the script.</summary>                    <seealso name="DestroyVehicle" />  <seealso name="AddStaticVehicle" />  <seealso name="AddStaticVehicleEx" />  <seealso name="GetVehicleParamsSirenState" />  <seealso name="OnVehicleSpawn" />  <seealso name="OnVehicleSirenStateChange" />  <remarks>Trains can only be added with AddStaticVehicle and AddStaticVehicleEx.</remarks>  <returns>  The vehicle ID of the vehicle created (<b><c>1</c></b> to <b><c>MAX_VEHICLES</c></b>).<br />  <b><c>INVALID_VEHICLE_ID (65535)</c></b> if vehicle was not created (vehicle limit reached or invalid  vehicle model ID passed).  </returns> 
 		</member>
-		<member name="M:CreateWeaponTable" syntax="CreateWeaponTable()">
-			<stacksize value="518"/>
-			<referrer name="MySQL_Init"/>
-			<referrer name="LoadPlayerWeapons"/>
-			<referrer name="SavePlayerWeapons"/>
-			<dependency name="g_DatabaseHandle"/>
-			<dependency name="mysql_errno"/>
-			<dependency name="mysql_format"/>
-			<dependency name="mysql_query"/>
-		</member>
 		<member name="M:D@" syntax="D@(function[], fmat[], ...)">
 			<stacksize value="9"/>
 			<dependency name="@_"/>
@@ -16052,16 +16050,6 @@
 			</param>
 			<library>omp_variable</library>  <summary>Gets a player variable as a string.</summary>          <seealso name="SetPVarString" />  <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <remarks>If length of string is zero (value not set), output text will not be updated or set to anything  and will remain with old data, neccesying that you clear the variable to blank value if <a href="#GetPVarString">GetPVarString</a>  returns <b><c>0</c></b> if that behavior is undesired </remarks>  <returns>The length of the string.</returns> 
 		</member>
-		<member name="M:GetPlayerAmmo" syntax="GetPlayerAmmo(playerid)">
-			<attribute name="native"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<param name="playerid">
-				The ID of the player whose ammo to get
-			</param>
-			<library>omp_player</library>  <summary>Gets the amount of ammo in a player's current weapon.</summary>    <seealso name="SetPlayerAmmo" />  <seealso name="GetPlayerWeaponData" />  <remarks>The ammo can hold 16-bit values, therefore values over <b><c>32767</c></b> will return erroneous  values.</remarks>  <returns>The amount of ammo in the player's current weapon.</returns> 
-		</member>
 		<member name="M:GetPlayerCash" syntax="GetPlayerCash(playerid)">
 			<stacksize value="1"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
@@ -16073,8 +16061,8 @@
 		<member name="M:GetPlayerFacingAngle" syntax="GetPlayerFacingAngle(playerid, &amp;angle)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="cmd_veh"/>
 			<referrer name="Account_Save"/>
+			<referrer name="cmd_veh"/>
 			<param name="playerid">
 				The player you want to get the angle of
 			</param>
@@ -16087,9 +16075,8 @@
 		<member name="M:GetPlayerInterior" syntax="GetPlayerInterior(playerid)">
 			<attribute name="native"/>
 			<referrer name="Utils_ChaosMod"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="cmd_gotoid"/>
 			<referrer name="Account_Save"/>
+			<referrer name="cmd_gotoid"/>
 			<param name="playerid">
 				The player to get the interior ID of
 			</param>
@@ -16142,14 +16129,13 @@
 		</member>
 		<member name="M:GetPlayerNameEx" syntax="GetPlayerNameEx(playerid)">
 			<stacksize value="5"/>
+			<referrer name="LoadPlayerData"/>
 			<referrer name="Account_Check"/>
 			<referrer name="OnPasswordHash"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="OnPlayerSpawn"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
-			<referrer name="LoadPlayerData"/>
+			<referrer name="OnPlayerSpawn"/>
+			<referrer name="OnDialogResponse"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerNameEx"/>
 			<param name="playerid">
@@ -16162,10 +16148,9 @@
 		<member name="M:GetPlayerPos" syntax="GetPlayerPos(playerid, &amp;x, &amp;y, &amp;z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
+			<referrer name="Account_Save"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_gotoid"/>
-			<referrer name="Account_Save"/>
 			<param name="playerid">
 				The ID of the player to get the position of
 			</param>
@@ -16225,8 +16210,8 @@
 		</member>
 		<member name="M:GetPlayerSkin" syntax="GetPlayerSkin(playerid)">
 			<attribute name="native"/>
-			<referrer name="cmd_setskin"/>
 			<referrer name="Account_Save"/>
+			<referrer name="cmd_setskin"/>
 			<param name="playerid">
 				The player you want to get the skin from
 			</param>
@@ -16249,7 +16234,6 @@
 			<referrer name="Utils_ChaosMod"/>
 			<referrer name="Iter_Func@VehicleOccupant"/>
 			<referrer name="TeleportPlayerToLocation"/>
-			<referrer name="SpectatePlayer"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_delveh"/>
 			<param name="playerid">
@@ -16259,43 +16243,12 @@
 		</member>
 		<member name="M:GetPlayerVirtualWorld" syntax="GetPlayerVirtualWorld(playerid)">
 			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="cmd_gotoid"/>
 			<referrer name="Account_Save"/>
+			<referrer name="cmd_gotoid"/>
 			<param name="playerid">
 				The ID of the player to get the virtual world of
 			</param>
 			<library>omp_player</library>  <summary>Retrieves the current virtual world the player is in.</summary>    <seealso name="SetPlayerVirtualWorld" />  <seealso name="GetVehicleVirtualWorld" />  <seealso name="GetPlayerInterior" />  <returns>The ID of the virtual world the player is currently in.</returns> 
-		</member>
-		<member name="M:GetPlayerWeapon" syntax="GetPlayerWeapon(playerid)">
-			<tagname value="t_WEAPON"/>
-			<attribute name="native"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<param name="playerid">
-				The ID of the player to get the currently held weapon of
-			</param>
-			<library>omp_player</library>  <summary>Returns the ID of the weapon a player is currently holding.</summary>    <seealso name="GetPlayerWeaponData" />  <seealso name="GivePlayerWeapon" />  <seealso name="ResetPlayerWeapons" />  <remarks>Prior to version <b>0.3z R1-2</b>, when the player state is <b>PLAYER_STATE_PASSENGER</b>  this function returns the weapon held by the player before they entered the vehicle.  If a cheat  is used to spawn a weapon inside a vehicle, this function will not report it.</remarks>  <returns>The ID of the player's current weapon. Returns <b><c>-1</c></b> if the player specified  does not exist.</returns> 
-		</member>
-		<member name="M:GetPlayerWeaponData" syntax="GetPlayerWeaponData(playerid, slot, &amp;weapon, &amp;ammo)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="SavePlayerWeapons"/>
-			<param name="playerid">
-				The ID of the player whose weapon data to retrieve
-			</param>
-			<param name="slot">
-				<paraminfo>t_WEAPON_SLOT </paraminfo>
-				The weapon slot to get data for (<b><c>0-12</c></b>)
-			</param>
-			<param name="weapon">
-				<paraminfo>t_WEAPON &amp; </paraminfo>
-			</param>
-			<param name="ammo">
-				<paraminfo> &amp; </paraminfo>
-				A variable in which to store the ammo, passed by reference
-			</param>
-			<library>omp_player</library>  <summary>Get the weapon and ammo in a specific player's weapon slot (e.g.  the weapon in the 'SMG'  slot).</summary>      <param name="weapons">A variable in which to store the weapon ID, passed by reference</param>    <seealso name="GetPlayerWeapon" />  <seealso name="GivePlayerWeapon" />  <remarks>Old weapons with no ammo left are still returned.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute. The player isn't connected and/or the weapon  slot specified is invalid (valid is <b><c>0-12</c></b>).  </returns> 
 		</member>
 		<member name="M:GetPubVar" syntax="GetPubVar(name[], &amp;value)">
 			<tagname value="bool"/>
@@ -16692,26 +16645,6 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Get the velocity of a vehicle on the x, y and z axes.</summary>          <seealso name="GetPlayerVelocity" />  <seealso name="SetVehicleVelocity" />  <seealso name="SetPlayerVelocity" />  <remarks>Multiply vector with <b><c>250.66667</c></b> for kmph or <b><c>199.416667</c></b> for mph  or something...</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the vehicle specified does not exist.<br  />  </returns> 
 		</member>
-		<member name="M:GetWeaponMagazineSize" syntax="GetWeaponMagazineSize(weaponid)">
-			<stacksize value="1"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="IsWeaponReloadable"/>
-			<referrer name="GivePlayerWeaponEx"/>
-			<param name="weaponid">
-			</param>
-		</member>
-		<member name="M:GetWeaponSlot" syntax="GetWeaponSlot(weaponid)">
-			<tagname value="t_WEAPON_SLOT"/>
-			<attribute name="native"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<referrer name="GivePlayerWeaponEx"/>
-			<param name="weaponid">
-				<paraminfo>t_WEAPON </paraminfo>
-			</param>
-			<library>omp_core</library> 
-		</member>
 		<member name="M:GetYSIScriptfilesDir" syntax="GetYSIScriptfilesDir(dir)">
 			<stacksize value="1"/>
 			<referrer name="ScriptInit_Dump"/>
@@ -16755,7 +16688,7 @@
 		<member name="M:GivePlayerWeapon" syntax="GivePlayerWeapon(playerid, weaponid, ammo)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="GivePlayerWeaponEx"/>
+			<referrer name="cmd_givegun"/>
 			<param name="playerid">
 				The ID of the player to give a weapon to
 			</param>
@@ -16767,25 +16700,6 @@
 				The amount of ammo to give to the player
 			</param>
 			<library>omp_player</library>  <summary>Give a player a weapon with a specified amount of ammo.</summary>        <seealso name="SetPlayerArmedWeapon" />  <seealso name="GetPlayerWeapon" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute. This means the player is not connected.<br />  </returns> 
-		</member>
-		<member name="M:GivePlayerWeaponEx" syntax="GivePlayerWeaponEx(playerid, weaponid, totalAmmo)">
-			<stacksize value="8"/>
-			<referrer name="cmd_givegun"/>
-			<referrer name="OnPlayerWeaponsLoaded"/>
-			<dependency name="Ammo"/>
-			<dependency name="GetWeaponMagazineSize"/>
-			<dependency name="GetWeaponSlot"/>
-			<dependency name="GivePlayerWeapon"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="WeaponID"/>
-			<param name="playerid">
-			</param>
-			<param name="weaponid">
-			</param>
-			<param name="totalAmmo">
-			</param>
 		</member>
 		<member name="M:H@" syntax="H@(...)">
 			<stacksize value="1"/>
@@ -16801,26 +16715,6 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 			<remarks>  Create a <c>const</c> that is never used, which has pawndoc documentation  attached to it.  This seems to be the best way to prevent the documentation  from appearing in XML (<c>-r</c>) output - even conditional compilation  doesn't work on comments.  Used internally as <c>YSI_HIDE_PAWNDOC</c>.  <p/>  The input should have some unique name, so when using it within an ifdef  block, don't use the same name as the tested symbol, because the the  replacement in question will be applied to the hidden variable as well.  <p/>  This should also be a globally unique symbol name, because this only works  with `<c>const</c>`, not `<c>static const</c>`.  </remarks> 
-		</member>
-		<member name="M:HandleWeaponReloadKey" syntax="HandleWeaponReloadKey(playerid, newkeys, oldkeys)">
-			<stacksize value="9"/>
-			<referrer name="OnPlayerKeyStateChange"/>
-			<dependency name="Ammo"/>
-			<dependency name="GetPlayerAmmo"/>
-			<dependency name="GetPlayerWeapon"/>
-			<dependency name="GetWeaponSlot"/>
-			<dependency name="IsWeaponReloadable"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="ReloadPlayerWeapon"/>
-			<dependency name="SendClientMessageEx"/>
-			<param name="playerid">
-			</param>
-			<param name="newkeys">
-				<paraminfo>t_KEY </paraminfo>
-			</param>
-			<param name="oldkeys">
-				<paraminfo>t_KEY </paraminfo>
-			</param>
 		</member>
 		<member name="M:HasObjectCameraCollision" syntax="HasObjectCameraCollision(objectid)">
 			<tagname value="bool"/>
@@ -18401,18 +18295,12 @@
 			<referrer name="IsPCPlayer"/>
 			<referrer name="IsAndroidPlayer"/>
 			<referrer name="Android_OnYSIInit"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="GivePlayerWeaponEx"/>
-			<referrer name="OnDialogResponse"/>
+			<referrer name="SaveAllAccounts"/>
 			<referrer name="cmd_setadmin"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
-			<referrer name="SaveAllAccounts"/>
-			<referrer name="LoadPlayerWeapons"/>
-			<referrer name="SavePlayerWeapons"/>
+			<referrer name="OnDialogResponse"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -18427,7 +18315,6 @@
 		<member name="M:IsPlayerInAnyVehicle" syntax="IsPlayerInAnyVehicle(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
 			<referrer name="cmd_delveh"/>
 			<param name="playerid">
 				The ID of the player to check
@@ -18597,14 +18484,6 @@
 				The ID of the player to check
 			</param>
 			<library>omp_vehicle</library>  <summary>Checks if a vehicle is streamed in for a player.  Only nearby vehicles are streamed in (visible)  for a player.</summary>      <seealso name="IsPlayerStreamedIn" />  <seealso name="OnVehicleStreamIn" />  <seealso name="OnVehicleStreamOut" />  <seealso name="OnPlayerStreamIn" />  <seealso name="OnPlayerStreamOut" />  <returns>  <b><c>0</c></b>: Vehicle is not streamed in for the player, or the function failed to execute (player  and/or vehicle do not exist).<br />  <b><c>1</c></b>: Vehicle is streamed in for the player.  </returns> 
-		</member>
-		<member name="M:IsWeaponReloadable" syntax="IsWeaponReloadable(weaponid)">
-			<stacksize value="4"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<dependency name="GetWeaponMagazineSize"/>
-			<param name="weaponid">
-			</param>
 		</member>
 		<member name="M:Iter_ActorDo" syntax="Iter_ActorDo(add, actorid)">
 			<attribute name="public"/>
@@ -20509,29 +20388,15 @@
 			<library>omp_vehicle</library>  <summary>Links a vehicle to an interior.  Vehicles can only be seen by players in the same interior  (<a href="#SetPlayerInterior">SetPlayerInterior</a>).</summary>      <seealso name="SetVehicleVirtualWorld" />  <seealso name="SetPlayerInterior" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the vehicle does not exist.<br />  </returns> 
 		</member>
 		<member name="M:LoadPlayerData" syntax="LoadPlayerData(playerid)">
-			<stacksize value="289"/>
+			<stacksize value="264"/>
 			<referrer name="ResultPasswordCheck"/>
-			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="g_DatabaseHandle"/>
 			<dependency name="mysql_format"/>
 			<dependency name="mysql_tquery"/>
 			<param name="playerid">
 			</param>
-		</member>
-		<member name="M:LoadPlayerWeapons" syntax="LoadPlayerWeapons(playerid)">
-			<stacksize value="263"/>
-			<referrer name="ResultPasswordCheck"/>
-			<dependency name="CreateWeaponTable"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="g_DatabaseHandle"/>
-			<dependency name="mysql_format"/>
-			<dependency name="mysql_tquery"/>
-			<dependency name="pID"/>
-			<param name="playerid">
-			</param>
+			Accounts
 		</member>
 		<member name="M:Malloc_Allocate" syntax="Malloc_Allocate(size, clear)">
 			<tagname value="Alloc"/>
@@ -20988,7 +20853,6 @@
 			<stacksize value="13"/>
 			<referrer name="Indirection_OnGameModeInit"/>
 			<dependency name="AddPlayerClass"/>
-			<dependency name="CreateWeaponTable"/>
 			<dependency name="SendRconCommand"/>
 			<dependency name="__print"/>
 			<dependency name="g_DatabaseHandle"/>
@@ -21992,8 +21856,7 @@
 		</member>
 		<member name="M:OnPlayerKeyStateChange" syntax="OnPlayerKeyStateChange(playerid, newkeys, oldkeys)">
 			<attribute name="public"/>
-			<stacksize value="6"/>
-			<dependency name="HandleWeaponReloadKey"/>
+			<stacksize value="1"/>
 			<param name="playerid">
 				The ID of the player that pressed or released a key
 			</param>
@@ -22317,8 +22180,7 @@
 		</member>
 		<member name="M:OnPlayerWeaponShot" syntax="OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, fX, fY, fZ)">
 			<attribute name="public"/>
-			<stacksize value="5"/>
-			<dependency name="WeaponShot_UpdateReloadPrompt"/>
+			<stacksize value="1"/>
 			<param name="playerid">
 				The ID of the player that shot a weapon
 			</param>
@@ -22346,20 +22208,6 @@
 				The Z coordinate that the shot hit
 			</param>
 			<summary>This callback is called when a player fires a shot from a weapon.  Only bullet weapons are  supported.  Only <b>passenger</b> drive-by is supported (not driver drive-by, and not sea sparrow  / hunter shots).</summary>                <seealso name="OnPlayerGiveDamage" />  <seealso name="GetPlayerLastShotVectors" />  <remarks>  <li><b><c>BULLET_HIT_TYPE_NONE(0)</c></b></li>  <li><b><c>BULLET_HIT_TYPE_PLAYER(1)</c></b></li>  <li><b><c>BULLET_HIT_TYPE_VEHICLE(2)</c></b></li>  <li><b><c>BULLET_HIT_TYPE_OBJECT(3)</c></b></li>  <li><b><c>BULLET_HIT_TYPE_PLAYER_OBJECT(4)</c></b></li>  </remarks>  <remarks><b><c>BULLET_HIT_TYPE_PLAYER</c></b> is also called for NPCs.  Actors are ignored by this  callback and detects as <b><c>BULLET_HIT_TYPE_NONE</c></b>.</remarks>  <remarks>This callback is only called when lag compensation is <b>enabled</b>. </remarks>  <remarks>  If hittype is:<br />  <ul>  <li>- <b><c>BULLET_HIT_TYPE_NONE</c></b>: the fX, fY and fZ parameters are normal coordinates,  will give 0.0 for coordinates if nothing was hit (e.g.  far object that the bullet can't reach);</li>  <li>- Others: the fX, fY and fZ are offsets relative to the hitid.</li>  </ul>  </remarks>  <remarks>  Isn't called if you fired in vehicle as driver or if you are looking behind with the aim enabled  (shooting in air).<br />  It is called as <b><c>BULLET_HIT_TYPE_VEHICLE</c></b> with the correct hitid (the hit player's  vehicleid) if you are shooting a player which is in a vehicle.  It won't be called as <b><c>BULLET_HIT_TYPE_PLAYER</c></b>  at all.<br />  </remarks>  <remarks>  </remarks>  <remarks><a href="#GetPlayerLastShotVectors">GetPlayerLastShotVectors</a> can be used in this callback  for more detailed bullet vector information.</remarks>  <returns>  <b><c>0</c></b> - Prevent the bullet from causing damage.<br />  <b><c>1</c></b> - Allow the bullet to cause damage.<br />  It is always called first in filterscripts so returning <b><c>0</c></b> there also blocks other  scripts from seeing it.  </returns> 
-		</member>
-		<member name="M:OnPlayerWeaponsLoaded" syntax="OnPlayerWeaponsLoaded(playerid)">
-			<attribute name="public"/>
-			<stacksize value="11"/>
-			<dependency name="Ammo"/>
-			<dependency name="GivePlayerWeaponEx"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="ResetPlayerWeapons"/>
-			<dependency name="WeaponID"/>
-			<dependency name="cache_get_value_name_int"/>
-			<dependency name="cache_num_rows"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:OnQueryError" syntax="OnQueryError(errorid, error[], callback[], query[], handle)">
 			<stacksize value="1"/>
@@ -22793,38 +22641,6 @@
 		<member name="M:PP_main" syntax="PP_main()">
 			<attribute name="public"/>
 			<stacksize value="1"/>
-		</member>
-		<member name="M:PlayerSpectatePlayer" syntax="PlayerSpectatePlayer(playerid, targetid, mode)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
-			<param name="playerid">
-				The ID of the player that will spectate
-			</param>
-			<param name="targetid">
-				The ID of the player that should be spectated
-			</param>
-			<param name="mode">
-				<paraminfo>t_SPECTATE_MODE </paraminfo>
-				The mode to spectate with (optional=<b><c>SPECTATE_MODE_NORMAL</c></b>)
-			</param>
-			<library>omp_player</library>  <summary>Makes a player spectate (watch) another player.</summary>        <seealso name="PlayerSpectateVehicle" />  <seealso name="TogglePlayerSpectating" />  <remarks>Order is CRITICAL! Ensure that you use <a href="#TogglePlayerSpectating">TogglePlayerSpectating</a>  before <a href="#PlayerSpectatePlayer">PlayerSpectatePlayer</a>. </remarks>  <remarks>playerid and targetid's virtual world and interior must be the same for this function to  work properly. </remarks>  <remarks>  <b>Spectate modes:</b><br />  <ul>  <li><b><c>SPECTATE_MODE_NORMAL</c></b> - normal spectate mode (third person point of view).  Camera can not be changed.</li>  <li><b><c>SPECTATE_MODE_FIXED </c></b> - use SetPlayerCameraPos after this to position the player's  camera, and it will track the player/vehicle set with PlayerSpectatePlayer/PlayerSpectateVehicle.</li>  <li><b><c>SPECTATE_MODE_SIDE</c></b> - the camera will be attached to the side of the player/vehicle  (like when you're in first-person camera on a bike and you do a wheelie).</li>  </ul>  </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  One of the players specified does not exist.  </returns> 
-		</member>
-		<member name="M:PlayerSpectateVehicle" syntax="PlayerSpectateVehicle(playerid, targetid, mode)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
-			<param name="playerid">
-				The ID of the player who should spectate a vehicle
-			</param>
-			<param name="targetid">
-				The ID of the vehicle the player should spectate
-			</param>
-			<param name="mode">
-				<paraminfo>t_SPECTATE_MODE </paraminfo>
-				The spectate mode.  Can generally be left blank as it defaults to 'normal'
-			</param>
-			<library>omp_player</library>  <summary>Sets a player to spectate another vehicle.  Their camera will be attached to the vehicle  as if they are driving it.</summary>        <seealso name="PlayerSpectatePlayer" />  <seealso name="TogglePlayerSpectating" />  <remarks>Order is CRITICAL! Ensure that you use <a href="#TogglePlayerSpectating">TogglePlayerSpectating</a>  before <a href="#PlayerSpectatePlayer">PlayerSpectatePlayer</a>. </remarks>  <remarks>playerid and targetid have to be in the same interior for this function to work properly.  </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.  Note that success is reported if the player  is not in spectator mode (<a href="#TogglePlayerSpectating">TogglePlayerSpectating</a>), but nothing  will happen. <a href="#TogglePlayerSpectating">TogglePlayerSpectating</a> MUST be used first.<br  />  <b><c>0</c></b>: The function failed to execute.  The player, vehicle, or both don't exist.  </returns> 
 		</member>
 		<member name="M:PlayerTextDrawAlignment" syntax="PlayerTextDrawAlignment(playerid, textid, alignment)">
 			<tagname value="bool"/>
@@ -23748,23 +23564,6 @@
 			</param>
 			<library>amx_assembly phys_memory</library>
 		</member>
-		<member name="M:ReloadPlayerWeapon" syntax="ReloadPlayerWeapon(playerid)">
-			<stacksize value="141"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<dependency name="Ammo"/>
-			<dependency name="GetPlayerAmmo"/>
-			<dependency name="GetPlayerWeapon"/>
-			<dependency name="GetWeaponMagazineSize"/>
-			<dependency name="GetWeaponSlot"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetPlayerAmmo"/>
-			<dependency name="format"/>
-			<param name="playerid">
-			</param>
-		</member>
 		<member name="M:RelocateOpcode" syntax="RelocateOpcode(opcode)">
 			<tagname value="Opcode"/>
 			<stacksize value="3"/>
@@ -23958,15 +23757,6 @@
 			</param>
 			<library>omp_player</library>  <summary>Reset a player's money to $0.</summary>    <seealso name="GetPlayerMoney" />  <seealso name="GivePlayerMoney" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute. This means the player is not connected.  </returns> 
 		</member>
-		<member name="M:ResetPlayerWeapons" syntax="ResetPlayerWeapons(playerid)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="OnPlayerWeaponsLoaded"/>
-			<param name="playerid">
-				The ID of the player whose weapons to remove
-			</param>
-			<library>omp_player</library>  <summary>Removes all weapons from a player.</summary>    <seealso name="GivePlayerWeapon" />  <seealso name="GetPlayerWeapon" />  <remarks>To remove individual weapons from a player, set their ammo to <b><c>0</c></b> using  <a href="#SetPlayerAmmo">SetPlayerAmmo</a>.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute. This means the player specified does not exist.  </returns> 
-		</member>
 		<member name="M:ResetStaticAmxHeader" syntax="ResetStaticAmxHeader()">
 			<stacksize value="4"/>
 			<referrer name="GetAmxHeader"/>
@@ -24032,7 +23822,6 @@
 			<stacksize value="9"/>
 			<dependency name="DIALOG_LOGIN"/>
 			<dependency name="LoadPlayerData"/>
-			<dependency name="LoadPlayerWeapons"/>
 			<dependency name="ShowPlayerDialog"/>
 			<param name="playerid">
 			</param>
@@ -24425,7 +24214,6 @@
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
@@ -24457,24 +24245,6 @@
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="cellmax"/>
-		</member>
-		<member name="M:SavePlayerWeapons" syntax="SavePlayerWeapons(playerid)">
-			<stacksize value="270"/>
-			<referrer name="Timers_OnPlayerDisconnect"/>
-			<dependency name="Ammo"/>
-			<dependency name="CreateWeaponTable"/>
-			<dependency name="GetPlayerWeaponData"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="WeaponID"/>
-			<dependency name="g_DatabaseHandle"/>
-			<dependency name="mysql_format"/>
-			<dependency name="mysql_query"/>
-			<dependency name="pID"/>
-			<param name="playerid">
-			</param>
 		</member>
 		<member name="M:ScriptInit_CallOnCodeInit" syntax="ScriptInit_CallOnCodeInit(jit, fs)">
 			<tagname value="bool"/>
@@ -24902,7 +24672,6 @@
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_delveh"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 			<referrer name="cmd_taixiu"/>
@@ -24926,18 +24695,13 @@
 		<member name="M:SendClientMessageEx" syntax="SendClientMessageEx(playerid, color, string[])">
 			<stacksize value="5"/>
 			<referrer name="TeleportPlayerToLocation"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
-			<referrer name="HandleWeaponReloadKey"/>
-			<referrer name="OnPlayerSpawn"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_setadmin"/>
-			<referrer name="cmd_spec"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_god"/>
+			<referrer name="OnPlayerSpawn"/>
+			<referrer name="OnDialogResponse"/>
 			<dependency name="SendClientMessage"/>
 			<param name="playerid">
 			</param>
@@ -25405,15 +25169,6 @@
 			<param name="ptr">
 			</param>
 		</member>
-		<member name="M:SetCameraBehindPlayer" syntax="SetCameraBehindPlayer(playerid)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="cmd_spec"/>
-			<param name="playerid">
-				The player you want to restore the camera for
-			</param>
-			<library>omp_player</library>  <summary>Restore the camera to a place behind the player, after using a function like  <a href="#SetPlayerCameraPos">SetPlayerCameraPos</a>.</summary>    <seealso name="SetPlayerCameraPos" />  <seealso name="SetPlayerCameraLookAt" /> 
-		</member>
 		<member name="M:SetCurrentFramePreviousFrame" syntax="SetCurrentFramePreviousFrame(addr)">
 			<stacksize value="5"/>
 			<dependency name="GetCallerFrame"/>
@@ -25527,39 +25282,6 @@
 			<param name="idx">
 			</param>
 		</member>
-		<member name="M:SetPVarFloat" syntax="SetPVarFloat(playerid, pvar[], value)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
-			<param name="playerid">
-				The ID of the player whose player variable will be set
-			</param>
-			<param name="pvar">
-				<paraminfo> [] </paraminfo>
-				The name of the player variable
-			</param>
-			<param name="value">
-				<paraminfo>Float </paraminfo>
-				The float you want to save in the player variable
-			</param>
-			<library>omp_variable</library>  <summary>Set a float player variable's value.</summary>        <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified is not connected,  or the variable name is null or over 40 characters.  </returns> 
-		</member>
-		<member name="M:SetPVarInt" syntax="SetPVarInt(playerid, pvar[], value)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="SpectatePlayer"/>
-			<param name="playerid">
-				The ID of the player whose player variable will be set
-			</param>
-			<param name="pvar">
-				<paraminfo> [] </paraminfo>
-				The name of the player variable
-			</param>
-			<param name="value">
-				The integer to be set
-			</param>
-			<library>omp_variable</library>  <summary>Set an integer player variable.</summary>        <seealso name="GetPVarInt" />  <seealso name="SetPVarString" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" />  <remarks>Variables aren't reset until after <a href="#OnPlayerDisconnect">OnPlayerDisconnect</a>  is called, so the values are still accessible in <a href="#OnPlayerDisconnect">OnPlayerDisconnect</a>.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  Either the player specified is not connected,  or the variable name is null or over 40 characters.  </returns> 
-		</member>
 		<member name="M:SetPVarString" syntax="SetPVarString(playerid, pvar[], value[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -25579,22 +25301,6 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_variable</library>  <summary>Saves a string into a player variable.</summary>        <seealso name="SetPVarInt" />  <seealso name="GetPVarInt" />  <seealso name="GetPVarString" />  <seealso name="SetPVarFloat" />  <seealso name="GetPVarFloat" />  <seealso name="DeletePVar" /> 
-		</member>
-		<member name="M:SetPlayerAmmo" syntax="SetPlayerAmmo(playerid, weaponid, ammo)">
-			<tagname value="bool"/>
-			<attribute name="native"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<param name="playerid">
-				The ID of the player to set the weapon ammo of
-			</param>
-			<param name="weaponid">
-				<paraminfo>t_WEAPON </paraminfo>
-				The ID of the <a href="https://www.open.mp/docs/scripting/resources/weaponids">weapon</a>  to set  the ammo of.
-			</param>
-			<param name="ammo">
-				The amount of ammo to set
-			</param>
-			<library>omp_player</library>  <summary>Set the ammo of a player's weapon.</summary>        <seealso name="GetPlayerAmmo" />  <seealso name="GivePlayerWeapon" />  <seealso name="SetPlayerArmedWeapon" />  <remarks>Set the ammo to <b><c>0</c></b> to remove a weapon from a player's inventory.  Note that  the weapon will still show up in <a href="#GetPlayerWeaponData">GetPlayerWeaponData</a>, albeit with  <b><c>0</c></b> ammo.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully. Success is also returned when the weapon  specified is invalid.<br />  <b><c>0</c></b>: The function failed to execute. The player isn't connected.<br />  </returns> 
 		</member>
 		<member name="M:SetPlayerArmedWeapon" syntax="SetPlayerArmedWeapon(playerid, weaponid)">
 			<tagname value="bool"/>
@@ -25629,7 +25335,6 @@
 			<referrer name="Utils_ChaosMod"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="TeleportPlayerToLocation"/>
-			<referrer name="SpectatePlayer"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_gotoid"/>
 			<param name="playerid">
@@ -25689,8 +25394,8 @@
 		</member>
 		<member name="M:SetPlayerSpawn" syntax="SetPlayerSpawn(playerid)">
 			<stacksize value="15"/>
-			<referrer name="OnAccountRegister"/>
 			<referrer name="OnPlayerDataLoaded"/>
+			<referrer name="OnAccountRegister"/>
 			<dependency name="GivePlayerMoney"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -25755,7 +25460,6 @@
 			<attribute name="native"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="TeleportPlayerToLocation"/>
-			<referrer name="SpectatePlayer"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_gotoid"/>
 			<param name="playerid">
@@ -26137,31 +25841,6 @@
 			</param>
 			<library>omp_class</library>  <summary>(Re)Spawns a player.</summary>    <seealso name="SetSpawnInfo" />  <seealso name="AddPlayerClass" />  <seealso name="OnPlayerSpawn" />  <remarks>Kills the player if they are in a vehicle and then they spawn with a bottle in their hand.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
 		</member>
-		<member name="M:SpectatePlayer" syntax="SpectatePlayer(playerid, giveplayerid)">
-			<stacksize value="75"/>
-			<referrer name="cmd_spec"/>
-			<dependency name="GetPlayerInterior"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerPos"/>
-			<dependency name="GetPlayerVehicleID"/>
-			<dependency name="GetPlayerVirtualWorld"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="IsPlayerInAnyVehicle"/>
-			<dependency name="PlayerSpectatePlayer"/>
-			<dependency name="PlayerSpectateVehicle"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetPVarFloat"/>
-			<dependency name="SetPVarInt"/>
-			<dependency name="SetPlayerInterior"/>
-			<dependency name="SetPlayerVirtualWorld"/>
-			<dependency name="TogglePlayerSpectating"/>
-			<dependency name="format"/>
-			<dependency name="true"/>
-			<param name="playerid">
-			</param>
-			<param name="giveplayerid">
-			</param>
-		</member>
 		<member name="M:StartTaiXiuSession" syntax="StartTaiXiuSession()">
 			<stacksize value="139"/>
 			<referrer name="InitTaiXiuSystems"/>
@@ -26457,6 +26136,11 @@
 			<stacksize value="2057"/>
 			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
 			<dependency name="DIALOG_NOTHING"/>
+			<dependency name="DIALOG_TX_HISTORY"/>
+			<dependency name="DIALOG_TX_TAI"/>
+			<dependency name="DIALOG_TX_XACNHAN_ROIBAN"/>
+			<dependency name="DIALOG_TX_XACNHAN_THUHOI"/>
+			<dependency name="DIALOG_TX_XIU"/>
 			<dependency name="PlayerBetTai"/>
 			<dependency name="PlayerBetXiu"/>
 			<dependency name="ShowPlayerDialog"/>
@@ -26686,7 +26370,6 @@
 			<attribute name="public"/>
 			<stacksize value="4"/>
 			<dependency name="Account_Save"/>
-			<dependency name="SavePlayerWeapons"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -26716,8 +26399,6 @@
 			<attribute name="native"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="cmd_spec"/>
 			<param name="playerid">
 				The ID of the player who should spectate
 			</param>
@@ -27096,21 +26777,6 @@
 				The vehicleid to get speed.
 			</param>
 			  <returns>  Current vehicle speed.  </returns>  <remarks>  This function have returns in KM/H.  </remarks> 
-		</member>
-		<member name="M:WeaponShot_UpdateReloadPrompt" syntax="WeaponShot_UpdateReloadPrompt(playerid, weaponid)">
-			<stacksize value="137"/>
-			<referrer name="OnPlayerWeaponShot"/>
-			<dependency name="Ammo"/>
-			<dependency name="GetPlayerAmmo"/>
-			<dependency name="GetWeaponSlot"/>
-			<dependency name="IsWeaponReloadable"/>
-			<dependency name="PlayerWeapon"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="format"/>
-			<param name="playerid">
-			</param>
-			<param name="weaponid">
-			</param>
 		</member>
 		<member name="M:WriteAmxCell" syntax="WriteAmxCell(offset, value)">
 			<stacksize value="6"/>
@@ -27774,6 +27440,11 @@
 			<referrer name="@yH_OnDialogResponse@01"/>
 			<dependency name="BaoTriTaiXiuAD"/>
 			<dependency name="DIALOG_NOTHING"/>
+			<dependency name="DIALOG_TX_ADMIN_EDIT"/>
+			<dependency name="DIALOG_TX_TAI"/>
+			<dependency name="DIALOG_TX_XACNHAN_ROIBAN"/>
+			<dependency name="DIALOG_TX_XACNHAN_THUHOI"/>
+			<dependency name="DIALOG_TX_XIU"/>
 			<dependency name="GetPlayerCash"/>
 			<dependency name="GivePlayerCash"/>
 			<dependency name="HideTaixiuDisplay"/>
@@ -28538,7 +28209,6 @@
 			<attribute name="native"/>
 			<referrer name="cache_get_value_name_bool"/>
 			<referrer name="OnPlayerDataLoaded"/>
-			<referrer name="OnPlayerWeaponsLoaded"/>
 			<param name="row_idx">
 			</param>
 			<param name="column_name">
@@ -28562,9 +28232,8 @@
 		</member>
 		<member name="M:cache_num_rows" syntax="cache_num_rows()">
 			<stacksize value="4"/>
-			<referrer name="OnAccountCheck"/>
 			<referrer name="OnPlayerDataLoaded"/>
-			<referrer name="OnPlayerWeaponsLoaded"/>
+			<referrer name="OnAccountCheck"/>
 			<dependency name="cache_get_row_count"/>
 		</member>
 		<member name="M:calloc" syntax="calloc(size)">
@@ -28657,6 +28326,7 @@
 		<member name="M:cmd_edittaixiucailonmamay" syntax="cmd_edittaixiucailonmamay(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="1033"/>
+			<dependency name="DIALOG_TX_ADMIN_EDIT"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ShowPlayerDialog"/>
@@ -28673,7 +28343,7 @@
 			<stacksize value="163"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GivePlayerWeaponEx"/>
+			<dependency name="GivePlayerWeapon"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
@@ -28823,29 +28493,6 @@
 			<dependency name="__file"/>
 			<dependency name="__line"/>
 			<dependency name="format"/>
-			<param name="playerid">
-			</param>
-			<param name="params">
-				<paraminfo> [] </paraminfo>
-			</param>
-		</member>
-		<member name="M:cmd_spec" syntax="cmd_spec(playerid, params[])">
-			<attribute name="public"/>
-			<stacksize value="8"/>
-			<dependency name="IsPlayerConnected"/>
-			<dependency name="PlayerInfo"/>
-			<dependency name="SSCANF__"/>
-			<dependency name="SendClientMessage"/>
-			<dependency name="SendClientMessageEx"/>
-			<dependency name="SetCameraBehindPlayer"/>
-			<dependency name="SpectatePlayer"/>
-			<dependency name="TogglePlayerSpectating"/>
-			<dependency name="__file"/>
-			<dependency name="__line"/>
-			<dependency name="false"/>
-			<dependency name="pAdmin"/>
-			<dependency name="strcmp"/>
-			<dependency name="true"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -29360,17 +29007,14 @@
 			<referrer name="fautocleanup"/>
 			<referrer name="IntToIP"/>
 			<referrer name="CensorIntIP"/>
-			<referrer name="SpectatePlayer"/>
-			<referrer name="ReloadPlayerWeapon"/>
-			<referrer name="WeaponShot_UpdateReloadPrompt"/>
 			<referrer name="GetAdminName"/>
-			<referrer name="OnPlayerSpawn"/>
-			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_goto"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="OnPlayerSpawn"/>
+			<referrer name="OnDialogResponse"/>
 			<referrer name="TaiXiu_SetTop"/>
 			<referrer name="TaiXiu_UpdateMainInfo"/>
 			<referrer name="TaiXiu_UpdateConfig"/>
@@ -29995,21 +29639,17 @@
 		<member name="M:mysql_errno" syntax="mysql_errno(handle)">
 			<attribute name="native"/>
 			<referrer name="MySQL_Init"/>
-			<referrer name="CreateWeaponTable"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
 		</member>
 		<member name="M:mysql_format" syntax="mysql_format(handle, output[], max_len, format[], ...)">
 			<attribute name="native"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="Account_Save"/>
 			<referrer name="Account_Check"/>
 			<referrer name="OnPasswordHash"/>
 			<referrer name="OnDialogResponse"/>
-			<referrer name="LoadPlayerData"/>
-			<referrer name="Account_Save"/>
-			<referrer name="CreateWeaponTable"/>
-			<referrer name="LoadPlayerWeapons"/>
-			<referrer name="SavePlayerWeapons"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -30025,29 +29665,13 @@
 				<paraminfo> {Float,_} </paraminfo>
 			</param>
 		</member>
-		<member name="M:mysql_query" syntax="mysql_query(handle, query[], use_cache)">
-			<tagname value="Cache"/>
-			<attribute name="native"/>
-			<referrer name="CreateWeaponTable"/>
-			<referrer name="SavePlayerWeapons"/>
-			<param name="handle">
-				<paraminfo>MySQL </paraminfo>
-			</param>
-			<param name="query">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="use_cache">
-				<paraminfo>bool </paraminfo>
-			</param>
-		</member>
 		<member name="M:mysql_tquery" syntax="mysql_tquery(handle, query[], callback[], format[], ...)">
 			<attribute name="native"/>
+			<referrer name="LoadPlayerData"/>
+			<referrer name="Account_Save"/>
 			<referrer name="Account_Check"/>
 			<referrer name="OnPasswordHash"/>
 			<referrer name="OnDialogResponse"/>
-			<referrer name="LoadPlayerData"/>
-			<referrer name="Account_Save"/>
-			<referrer name="LoadPlayerWeapons"/>
 			<param name="handle">
 				<paraminfo>MySQL </paraminfo>
 			</param>
@@ -30410,7 +30034,6 @@
 			<referrer name="Hooks_MakeShortName"/>
 			<referrer name="_@Hy"/>
 			<referrer name="Hooks_Collate"/>
-			<referrer name="cmd_spec"/>
 			<param name="string1">
 				<paraminfo> [] </paraminfo>
 				The first string to compare

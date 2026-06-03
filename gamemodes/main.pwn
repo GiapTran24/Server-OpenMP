@@ -1,6 +1,3 @@
-#define MAX_PLAYERS (100)
-#define MIXED_SPELLINGS
-
 #include <open.mp>
 #include <a_mysql>
 #include <samp_bcrypt>
@@ -11,14 +8,16 @@
 #include <YSI_Coding\y_timers>
 
 // Main
-#include "includes/colors.inc"
+#include "includes/modules/colors.inc"
+#include "includes/modules/defines.inc"
+#include "includes/modules/dialogs.inc"
+#include "includes/modules/vars.inc"
+#include "includes/modules/sql.inc"
+#include "includes/modules/funcs.inc"
+#include "includes/modules/task.inc"
+#include "includes/modules/ad_cmds.inc"
+#include "includes/modules/g_cmds.inc"
 #include "includes/main.pwn"
-
-
-//SQL DATA
-#include "includes/sql/Accounts.pwn"
-#include "includes/sql/Weapons.pwn"
-
 
 // TaiXiu
 #include "includes/taixiu/Var.pwn"
