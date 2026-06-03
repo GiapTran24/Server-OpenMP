@@ -14,9 +14,9 @@
 #include "includes/modules/vars.inc"
 #include "includes/modules/sql.inc"
 #include "includes/modules/funcs.inc"
+#include "includes/modules/func2.inc"
 #include "includes/modules/task.inc"
-#include "includes/modules/ad_cmds.inc"
-#include "includes/modules/g_cmds.inc"
+#include "includes/modules/cmds.inc"
 #include "includes/main.pwn"
 
 // TaiXiu

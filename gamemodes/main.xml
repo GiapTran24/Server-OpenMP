@@ -2079,6 +2079,29 @@
 			<referrer name="_@anglemode"/>
 			<library>float</library> 
 		</member>
+		<member name="T:e_PLAYER_NOTIFICATION" value="7">
+			<tagname value="e_PLAYER_NOTIFICATION"/>
+			<member name="C:nt_IsShowing" value="0">
+				<tagname value="bool"/>
+			</member>
+			<member name="C:nt_Text" value="1">
+				<tagname value="Text3D"/>
+			</member>
+			<member name="C:nt_BG" value="2">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:nt_Title" value="3">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:nt_Body" value="4">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:nt_Progress" value="5">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:nt_Timer" value="6">
+			</member>
+		</member>
 		<member name="T:exit_order" value="2">
 			<tagname value="exit_order"/>
 			<member name="C:exit_mode" value="0">
@@ -2819,6 +2842,7 @@
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="cmd_testtb"/>
 			<referrer name="cmd_settaixiutime"/>
 		</member>
 		<member name="C:__local0_offset" value="-4">
@@ -3478,6 +3502,8 @@
 			<referrer name="Iter_Func@VehicleDriver"/>
 			<referrer name="Yield_OnCodeInit"/>
 			<referrer name="SetPlayerSpawn"/>
+			<referrer name="ShowNotification"/>
+			<referrer name="HidePlayerNotification"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="ShowTXThongBao"/>
@@ -3572,6 +3598,7 @@
 			<referrer name="_Timer_D"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -4219,6 +4246,10 @@
 			<referrer name="OnPlayerUpdate"/>
 			<referrer name="OnDialogResponse"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
+		</member>
+		<member name="F:PlayerNotification">
+			<referrer name="ShowNotification"/>
+			<referrer name="HidePlayerNotification"/>
 		</member>
 		<member name="F:Q@">
 			<referrer name="SetTimerExAddr"/>
@@ -4988,14 +5019,15 @@
 		<member name="F:__file">
 		</member>
 		<member name="F:__file">
-		</member>
-		<member name="F:__file">
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="cmd_testtb"/>
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -6173,6 +6205,7 @@
 			<referrer name="RandomPointsInCircleSampled"/>
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="BiGramSimilarity"/>
+			<referrer name="ShowNotification"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -6202,6 +6235,7 @@
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="RandomPointInCircleCentred"/>
 			<referrer name="RandomPointInCircleDistributed"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="oper1">
@@ -6221,6 +6255,7 @@
 			<referrer name="InterpolateColourSRGB"/>
 			<referrer name="RandomFloatMinMax"/>
 			<referrer name="RandomFloatMax"/>
+			<referrer name="ShowNotification"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -13839,6 +13874,7 @@
 		<member name="M:CreatePlayerTextDraw" syntax="CreatePlayerTextDraw(playerid, x, y, format[], ...)">
 			<tagname value="PlayerText"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player to create the textdraw for
@@ -16134,7 +16170,6 @@
 			<referrer name="OnPasswordHash"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
-			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="GetPlayerName"/>
 			<dependency name="GetPlayerNameEx"/>
@@ -16795,6 +16830,24 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 			<library>y_utils - conversions</library>  <param name="string">String to convert to a number.</param>  <returns>  value of the passed hex string.  </returns>  <remarks>  Now stops on invalid characters.  </remarks> 
+		</member>
+		<member name="M:HidePlayerNotification" syntax="HidePlayerNotification(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="ShowNotification"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerNotification"/>
+			<dependency name="PlayerNotification"/>
+			<dependency name="PlayerTextDrawDestroy"/>
+			<dependency name="false"/>
+			<dependency name="nt_BG"/>
+			<dependency name="nt_Body"/>
+			<dependency name="nt_IsShowing"/>
+			<dependency name="nt_Progress"/>
+			<dependency name="nt_Timer"/>
+			<dependency name="nt_Title"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:HideTaixiuDisplay" syntax="HideTaixiuDisplay(playerid)">
 			<stacksize value="5"/>
@@ -20332,6 +20385,7 @@
 			<referrer name="_Timer_I"/>
 			<referrer name="_Timer_D"/>
 			<referrer name="_Timer_F"/>
+			<referrer name="HidePlayerNotification"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="ShowTXThongBao"/>
 			<param name="timerid">
@@ -20873,6 +20927,14 @@
 				The upper limit.
 			</param>
 			<library>y_utils - maths</library>        <returns>  Is the value outside the given range.  </returns>  <remarks>  Equivalent to:  <code>		(%1) &lt;= (%0) &lt; (%2)</code>  </remarks> 
+		</member>
+		<member name="M:NotifyPlayerSpawn" syntax="NotifyPlayerSpawn(playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="ShowNotification"/>
+			<param name="playerid">
+			</param>
 		</member>
 		<member name="M:NtCompare" syntax="NtCompare(s1, s2[])">
 			<stacksize value="5"/>
@@ -22040,11 +22102,10 @@
 			<stacksize value="168"/>
 			<dependency name="GetAdminName"/>
 			<dependency name="GetAdminName"/>
-			<dependency name="GetPlayerNameEx"/>
-			<dependency name="GetPlayerNameEx"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="SendClientMessageEx"/>
+			<dependency name="SetTimerEx"/>
 			<dependency name="false"/>
 			<dependency name="format"/>
 			<dependency name="gLoggedIn"/>
@@ -22678,6 +22739,7 @@
 		<member name="M:PlayerTextDrawBoxColour" syntax="PlayerTextDrawBoxColour(playerid, textid, boxColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to set the box colour of
@@ -22694,6 +22756,7 @@
 		<member name="M:PlayerTextDrawColour" syntax="PlayerTextDrawColour(playerid, textid, textColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="TaiXiu_SetHistory"/>
 			<referrer name="TaiXiu_UpdateResult"/>
@@ -22712,6 +22775,7 @@
 		<member name="M:PlayerTextDrawDestroy" syntax="PlayerTextDrawDestroy(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="HidePlayerNotification"/>
 			<referrer name="DestroyTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player who's player-textdraw to destroy
@@ -22725,6 +22789,7 @@
 		<member name="M:PlayerTextDrawFont" syntax="PlayerTextDrawFont(playerid, textid, font)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to change the font of
@@ -22758,6 +22823,7 @@
 		<member name="M:PlayerTextDrawLetterSize" syntax="PlayerTextDrawLetterSize(playerid, textid, width, height)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="playerid">
@@ -22796,6 +22862,7 @@
 		<member name="M:PlayerTextDrawSetProportional" syntax="PlayerTextDrawSetProportional(playerid, textid, proportional)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the proportionality of
@@ -22873,6 +22940,7 @@
 		<member name="M:PlayerTextDrawShow" syntax="PlayerTextDrawShow(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="ShowTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="TaiXiu_SetHistory"/>
@@ -22890,6 +22958,7 @@
 		<member name="M:PlayerTextDrawTextSize" syntax="PlayerTextDrawTextSize(playerid, textid, width, height)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the size of
@@ -22911,6 +22980,7 @@
 		<member name="M:PlayerTextDrawUseBox" syntax="PlayerTextDrawUseBox(playerid, textid, boxEnabled)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to toggle the box of
@@ -24217,6 +24287,7 @@
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="cmd_testtb"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="file">
 				<paraminfo> [] </paraminfo>
@@ -24700,6 +24771,7 @@
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_god"/>
+			<referrer name="cmd_testtb"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
 			<dependency name="SendClientMessage"/>
@@ -25614,6 +25686,8 @@
 			<referrer name="SetTimerExAddr"/>
 			<referrer name="Yield_OnCodeInit"/>
 			<referrer name="_Timer_D"/>
+			<referrer name="ShowNotification"/>
+			<referrer name="OnPlayerSpawn"/>
 			<referrer name="ShowTXThongBao"/>
 			<param name="functionName">
 				<paraminfo> [] </paraminfo>
@@ -25729,6 +25803,51 @@
 				The ID of the virtual world to put the vehicle in
 			</param>
 			<library>omp_vehicle</library>  <summary>Sets the 'virtual world' of a vehicle.  Players will only be able to see vehicles in their  own virtual world.</summary>      <seealso name="GetVehicleVirtualWorld" />  <seealso name="SetPlayerVirtualWorld" /> 
+		</member>
+		<member name="M:ShowNotification" syntax="ShowNotification(playerid, title[], message[], type, duration)">
+			<stacksize value="13"/>
+			<referrer name="cmd_testtb"/>
+			<referrer name="NotifyPlayerSpawn"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="HidePlayerNotification"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerNotification"/>
+			<dependency name="PlayerNotification"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="PlayerTextDrawUseBox"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="nt_BG"/>
+			<dependency name="nt_Body"/>
+			<dependency name="nt_IsShowing"/>
+			<dependency name="nt_Progress"/>
+			<dependency name="nt_Timer"/>
+			<dependency name="nt_Title"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="title">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="message">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="type">
+				<paraminfo>e_NOTIFY_TYPE </paraminfo>
+			</param>
+			<param name="duration">
+			</param>
 		</member>
 		<member name="M:ShowPlayerDialog" syntax="ShowPlayerDialog(playerid, dialogid, style, title[], body[], button1[], button2[], ...)">
 			<tagname value="bool"/>
@@ -28505,6 +28624,24 @@
 			<dependency name="BaoTriTaiXiuAD"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="ToggleTaiXiuDisplay"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_testtb" syntax="cmd_testtb(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_INFO"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessageEx"/>
+			<dependency name="ShowNotification"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
 			<param name="playerid">
 			</param>
 			<param name="params">

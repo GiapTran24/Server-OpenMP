@@ -68,3 +68,24 @@ new GotoLocations[][E_GOTO_LOC] =
     {"FBI",         344.77,-1526.08, 33.28,   0, 0},
     {"DOC",      -2029.23, -78.33, 35.32,    0, 0}
 };
+
+// Thong Bao
+enum e_NOTIFY_TYPE 
+{
+    NOTIFY_TYPE_INFO,
+    NOTIFY_TYPE_SUCCESS,
+    NOTIFY_TYPE_WARNING,
+    NOTIFY_TYPE_ERROR
+};
+
+enum e_PLAYER_NOTIFICATION 
+{
+    bool:nt_IsShowing,
+    Text3D:nt_Text, 
+    PlayerText:nt_BG,
+    PlayerText:nt_Title,
+    PlayerText:nt_Body,
+    PlayerText:nt_Progress,
+    nt_Timer
+}
+new PlayerNotification[MAX_PLAYERS][e_PLAYER_NOTIFICATION];

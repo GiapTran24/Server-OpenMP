@@ -278,3 +278,46 @@ CMD:god(playerid, params[]) {
     }
     return 1;
 }
+
+CMD:testtb(playerid, params[]) {
+    new type;
+    if(sscanf(params, "d", type)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /testtb [type]\n0: Success\n1: Error\n2: Warning\n3: Info");
+    switch(type)
+    {
+        case 0: {
+            ShowNotification(playerid,
+                "Thong bao thanh cong!",
+                "Day la mot thong bao mau xanh duoc hien thi trong 5 giay.",
+                NOTIFY_TYPE_SUCCESS,
+                5000
+            );
+        }
+        case 1: {
+            ShowNotification(playerid,
+                "Thong bao loi!",
+                "Day la mot thong bao mau do duoc hien thi trong 5 giay.",
+                NOTIFY_TYPE_ERROR,
+                5000
+            );
+        }
+        case 2: {
+            ShowNotification(playerid,
+                "Thong bao canh bao!",
+                "Day la mot thong bao mau vang duoc hien thi trong 5 giay.",
+                NOTIFY_TYPE_WARNING,
+                5000
+            );
+        }
+        case 3: {
+            ShowNotification(playerid,
+                "Thong bao thong tin!",
+                "Day la mot thong bao mau xanh duoc hien thi trong 5 giay.",
+                NOTIFY_TYPE_INFO,
+                5000
+            );
+        }
+        default: return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /testtb [type]\n0: Success\n1: Error\n2: Warning\n3: Info");
+    }
+    
+    return 1;
+}

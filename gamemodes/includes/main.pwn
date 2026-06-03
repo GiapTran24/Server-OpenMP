@@ -21,15 +21,20 @@ public OnPlayerSpawn(playerid)
 	if(!PlayerInfo[playerid][pLogged]) return 0;
     if(gLoggedIn[playerid]) {
         new string[128];
-        format(string, sizeof(string), "Chao mung %s den voi may chu!", GetPlayerNameEx(playerid));
-        SendClientMessageEx(playerid, COLOR_SUCCESS, string);
         if(PlayerInfo[playerid][pAdmin] > 0) {
             format(string, sizeof(string), "[AD] Ban dang dang nhap voi tai khoan {FF0000}%s", GetAdminName(PlayerInfo[playerid][pAdmin]));
         }
         SendClientMessageEx(playerid, COLOR_SUCCESS, string);
+        SetTimerEx("NotifyPlayerSpawn", 1500, false, "d", playerid);
         gLoggedIn[playerid] = false;
     }
 	return 1;
+}
+forward NotifyPlayerSpawn(playerid);
+public NotifyPlayerSpawn(playerid)
+{
+    ShowNotification(playerid, "Welcome", "Chao mung ban den voi may chu!", NOTIFY_TYPE_SUCCESS, 5000);
+    return 1;
 }
 
 public OnPlayerDeath(playerid, killerid, WEAPON:reason)
