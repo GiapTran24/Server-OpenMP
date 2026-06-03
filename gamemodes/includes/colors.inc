@@ -89,80 +89,80 @@
 // Embedded Colors ({RRGGBB})
 // =====================================
 
-// // Basic
-// #define EC_WHITE            FFFFFF
-// #define EC_BLACK            000000
-// #define EC_RED              FF0000
-// #define EC_GREEN            00FF00
-// #define EC_BLUE             0000FF
-// #define EC_YELLOW           FFFF00
-// #define EC_ORANGE           FFA500
-// #define EC_PURPLE           800080
-// #define EC_PINK             FFC0CB
-// #define EC_CYAN             00FFFF
-// #define EC_BROWN            8B4513
-// #define EC_GREY             808080
+// Basic
+#define EC_WHITE            "{FFFFFF}"
+#define EC_BLACK            "{000000}"
+#define EC_RED              "{FF0000}"
+#define EC_GREEN            "{00FF00}"
+#define EC_BLUE             "{0000FF}"
+#define EC_YELLOW           "{FFFF00}"
+#define EC_ORANGE           "{FFA500}"
+#define EC_PURPLE           "{800080}"
+#define EC_PINK             "{FFC0CB}"
+#define EC_CYAN             "{00FFFF}"
+#define EC_BROWN            "{8B4513}"
+#define EC_GREY             "{808080}"
 
-// // Light
-// #define EC_LIGHTRED         FF6666
-// #define EC_LIGHTGREEN       66FF66
-// #define EC_LIGHTBLUE        66CCFF
-// #define EC_LIGHTYELLOW      FFFF99
-// #define EC_LIGHTCYAN        99FFFF
-// #define EC_LIGHTGREY        C0C0C0
+// Light
+#define EC_LIGHTRED         "{FF6666}"
+#define EC_LIGHTGREEN       "{66FF66}"
+#define EC_LIGHTBLUE        "{66CCFF}"
+#define EC_LIGHTYELLOW      "{FFFF99}"
+#define EC_LIGHTCYAN        "{99FFFF}"
+#define EC_LIGHTGREY        "{C0C0C0}"
 
-// // Dark
-// #define EC_DARKRED          8B0000
-// #define EC_DARKGREEN        006400
-// #define EC_DARKBLUE         00008B
-// #define EC_DARKGREY         404040
-// #define EC_DARKPURPLE       4B0082
+// Dark
+#define EC_DARKRED          "{8B0000}"
+#define EC_DARKGREEN        "{006400}"
+#define EC_DARKBLUE         "{00008B}"
+#define EC_DARKGREY         "{404040}"
+#define EC_DARKPURPLE       "{4B0082}"
 
-// // UI Modern
-// #define EC_PRIMARY          3498DB
-// #define EC_SUCCESS          2ECC71
-// #define EC_WARNING          F1C40F
-// #define EC_DANGER           E74C3C
-// #define EC_INFO             1ABC9C
-// #define EC_SECONDARY        95A5A6
-// #define EC_DARK             2C3E50
-// #define EC_LIGHT            ECF0F1
+// UI Modern
+#define EC_PRIMARY          "{3498DB}"
+#define EC_SUCCESS          "{2ECC71}"
+#define EC_WARNING          "{F1C40F}"
+#define EC_DANGER           "{E74C3C}"
+#define EC_INFO             "{1ABC9C}"
+#define EC_SECONDARY        "{95A5A6}"
+#define EC_DARK             "{2C3E50}"
+#define EC_LIGHT            "{ECF0F1}"
 
-// // GTA Style
-// #define EC_POLICE           2E86DE
-// #define EC_MEDIC            E74C3C
-// #define EC_NEWS             F39C12
-// #define EC_GOVERNMENT       9B59B6
-// #define EC_ADMIN            FF0000
-// #define EC_HELPER           00AA00
+// GTA Style
+#define EC_POLICE           "{2E86DE}"
+#define EC_MEDIC            "{E74C3C}"
+#define EC_NEWS             "{F39C12}"
+#define EC_GOVERNMENT       "{9B59B6}"
+#define EC_ADMIN            "{FF0000}"
+#define EC_HELPER           "{00AA00}"
 
-// // Popular
-// #define EC_GOLD             FFD700
-// #define EC_SILVER           C0C0C0
-// #define EC_BRONZE           CD7F32
-// #define EC_LIME             32CD32
-// #define EC_MAROON           800000
-// #define EC_NAVY             000080
-// #define EC_OLIVE            808000
-// #define EC_TEAL             008080
-// #define EC_AQUA             00FFFF
-// #define EC_VIOLET           EE82EE
-// #define EC_INDIGO           4B0082
-// #define EC_CORAL            FF7F50
-// #define EC_CRIMSON          DC143C
-// #define EC_TOMATO           FF6347
-// #define EC_SALMON           FA8072
-// #define EC_KHAKI            F0E68C
-// #define EC_BEIGE            F5F5DC
-// #define EC_TURQUOISE        40E0D0
-// #define EC_SKYBLUE          87CEEB
-// #define EC_ROYALBLUE        4169E1
-// #define EC_FORESTGREEN      228B22
-// #define EC_SEAGREEN         2E8B57
-// #define EC_CHOCOLATE        D2691E
-// #define EC_HOTPINK          FF69B4
-// #define EC_DEEPPINK         FF1493
-// #define EC_ORANGERED        FF4500
+// Popular
+#define EC_GOLD             "{FFD700}"
+#define EC_SILVER           "{C0C0C0}"
+#define EC_BRONZE           "{CD7F32}"
+#define EC_LIME             "{32CD32}"
+#define EC_MAROON           "{800000}"
+#define EC_NAVY             "{000080}"
+#define EC_OLIVE            "{808000}"
+#define EC_TEAL             "{008080}"
+#define EC_AQUA             "{00FFFF}"
+#define EC_VIOLET           "{EE82EE}"
+#define EC_INDIGO           "{4B0082}"
+#define EC_CORAL            "{FF7F50}"
+#define EC_CRIMSON          "{DC143C}"
+#define EC_TOMATO           "{FF6347}"
+#define EC_SALMON           "{FA8072}"
+#define EC_KHAKI            "{F0E68C}"
+#define EC_BEIGE            "{F5F5DC}"
+#define EC_TURQUOISE        "{40E0D0}"
+#define EC_SKYBLUE          "{87CEEB}"
+#define EC_ROYALBLUE        "{4169E1}"
+#define EC_FORESTGREEN      "{228B22}"
+#define EC_SEAGREEN         "{2E8B57}"
+#define EC_CHOCOLATE        "{D2691E}"
+#define EC_HOTPINK          "{FF69B4}"
+#define EC_DEEPPINK         "{FF1493}"
+#define EC_ORANGERED        "{FF4500}"
 
-// // Utility
-// #define EC_RESET            FFFFFF
+// Utility
+#define EC_RESET            "{FFFFFF}"

@@ -14,12 +14,11 @@
 #include "includes/colors.inc"
 #include "includes/main.pwn"
 
-//COMMANDS
-#include "includes/cmd_admin.pwn"
 
 //SQL DATA
 #include "includes/sql/Accounts.pwn"
-#include "includes/sql/p_weapons.pwn"
+#include "includes/sql/Weapons.pwn"
+
 
 // TaiXiu
 #include "includes/taixiu/Var.pwn"

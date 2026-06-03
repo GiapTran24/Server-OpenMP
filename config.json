@@ -24,7 +24,7 @@
         "gravity": 0.00800000037997961,
         "group_player_objects": false,
         "lag_compensation_mode": 1,
-        "map": "Los Santos",
+        "map": "San Andreas",
         "mode": "Version 1.0",
         "nametag_draw_radius": 70.0,
         "player_marker_draw_radius": 250.0,
@@ -46,7 +46,7 @@
         "vehicle_respawn_time": 10000,
         "weather": 10
     },
-    "language": "en-vi",
+    "language": "Envi",
     "logging": {
         "enable": true,
         "file": "log.txt",
@@ -63,7 +63,7 @@
     },
     "max_bots": 50,
     "max_players": 100,
-    "name": "[LS-OMP] Los Santos Server New !",
+    "name": "San Andreas Free City !",
     "network": {
         "acks_limit": 3000,
         "aiming_sync_rate": 30,
