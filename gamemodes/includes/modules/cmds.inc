@@ -289,7 +289,7 @@ CMD:testtb(playerid, params[]) {
     switch(type)
     {
         case 0: {
-            ShowNotification(playerid,
+            SendClientNotification(playerid,
                 "Thong bao thanh cong!",
                 "Day la mot thong bao mau xanh duoc hien thi trong 5 giay.",
                 NOTIFY_TYPE_SUCCESS,
@@ -297,7 +297,7 @@ CMD:testtb(playerid, params[]) {
             );
         }
         case 1: {
-            ShowNotification(playerid,
+            SendClientNotification(playerid,
                 "Thong bao loi!",
                 "Day la mot thong bao mau do duoc hien thi trong 5 giay.",
                 NOTIFY_TYPE_ERROR,
@@ -305,7 +305,7 @@ CMD:testtb(playerid, params[]) {
             );
         }
         case 2: {
-            ShowNotification(playerid,
+            SendClientNotification(playerid,
                 "Thong bao canh bao!",
                 "Day la mot thong bao mau vang duoc hien thi trong 5 giay.",
                 NOTIFY_TYPE_WARNING,
@@ -313,7 +313,7 @@ CMD:testtb(playerid, params[]) {
             );
         }
         case 3: {
-            ShowNotification(playerid,
+            SendClientNotification(playerid,
                 "Thong bao thong tin!",
                 "Day la mot thong bao mau xanh duoc hien thi trong 5 giay.",
                 NOTIFY_TYPE_INFO,
@@ -323,5 +323,101 @@ CMD:testtb(playerid, params[]) {
         default: return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /testtb [type]\n0: Success\n1: Error\n2: Warning\n3: Info");
     }
     
+    return 1;
+}
+
+
+//-----------------------------------------------------------------------------
+// Conversation && Messages
+//-----------------------------------------------------------------------------
+CMD:msg(playerid, params[])
+{
+    new targetid;
+    new text[128];
+
+    if(sscanf(params, "us[128]", targetid, text))
+        return SendClientMessage(playerid, -1, "Usage: /msg [playerid] [message]");
+
+    if(!IsPlayerConnected(targetid))
+        return SendClientMessage(playerid, -1, "Player not connected.");
+
+    SendMessage(playerid, targetid, text);
+
+    new string[144];
+    format(string, sizeof(string), "[MSG] Gui den %d: %s", targetid, text);
+
+    SendClientMessage(playerid, 0x00FF00FF, string);
+
+    format(string, sizeof(string), "[MSG] Tu %d: %s", playerid, text);
+
+    SendClientMessage(targetid, 0xFFFF00FF, string);
+
+    return 1;
+}
+
+CMD:convs(playerid)
+{
+    SendClientMessage(playerid, -1, "===== DANH SACH HOI THOAI =====");
+
+    for(new i; i < ConversationCount; i++)
+    {
+        if(
+            ConversationData[i][ConvPlayer1] == playerid ||
+            ConversationData[i][ConvPlayer2] == playerid
+        )
+        {
+            new otherid;
+
+            if(ConversationData[i][ConvPlayer1] == playerid)
+                otherid = ConversationData[i][ConvPlayer2];
+            else
+                otherid = ConversationData[i][ConvPlayer1];
+
+            new string[128];
+
+            format(
+                string,
+                sizeof(string),
+                "ConvID: %d | Nguoi choi: %d",
+                i,
+                otherid
+            );
+
+            SendClientMessage(playerid, 0xFFFF00FF, string);
+        }
+    }
+    return 1;
+}
+CMD:openconv(playerid, params[])
+{
+    new convid;
+
+    if(sscanf(params, "d", convid))
+        return SendClientMessage(playerid, -1, "Usage: /openconv [conversationid]");
+
+    if(convid < 0 || convid >= ConversationCount)
+        return SendClientMessage(playerid, -1, "Conversation khong ton tai.");
+
+    SendClientMessage(playerid, -1, "===== NOI DUNG CUOC TRO CHUYEN =====");
+
+    for(new i; i < MessageCount; i++)
+    {
+        if(MessageData[i][MsgConversation] == convid)
+        {
+            new string[200];
+
+            format(
+                string,
+                sizeof(string),
+                "[%d] %d -> %d: %s",
+                MessageData[i][MsgTime],
+                MessageData[i][MsgSender],
+                MessageData[i][MsgReceiver],
+                MessageData[i][MsgText]
+            );
+
+            SendClientMessage(playerid, 0xFFFFFFFF, string);
+        }
+    }
     return 1;
 }

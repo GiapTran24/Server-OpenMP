@@ -68,3 +68,31 @@ new GotoLocations[][E_GOTO_LOC] =
     {"FBI",         344.77,-1526.08, 33.28,   0, 0},
     {"DOC",      -2029.23, -78.33, 35.32,    0, 0}
 };
+
+
+//-----------------------------------------------------------------------------
+// Conversation && Messages
+//-----------------------------------------------------------------------------
+enum E_CONVERSATION
+{
+    ConvID,
+    ConvPlayer1,
+    ConvPlayer2,
+    ConvLastMessage,
+    ConvLastTime
+};
+new ConversationData[MAX_CONVERSATIONS][E_CONVERSATION];
+new ConversationCount;
+
+enum E_MESSAGE
+{
+    MsgID,
+    MsgConversation,
+    MsgSender,
+    MsgReceiver,
+    MsgTime,
+    MsgRead,
+    MsgText[MAX_MESSAGE_LEN]
+};
+new MessageData[MAX_MESSAGES][E_MESSAGE];
+new MessageCount;

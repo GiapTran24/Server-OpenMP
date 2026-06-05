@@ -486,6 +486,19 @@
 			<referrer name="Hooks_GetPreloadLibraries"/>
 			<referrer name="CGen_OnCodeInit"/>
 		</member>
+		<member name="T:E_CONVERSATION" value="5">
+			<tagname value="E_CONVERSATION"/>
+			<member name="C:ConvID" value="0">
+			</member>
+			<member name="C:ConvPlayer1" value="1">
+			</member>
+			<member name="C:ConvPlayer2" value="2">
+			</member>
+			<member name="C:ConvLastMessage" value="3">
+			</member>
+			<member name="C:ConvLastTime" value="4">
+			</member>
+		</member>
 		<member name="T:E_GOTO_LOC" value="37">
 			<tagname value="E_GOTO_LOC"/>
 			<member name="C:gotoName" value="0">
@@ -561,6 +574,24 @@
 			<member name="C:E_ITER_YIELD_FRAME" value="9">
 			</member>
 			<member name="C:E_ITER_YIELD_RETURN" value="10">
+			</member>
+		</member>
+		<member name="T:E_MESSAGE" value="134">
+			<tagname value="E_MESSAGE"/>
+			<member name="C:MsgID" value="0">
+			</member>
+			<member name="C:MsgConversation" value="1">
+			</member>
+			<member name="C:MsgSender" value="2">
+			</member>
+			<member name="C:MsgReceiver" value="3">
+			</member>
+			<member name="C:MsgTime" value="4">
+			</member>
+			<member name="C:MsgRead" value="5">
+			</member>
+			<member name="C:MsgText" value="6">
+				<size value="128"/>
 			</member>
 		</member>
 		<member name="T:E_SCRIPTINIT_STATE" value="32">
@@ -2864,6 +2895,8 @@
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_testtb"/>
+			<referrer name="cmd_msg"/>
+			<referrer name="cmd_openconv"/>
 			<referrer name="cmd_settaixiutime"/>
 		</member>
 		<member name="C:__local0_offset" value="-4">
@@ -3621,7 +3654,7 @@
 			<referrer name="_Timer_D"/>
 			<referrer name="HideNotificationSlot"/>
 			<referrer name="CreateSlotNotifyTD"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
@@ -3847,6 +3880,20 @@
 		</member>
 		<member name="F:CELLMIN_ON_MATCHES">
 			<library>sscanf</library>  <remarks>  The <c>CELLMIN_ON_MATCHES</c> option as a constant string so you can get  compile-time spell checking on the name.  Whatever the value of  <c>MATCH_NAME_PARTIAL</c>, the first found player will always be returned,  so if you do a search for <c>_</c> on an RP server, you could get almost  anyone.  To detect this case, if more than one player will match the  specified string then <em>sscanf</em> will return an ID of <c>cellmin</c>  instead.  This can be combined with <c>U</c> for a lot more power:  <code>  sscanf(params, "?&lt;CELLMIN_ON_MATCHES=1&gt;U(-1)", id);                <br />  if (id == -1)                                                            <br />  {                                                                        <br /><indent />  // No player was entered.                                            <br />  }                                                                        <br />  else if (id == cellmin)                                                  <br />  {                                                                        <br /><indent />  // Multiple matches found                                            <br />  }                                                                        <br />  else if (id == INVALID_PLAYER_ID)                                        <br />  {                                                                        <br /><indent />  // Entered player is not connected.                                  <br />  }                                                                        <br />  else                                                                     <br />  {                                                                        <br /><indent />  // Found just one player.                                            <br />  }  </code>  </remarks> 
+		</member>
+		<member name="F:ConversationCount">
+			<referrer name="GetConversation"/>
+			<referrer name="CreateConversation"/>
+			<referrer name="ShowConversationList"/>
+			<referrer name="cmd_convs"/>
+			<referrer name="cmd_openconv"/>
+		</member>
+		<member name="F:ConversationData">
+			<referrer name="GetConversation"/>
+			<referrer name="CreateConversation"/>
+			<referrer name="SendMessage"/>
+			<referrer name="ShowConversationList"/>
+			<referrer name="cmd_convs"/>
 		</member>
 		<member name="F:F@o">
 			<library>y_iterate</library> 
@@ -4200,6 +4247,16 @@
 		<member name="F:MATCH_NAME_SIMILARITY">
 			<library>sscanf</library>  <remarks>  The <c>MATCH_NAME_SIMILARITY</c> option as a constant string so you can get  compile-time spell checking on the name.  Specify whether <c>u</c> etc should  use the ngrams-based similarity algorithm when searching for players matching  a given name.  I.e. enable or disable fuzzy name matching.  It will return  the best match found, but depending on the threshold that may still be very  different to what was typed.  <code>  SSCANF_Option(MATCH_NAME_SIMILARITY, 0.0); // Will find all names, regardless of input. <br />  SSCANF_Option(MATCH_NAME_SIMILARITY, 1.0); // Will find exact matches only. <br />  SSCANF_Option(MATCH_NAME_SIMILARITY, 0.5); // Will find names somewhat similar to the input. <br />  SSCANF_Option(MATCH_NAME_SIMILARITY, -1.0); // Disable fuzzy name matching.  </code>  </remarks> 
 		</member>
+		<member name="F:MessageCount">
+			<referrer name="SendMessage"/>
+			<referrer name="OpenConversation"/>
+			<referrer name="cmd_openconv"/>
+		</member>
+		<member name="F:MessageData">
+			<referrer name="SendMessage"/>
+			<referrer name="OpenConversation"/>
+			<referrer name="cmd_openconv"/>
+		</member>
 		<member name="F:NULL">
 			<library>y_shortvar</library>  <remarks>  The null string with <c>\1</c> as the first character.  This isn't a true  null string, that is the string of length 0, but this string is often used  instead due to a bug with passing empty strings to and from the VM.  Every  <c>IsNull</c> check ever has been designed to detect this version.  </remarks> 
 		</member>
@@ -4264,6 +4321,7 @@
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_god"/>
+			<referrer name="cmd_testtb"/>
 			<referrer name="OnPlayerRequestClass"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnPlayerUpdate"/>
@@ -4277,7 +4335,7 @@
 			<referrer name="HideNotificationSlot"/>
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="CreateSlotNotifyTD"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="OnAnimateNotifyFadeOut"/>
@@ -5057,6 +5115,8 @@
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_testtb"/>
+			<referrer name="cmd_msg"/>
+			<referrer name="cmd_openconv"/>
 		</member>
 		<member name="F:__file">
 		</member>
@@ -12643,7 +12703,7 @@
 		<member name="M:CalculateNotifyHeight" syntax="CalculateNotifyHeight(message[])">
 			<tagname value="Float"/>
 			<stacksize value="4"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<dependency name="operator-(Float:,_:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="operator*(Float:,Float:)"/>
@@ -13112,7 +13172,7 @@
 		</member>
 		<member name="M:ClearNotificationSlot" syntax="ClearNotificationSlot(playerid, slotid)">
 			<stacksize value="4"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<referrer name="OnAnimateNotifyFadeOut"/>
 			<referrer name="Timers_OnPlayerDisconnect"/>
 			<dependency name="KillTimer"/>
@@ -13947,6 +14007,20 @@
 			</param>
 			<library>omp_actor</library>  <summary>Create a static 'actor' in the world.  These 'actors' are like NPCs, however they have limited  functionality.  They do not take up server player slots.</summary>            <seealso name="DestroyActor" />  <seealso name="SetActorPos" />  <seealso name="GetActorPos" />  <seealso name="SetActorFacingAngle" />  <seealso name="GetActorFacingAngle" />  <seealso name="SetActorVirtualWorld" />  <seealso name="GetActorVirtualWorld" />  <seealso name="ApplyActorAnimation" />  <seealso name="ClearActorAnimations" />  <seealso name="GetPlayerCameraTargetActor" />  <seealso name="IsActorStreamedIn" />  <seealso name="SetActorHealth" />  <seealso name="GetActorHealth" />  <seealso name="SetActorInvulnerable" />  <seealso name="IsActorInvulnerable" />  <seealso name="IsValidActor" />  <seealso name="GetActorPoolSize" />  <seealso name="GetPlayerTargetActor" />  <seealso name="OnActorStreamIn" />  <seealso name="OnActorStreamOut" />  <seealso name="OnPlayerGiveDamageActor" />  <remarks>  Actors are completely separate from NPCs.  They do NOT use player IDs/slots on the server and CANNOT  be handled like NPCs.<br />  Actors are limited to <b><c>1000</c></b> (<b><c>MAX_ACTORS</c></b>).<br />  Actors can be pushed by vehicles, use a timer to put them back at their positions.<br />  </remarks>  <returns>  The created Actor ID (start at <b><c>0</c></b>).<br />  <b><c>INVALID_ACTOR_ID</c></b> (<b><c>65535</c></b>) If the actor limit (<b><c>1000</c></b>) is  reached.  </returns> 
 		</member>
+		<member name="M:CreateConversation" syntax="CreateConversation(player1, player2)">
+			<stacksize value="2"/>
+			<referrer name="SendMessage"/>
+			<dependency name="ConvID"/>
+			<dependency name="ConvPlayer1"/>
+			<dependency name="ConvPlayer2"/>
+			<dependency name="ConversationCount"/>
+			<dependency name="ConversationData"/>
+			<dependency name="ConversationData"/>
+			<param name="player1">
+			</param>
+			<param name="player2">
+			</param>
+		</member>
 		<member name="M:CreatePlayerTextDraw" syntax="CreatePlayerTextDraw(playerid, x, y, format[], ...)">
 			<tagname value="PlayerText"/>
 			<attribute name="native"/>
@@ -13976,7 +14050,7 @@
 		</member>
 		<member name="M:CreateSlotNotifyTD" syntax="CreateSlotNotifyTD(playerid, slotid)">
 			<stacksize value="12"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="CreatePlayerTextDraw"/>
 			<dependency name="PlayerNotifications"/>
@@ -14002,7 +14076,7 @@
 		</member>
 		<member name="M:CreateSlotNotifyTDDirect" syntax="CreateSlotNotifyTDDirect(playerid, slotid)">
 			<stacksize value="15"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<dependency name="operator-(Float:,Float:)"/>
 			<dependency name="operator+(Float:,Float:)"/>
 			<dependency name="operator/(Float:,Float:)"/>
@@ -15558,6 +15632,18 @@
 				The length of the string that should be stored
 			</param>
 			<library>omp_core</library>  <summary>Get the string value of a console variable.</summary>        <seealso name="GetConsoleVarAsInt" />  <seealso name="GetConsoleVarAsBool" />  <seealso name="GetConsoleVarAsFloat" />  <remarks>Type <b><c>varlist</c></b> in the server console to display a list of available console  variables and their types.</remarks>  <remarks>When filterscripts or plugins are specified as the cvar, this function only returns the  name of the first specified filterscript or plugin.</remarks>  <remarks>Using this function with anything other than a <b>string</b> (integer, boolean or float)  will cause your server to crash.  Using it with a nonexistent console variable will also cause your  server to crash.</remarks>  <returns>The length of the returned string. <b><c>0</c></b> if the specified console variable is  not a string or doesn't exist.</returns> 
+		</member>
+		<member name="M:GetConversation" syntax="GetConversation(player1, player2)">
+			<stacksize value="2"/>
+			<referrer name="SendMessage"/>
+			<dependency name="ConvPlayer1"/>
+			<dependency name="ConvPlayer2"/>
+			<dependency name="ConversationCount"/>
+			<dependency name="ConversationData"/>
+			<param name="player1">
+			</param>
+			<param name="player2">
+			</param>
 		</member>
 		<member name="M:GetCurrentFrame" syntax="GetCurrentFrame()">
 			<stacksize value="1"/>
@@ -18504,6 +18590,7 @@
 			<referrer name="cmd_gotoid"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="cmd_msg"/>
 			<referrer name="OnDialogResponse"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="AnimateTXThongBao"/>
@@ -21085,7 +21172,7 @@
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="NOTIFY_TYPE_SUCCESS"/>
-			<dependency name="ShowNotification"/>
+			<dependency name="SendClientNotification"/>
 			<param name="playerid">
 			</param>
 		</member>
@@ -21786,7 +21873,7 @@
 			<attribute name="public"/>
 			<stacksize value="136"/>
 			<dependency name="NOTIFY_TYPE_ERROR"/>
-			<dependency name="ShowNotification"/>
+			<dependency name="SendClientNotification"/>
 			<dependency name="format"/>
 			<param name="playerid">
 			</param>
@@ -22802,6 +22889,20 @@
 			</param>
 			<library>amx_assembly opcode</library>
 		</member>
+		<member name="M:OpenConversation" syntax="OpenConversation(playerid, conversationid)">
+			<stacksize value="6"/>
+			<dependency name="MessageCount"/>
+			<dependency name="MessageData"/>
+			<dependency name="MessageData"/>
+			<dependency name="MsgConversation"/>
+			<dependency name="MsgSender"/>
+			<dependency name="MsgText"/>
+			<dependency name="__printf"/>
+			<param name="playerid">
+			</param>
+			<param name="conversationid">
+			</param>
+		</member>
 		<member name="M:PAWNDOC" syntax="PAWNDOC()">
 			<stacksize value="3"/>
 			<automaton name="__PAWNDOC"/>
@@ -22911,7 +23012,7 @@
 		<member name="M:PlayerPlaySound" syntax="PlayerPlaySound(playerid, soundid, x, y, z)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
 			<param name="playerid">
 				The ID of the player for whom to play the sound
 			</param>
@@ -24536,6 +24637,8 @@
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
 			<referrer name="cmd_testtb"/>
+			<referrer name="cmd_msg"/>
+			<referrer name="cmd_openconv"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="file">
 				<paraminfo> [] </paraminfo>
@@ -24989,6 +25092,9 @@
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_delveh"/>
+			<referrer name="cmd_msg"/>
+			<referrer name="cmd_convs"/>
+			<referrer name="cmd_openconv"/>
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="ProcessTaiXiuResult"/>
@@ -25040,6 +25146,72 @@
 			<param name="color">
 			</param>
 			<param name="string">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:SendClientNotification" syntax="SendClientNotification(playerid, title[], message[], type, duration)">
+			<stacksize value="8"/>
+			<referrer name="cmd_testtb"/>
+			<referrer name="NotifyPlayerSpawn"/>
+			<referrer name="OnPlayerCommandPerformed"/>
+			<dependency name="CalculateNotifyHeight"/>
+			<dependency name="ClearNotificationSlot"/>
+			<dependency name="CreateSlotNotifyTD"/>
+			<dependency name="CreateSlotNotifyTDDirect"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerPlaySound"/>
+			<dependency name="format"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_Duration"/>
+			<dependency name="slot_Height"/>
+			<dependency name="slot_Message"/>
+			<dependency name="slot_Title"/>
+			<dependency name="slot_Type"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="title">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="message">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="type">
+				<paraminfo>e_NOTIFY_TYPE </paraminfo>
+			</param>
+			<param name="duration">
+			</param>
+		</member>
+		<member name="M:SendMessage" syntax="SendMessage(sender, receiver, text[])">
+			<stacksize value="10"/>
+			<referrer name="cmd_msg"/>
+			<dependency name="ConvLastMessage"/>
+			<dependency name="ConvLastTime"/>
+			<dependency name="ConversationData"/>
+			<dependency name="ConversationData"/>
+			<dependency name="CreateConversation"/>
+			<dependency name="GetConversation"/>
+			<dependency name="MessageCount"/>
+			<dependency name="MessageData"/>
+			<dependency name="MessageData"/>
+			<dependency name="MsgConversation"/>
+			<dependency name="MsgID"/>
+			<dependency name="MsgRead"/>
+			<dependency name="MsgReceiver"/>
+			<dependency name="MsgSender"/>
+			<dependency name="MsgText"/>
+			<dependency name="MsgTime"/>
+			<dependency name="format"/>
+			<dependency name="gettime"/>
+			<param name="sender">
+			</param>
+			<param name="receiver">
+			</param>
+			<param name="text">
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
@@ -26055,41 +26227,16 @@
 			</param>
 			<library>omp_vehicle</library>  <summary>Sets the 'virtual world' of a vehicle.  Players will only be able to see vehicles in their  own virtual world.</summary>      <seealso name="GetVehicleVirtualWorld" />  <seealso name="SetPlayerVirtualWorld" /> 
 		</member>
-		<member name="M:ShowNotification" syntax="ShowNotification(playerid, title[], message[], type, duration)">
-			<stacksize value="8"/>
-			<referrer name="cmd_testtb"/>
-			<referrer name="NotifyPlayerSpawn"/>
-			<referrer name="OnPlayerCommandPerformed"/>
-			<dependency name="CalculateNotifyHeight"/>
-			<dependency name="ClearNotificationSlot"/>
-			<dependency name="CreateSlotNotifyTD"/>
-			<dependency name="CreateSlotNotifyTDDirect"/>
-			<dependency name="NOTIFY_TYPE_ERROR"/>
-			<dependency name="NOTIFY_TYPE_SUCCESS"/>
-			<dependency name="NOTIFY_TYPE_WARNING"/>
-			<dependency name="PlayerNotifications"/>
-			<dependency name="PlayerNotifications"/>
-			<dependency name="PlayerPlaySound"/>
-			<dependency name="format"/>
-			<dependency name="slot_Active"/>
-			<dependency name="slot_Duration"/>
-			<dependency name="slot_Height"/>
-			<dependency name="slot_Message"/>
-			<dependency name="slot_Title"/>
-			<dependency name="slot_Type"/>
-			<dependency name="true"/>
+		<member name="M:ShowConversationList" syntax="ShowConversationList(playerid)">
+			<stacksize value="5"/>
+			<dependency name="ConvID"/>
+			<dependency name="ConvPlayer1"/>
+			<dependency name="ConvPlayer2"/>
+			<dependency name="ConversationCount"/>
+			<dependency name="ConversationData"/>
+			<dependency name="ConversationData"/>
+			<dependency name="__printf"/>
 			<param name="playerid">
-			</param>
-			<param name="title">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="message">
-				<paraminfo> [] </paraminfo>
-			</param>
-			<param name="type">
-				<paraminfo>e_NOTIFY_TYPE </paraminfo>
-			</param>
-			<param name="duration">
 			</param>
 		</member>
 		<member name="M:ShowPlayerDialog" syntax="ShowPlayerDialog(playerid, dialogid, style, title[], body[], button1[], button2[], ...)">
@@ -28363,6 +28510,8 @@
 			<referrer name="OnRuntimeError"/>
 			<referrer name="Iter_Debug_InternalC"/>
 			<referrer name="Iter_Debug_InternalD"/>
+			<referrer name="ShowConversationList"/>
+			<referrer name="OpenConversation"/>
 			<param name="format">
 				<paraminfo> [] </paraminfo>
 				The format string
@@ -28712,6 +28861,18 @@
 			<stacksize value="1"/>
 			<library>console</library>  <summary>Clear the screen.</summary>  <seealso name="clreol"/>  <return>This function always returns 0.</return>  <remarks>Clears the display and moves the cursor to the upper left corner.</remarks> 
 		</member>
+		<member name="M:cmd_convs" syntax="cmd_convs(playerid)">
+			<attribute name="public"/>
+			<stacksize value="137"/>
+			<dependency name="ConvPlayer1"/>
+			<dependency name="ConvPlayer2"/>
+			<dependency name="ConversationCount"/>
+			<dependency name="ConversationData"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="format"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:cmd_delveh" syntax="cmd_delveh(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="6"/>
@@ -28840,6 +29001,45 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:cmd_msg" syntax="cmd_msg(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="280"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="SendMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:cmd_openconv" syntax="cmd_openconv(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="211"/>
+			<dependency name="ConversationCount"/>
+			<dependency name="MessageCount"/>
+			<dependency name="MessageData"/>
+			<dependency name="MessageData"/>
+			<dependency name="MsgConversation"/>
+			<dependency name="MsgReceiver"/>
+			<dependency name="MsgSender"/>
+			<dependency name="MsgText"/>
+			<dependency name="MsgTime"/>
+			<dependency name="SSCANF__"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="__file"/>
+			<dependency name="__line"/>
+			<dependency name="format"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:cmd_setadmin" syntax="cmd_setadmin(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="1034"/>
@@ -28919,11 +29119,13 @@
 			<dependency name="NOTIFY_TYPE_INFO"/>
 			<dependency name="NOTIFY_TYPE_SUCCESS"/>
 			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerInfo"/>
 			<dependency name="SSCANF__"/>
 			<dependency name="SendClientMessageEx"/>
-			<dependency name="ShowNotification"/>
+			<dependency name="SendClientNotification"/>
 			<dependency name="__file"/>
 			<dependency name="__line"/>
+			<dependency name="pAdmin"/>
 			<param name="playerid">
 			</param>
 			<param name="params">
@@ -29426,12 +29628,16 @@
 			<referrer name="fautocleanup"/>
 			<referrer name="IntToIP"/>
 			<referrer name="CensorIntIP"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="SendClientNotification"/>
+			<referrer name="SendMessage"/>
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_goto"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_givegun"/>
 			<referrer name="cmd_setskin"/>
+			<referrer name="cmd_msg"/>
+			<referrer name="cmd_convs"/>
+			<referrer name="cmd_openconv"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
 			<referrer name="OnPlayerCommandPerformed"/>
@@ -29718,6 +29924,7 @@
 			<referrer name="ScriptInit_GetStartTime"/>
 			<referrer name="ScriptInit_PurgeTemporaries"/>
 			<referrer name="fautocleanup"/>
+			<referrer name="SendMessage"/>
 			<param name="hour">
 				<paraminfo> &amp; </paraminfo>
 				The variable to store the hour in, passed by reference (optional=<b><c>0</c></b>)

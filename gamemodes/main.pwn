@@ -9,10 +9,10 @@
 
 // Main
 #include "includes/modules/colors.inc"
-#include "includes/modules/notify.inc"
 #include "includes/modules/defines.inc"
 #include "includes/modules/dialogs.inc"
 #include "includes/modules/vars.inc"
+#include "includes/modules/notify.inc"
 #include "includes/modules/sql.inc"
 #include "includes/modules/funcs.inc"
 #include "includes/modules/task.inc"

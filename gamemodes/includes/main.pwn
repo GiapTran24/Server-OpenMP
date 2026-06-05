@@ -35,7 +35,7 @@ public OnPlayerSpawn(playerid)
 forward NotifyPlayerSpawn(playerid);
 public NotifyPlayerSpawn(playerid)
 {
-    ShowNotification(playerid, "Welcome", "Chao mung ban den voi may chu!", NOTIFY_TYPE_SUCCESS, 5000);
+    SendClientNotification(playerid, "HE THONG", "Chao mung ban den voi may chu!", NOTIFY_TYPE_SUCCESS, 5000);
     return 1;
 }
 
@@ -433,7 +433,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
     if(!success)  {
 		new string[128];
 		format(string, sizeof(string), "Lenh %s khong ton tai !", cmdtext);
-		return ShowNotification(playerid, "He Thong", string, NOTIFY_TYPE_ERROR, 3000);
+		return SendClientNotification(playerid, "He Thong", string, NOTIFY_TYPE_ERROR, 3000);
 	} 
     return 1;
 }
