@@ -280,6 +280,10 @@ CMD:god(playerid, params[]) {
 }
 
 CMD:testtb(playerid, params[]) {
+    if(PlayerInfo[playerid][pAdmin] < 1) {
+        SendClientMessageEx(playerid, COLOR_DANGER, "Ban khong duoc phep su dung lenh nay.");
+        return 1;
+    }
     new type;
     if(sscanf(params, "d", type)) return SendClientMessageEx(playerid, COLOR_GREY, "SU DUNG: /testtb [type]\n0: Success\n1: Error\n2: Warning\n3: Info");
     switch(type)

@@ -2079,27 +2079,48 @@
 			<referrer name="_@anglemode"/>
 			<library>float</library> 
 		</member>
-		<member name="T:e_PLAYER_NOTIFICATION" value="7">
-			<tagname value="e_PLAYER_NOTIFICATION"/>
-			<member name="C:nt_IsShowing" value="0">
+		<member name="T:e_NOTIFY_SLOT_DATA" value="173">
+			<tagname value="e_NOTIFY_SLOT_DATA"/>
+			<member name="C:slot_Active" value="0">
 				<tagname value="bool"/>
 			</member>
-			<member name="C:nt_Text" value="1">
-				<tagname value="Text3D"/>
+			<member name="C:slot_Title" value="1">
+				<size value="32"/>
 			</member>
-			<member name="C:nt_BG" value="2">
+			<member name="C:slot_Message" value="33">
+				<size value="128"/>
+			</member>
+			<member name="C:slot_Type" value="161">
+				<tagname value="e_NOTIFY_TYPE"/>
+			</member>
+			<member name="C:slot_Duration" value="162">
+			</member>
+			<member name="C:slot_Height" value="163">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:slot_CurrentHeight" value="164">
+				<tagname value="Float"/>
+			</member>
+			<member name="C:slot_Alpha" value="165">
+			</member>
+			<member name="C:slot_IsFadingOut" value="166">
+				<tagname value="bool"/>
+			</member>
+			<member name="C:slot_BG" value="167">
 				<tagname value="PlayerText"/>
 			</member>
-			<member name="C:nt_Title" value="3">
+			<member name="C:slot_TitleTD" value="168">
 				<tagname value="PlayerText"/>
 			</member>
-			<member name="C:nt_Body" value="4">
+			<member name="C:slot_BodyTD" value="169">
 				<tagname value="PlayerText"/>
 			</member>
-			<member name="C:nt_Progress" value="5">
+			<member name="C:slot_Progress" value="170">
 				<tagname value="PlayerText"/>
 			</member>
-			<member name="C:nt_Timer" value="6">
+			<member name="C:slot_Timer" value="171">
+			</member>
+			<member name="C:slot_AnimTimer" value="172">
 			</member>
 		</member>
 		<member name="T:exit_order" value="2">
@@ -3193,8 +3214,8 @@
 			<referrer name="OnRconLoginAttempt"/>
 			<referrer name="Iter_Func@VehicleOccupant"/>
 			<referrer name="_Timer_D"/>
-			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="SaveAllAccounts"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="TaiXiuUpdate"/>
@@ -3501,9 +3522,11 @@
 			<referrer name="Iter_Func@VehiclePassenger"/>
 			<referrer name="Iter_Func@VehicleDriver"/>
 			<referrer name="Yield_OnCodeInit"/>
+			<referrer name="ClearNotificationSlot"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="ShowNotification"/>
-			<referrer name="HidePlayerNotification"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="ShowTXThongBao"/>
@@ -3596,9 +3619,11 @@
 			<referrer name="Iter_Func@VehicleDriver"/>
 			<referrer name="_Timer_I"/>
 			<referrer name="_Timer_D"/>
+			<referrer name="HideNotificationSlot"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="ShowNotification"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
@@ -3811,9 +3836,9 @@
 			<library>amx_assembly asm</library>
 		</member>
 		<member name="F:AdminLevels">
-			<referrer name="GetAdminName"/>
 			<referrer name="cmd_setadmin"/>
 			<referrer name="OnDialogResponse"/>
+			<referrer name="GetAdminName"/>
 		</member>
 		<member name="F:BaoTriTaiXiuAD">
 			<referrer name="TaiXiuUpdate"/>
@@ -4073,8 +4098,8 @@
 			<referrer name="OnRconLoginAttempt"/>
 			<referrer name="ScriptInit_OnPlayerDisconnect"/>
 			<referrer name="_Timer_D"/>
-			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="SaveAllAccounts"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="TaiXiuUpdate"/>
@@ -4233,8 +4258,6 @@
 			<referrer name="OnAccountRegister"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="TeleportPlayerToLocation"/>
-			<referrer name="GetPlayerCash"/>
-			<referrer name="GivePlayerCash"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_gotoid"/>
@@ -4245,11 +4268,19 @@
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnPlayerUpdate"/>
 			<referrer name="OnDialogResponse"/>
+			<referrer name="GetPlayerCash"/>
+			<referrer name="GivePlayerCash"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
 		</member>
-		<member name="F:PlayerNotification">
+		<member name="F:PlayerNotifications">
+			<referrer name="ClearNotificationSlot"/>
+			<referrer name="HideNotificationSlot"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
 			<referrer name="ShowNotification"/>
-			<referrer name="HidePlayerNotification"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyZoom"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
 		</member>
 		<member name="F:Q@">
 			<referrer name="SetTimerExAddr"/>
@@ -6096,6 +6127,7 @@
 		<member name="M:operator-(Float:,_:)" syntax="operator-(Float:,_:)(__oper1, __oper2)">
 			<tagname value="Float"/>
 			<stacksize value="4"/>
+			<referrer name="CalculateNotifyHeight"/>
 			<dependency name="float"/>
 			<dependency name="floatsub"/>
 			<param name="__oper1">
@@ -6205,7 +6237,8 @@
 			<referrer name="RandomPointsInCircleSampled"/>
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="BiGramSimilarity"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -6235,7 +6268,11 @@
 			<referrer name="RandomPointInCircleSampled"/>
 			<referrer name="RandomPointInCircleCentred"/>
 			<referrer name="RandomPointInCircleDistributed"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CalculateNotifyHeight"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="oper1">
@@ -6255,7 +6292,8 @@
 			<referrer name="InterpolateColourSRGB"/>
 			<referrer name="RandomFloatMinMax"/>
 			<referrer name="RandomFloatMax"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="OnAnimateNotifyZoom"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -6285,6 +6323,7 @@
 			<referrer name="RandomPointInCircleDistributed"/>
 			<referrer name="BiGramSimilarity"/>
 			<referrer name="Vehicle_Speed"/>
+			<referrer name="CalculateNotifyHeight"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
 			</param>
@@ -6655,6 +6694,7 @@
 			<referrer name="InterpolateColourLinear"/>
 			<referrer name="InterpolateColourGamma"/>
 			<referrer name="InterpolateColourSRGB"/>
+			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="AnimateTXThongBao"/>
 			<dependency name="floatcmp"/>
 			<param name="__oper1">
@@ -12600,6 +12640,18 @@
 			</param>
 			<remarks>  Creates fake constants that Pawndoc comments can be attached to in the first  compilation phase, before the real macros are created.  Macros can't have  documentation comments, but why not?  They need documenting...  <p/>  Used internally as <c>YSI_CONST_PAWNDOC</c>.  <p/>  This creates a static stock of the same name to attach the documentation to,  before actually defining the macro.  <p/>  <code>  #if defined MACRO_NAME                                                   <br /><indent />  // `#define MACRO_NAME` exists previously, don't document it here.   <br /><indent />  _FIXES_HIDE_PAWNDOC(SIMILAR_NAME);                                   <br />  #else                                                                    <br /><indent />  // Doesn't exist.  Document it and define it.                        <br /><indent />  _FIXES_CONST_PAWNDOC(MACRO_NAME);                                    <br /><indent />  #define MACRO_NAME(%0) (%0)                                          <br />  #endif  </code>  <br />  </remarks> 
 		</member>
+		<member name="M:CalculateNotifyHeight" syntax="CalculateNotifyHeight(message[])">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<referrer name="ShowNotification"/>
+			<dependency name="operator-(Float:,_:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="strlen"/>
+			<param name="message">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:Call" syntax="Call(address, auto_pop)">
 			<stacksize value="5"/>
 			<dependency name="__cip"/>
@@ -13057,6 +13109,30 @@
 				The offset to start from.
 			</param>
 			<library>y_utils - strings</library>        <returns>  Fail - -1, Success - pos  </returns> 
+		</member>
+		<member name="M:ClearNotificationSlot" syntax="ClearNotificationSlot(playerid, slotid)">
+			<stacksize value="4"/>
+			<referrer name="ShowNotification"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
+			<referrer name="Timers_OnPlayerDisconnect"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawDestroy"/>
+			<dependency name="false"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_Alpha"/>
+			<dependency name="slot_AnimTimer"/>
+			<dependency name="slot_BG"/>
+			<dependency name="slot_BodyTD"/>
+			<dependency name="slot_IsFadingOut"/>
+			<dependency name="slot_Progress"/>
+			<dependency name="slot_Timer"/>
+			<dependency name="slot_TitleTD"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
 		</member>
 		<member name="M:CodeScanAddJumpTarget" syntax="CodeScanAddJumpTarget(cip, target, stk, hea, jumpTargets[], num)">
 			<stacksize value="4"/>
@@ -13874,7 +13950,9 @@
 		<member name="M:CreatePlayerTextDraw" syntax="CreatePlayerTextDraw(playerid, x, y, format[], ...)">
 			<tagname value="PlayerText"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player to create the textdraw for
@@ -13895,6 +13973,71 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_textdraw</library>  <summary>Creates a textdraw for a single player.  This can be used as a way around the <a href="#TextDrawCreate">global</a>  text-draw limit.</summary>          <seealso name="PlayerTextDrawDestroy" />  <seealso name="PlayerTextDrawColour" />  <seealso name="PlayerTextDrawBoxColour" />  <seealso name="PlayerTextDrawBackgroundColour" />  <seealso name="PlayerTextDrawAlignment" />  <seealso name="PlayerTextDrawFont" />  <seealso name="PlayerTextDrawLetterSize" />  <seealso name="PlayerTextDrawTextSize" />  <seealso name="PlayerTextDrawSetOutline" />  <seealso name="PlayerTextDrawSetShadow" />  <seealso name="PlayerTextDrawSetProportional" />  <seealso name="PlayerTextDrawUseBox" />  <seealso name="PlayerTextDrawSetString" />  <seealso name="PlayerTextDrawShow" />  <seealso name="PlayerTextDrawHide" />  <remarks>  If you choose values for y that are less than 1, the first text row will be invisible and only  the shadow is visible.<br />  If part of the text is off-screen, the colour of the text will not show, only the shadow (if enabled)  will. <br />  </remarks>  <remarks>  Maximum length of textdraw is <b><c>800</c></b> characters.<br />  If you use colour codes (such as <b><c>~R~ ~G~</c></b>) beyond 255th character the legacy (SA:MP) client  will  crash trying to display the textdraw. <br />  </remarks>  <remarks>Keyboard key mapping codes (such as <b><c>~k~~VEHICLE_ENTER_EXIT~</c></b> Doesn't work beyond  255th character. </remarks>  <remarks>  The x, y coordinate is the top left coordinate for the text draw area based on a <b><c>640x480</c></b>  "canvas" (irrespective of screen resolution).  If you plan on using <a href="#PlayerTextDrawAlignment">PlayerTextDrawAlignment</a>  with alignment <b><c>3</c></b> (right), the x, y coordinate is the top right coordinate for the text  draw.<br />  This function merely CREATES the textdraw, you must use <a href="#PlayerTextDrawShow">PlayerTextDrawShow</a>  to show it to a player.<br />  It is recommended to use WHOLE numbers instead of decimal positions when creating player textdraws  to ensure resolution friendly design. <br />  </remarks>  <remarks>Player-textdraws are automatically destroyed when a player disconnects.</remarks>  <returns>The ID of the created textdraw.</returns> 
+		</member>
+		<member name="M:CreateSlotNotifyTD" syntax="CreateSlotNotifyTD(playerid, slotid)">
+			<stacksize value="12"/>
+			<referrer name="ShowNotification"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="PlayerTextDrawUseBox"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="slot_Alpha"/>
+			<dependency name="slot_AnimTimer"/>
+			<dependency name="slot_BG"/>
+			<dependency name="slot_CurrentHeight"/>
+			<dependency name="slot_Height"/>
+			<dependency name="slot_IsFadingOut"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
+		</member>
+		<member name="M:CreateSlotNotifyTDDirect" syntax="CreateSlotNotifyTDDirect(playerid, slotid)">
+			<stacksize value="15"/>
+			<referrer name="ShowNotification"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="PlayerTextDrawUseBox"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="slot_Alpha"/>
+			<dependency name="slot_BG"/>
+			<dependency name="slot_BodyTD"/>
+			<dependency name="slot_Duration"/>
+			<dependency name="slot_Height"/>
+			<dependency name="slot_IsFadingOut"/>
+			<dependency name="slot_Message"/>
+			<dependency name="slot_Progress"/>
+			<dependency name="slot_Timer"/>
+			<dependency name="slot_Title"/>
+			<dependency name="slot_TitleTD"/>
+			<dependency name="slot_Type"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
 		</member>
 		<member name="M:CreateTaiXiuTD" syntax="CreateTaiXiuTD(playerid)">
 			<stacksize value="6"/>
@@ -15391,6 +15534,15 @@
 			<dependency name="__frm"/>
 			<dependency name="cellbytes"/>
 		</member>
+		<member name="M:GetColorWithAlpha" syntax="GetColorWithAlpha(base_color, alpha_val)">
+			<stacksize value="1"/>
+			<referrer name="OnAnimateNotifyZoom"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
+			<param name="base_color">
+			</param>
+			<param name="alpha_val">
+			</param>
+		</member>
 		<member name="M:GetConsoleVarAsString" syntax="GetConsoleVarAsString(cvar[], buffer[], len)">
 			<attribute name="native"/>
 			<referrer name="YVers_PrintHeader"/>
@@ -16710,8 +16862,8 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="SetPlayerSpawn"/>
-			<referrer name="GivePlayerCash"/>
 			<referrer name="OnPlayerUpdate"/>
+			<referrer name="GivePlayerCash"/>
 			<param name="playerid">
 				The ID of the player to give money to or take money from
 			</param>
@@ -16831,22 +16983,21 @@
 			</param>
 			<library>y_utils - conversions</library>  <param name="string">String to convert to a number.</param>  <returns>  value of the passed hex string.  </returns>  <remarks>  Now stops on invalid characters.  </remarks> 
 		</member>
-		<member name="M:HidePlayerNotification" syntax="HidePlayerNotification(playerid)">
+		<member name="M:HideNotificationSlot" syntax="HideNotificationSlot(playerid, slotid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
-			<referrer name="ShowNotification"/>
+			<stacksize value="8"/>
 			<dependency name="KillTimer"/>
-			<dependency name="PlayerNotification"/>
-			<dependency name="PlayerNotification"/>
-			<dependency name="PlayerTextDrawDestroy"/>
-			<dependency name="false"/>
-			<dependency name="nt_BG"/>
-			<dependency name="nt_Body"/>
-			<dependency name="nt_IsShowing"/>
-			<dependency name="nt_Progress"/>
-			<dependency name="nt_Timer"/>
-			<dependency name="nt_Title"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_AnimTimer"/>
+			<dependency name="slot_IsFadingOut"/>
+			<dependency name="slot_Timer"/>
+			<dependency name="true"/>
 			<param name="playerid">
+			</param>
+			<param name="slotid">
 			</param>
 		</member>
 		<member name="M:HideTaixiuDisplay" syntax="HideTaixiuDisplay(playerid)">
@@ -20385,7 +20536,9 @@
 			<referrer name="_Timer_I"/>
 			<referrer name="_Timer_D"/>
 			<referrer name="_Timer_F"/>
-			<referrer name="HidePlayerNotification"/>
+			<referrer name="ClearNotificationSlot"/>
+			<referrer name="HideNotificationSlot"/>
+			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="ShowTXThongBao"/>
 			<param name="timerid">
@@ -21125,6 +21278,56 @@
 			<param name="playerid">
 			</param>
 		</member>
+		<member name="M:OnAnimateNotifyFadeOut" syntax="OnAnimateNotifyFadeOut(playerid, slotid)">
+			<attribute name="public"/>
+			<stacksize value="11"/>
+			<dependency name="ClearNotificationSlot"/>
+			<dependency name="GetColorWithAlpha"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_Alpha"/>
+			<dependency name="slot_BG"/>
+			<dependency name="slot_BodyTD"/>
+			<dependency name="slot_Progress"/>
+			<dependency name="slot_TitleTD"/>
+			<dependency name="slot_Type"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
+		</member>
+		<member name="M:OnAnimateNotifyZoom" syntax="OnAnimateNotifyZoom(playerid, slotid)">
+			<attribute name="public"/>
+			<stacksize value="9"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator/(Float:,Float:)"/>
+			<dependency name="operator&gt;=(Float:,Float:)"/>
+			<dependency name="GetColorWithAlpha"/>
+			<dependency name="KillTimer"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="ShowSlotTextAndBar"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_Alpha"/>
+			<dependency name="slot_AnimTimer"/>
+			<dependency name="slot_BG"/>
+			<dependency name="slot_CurrentHeight"/>
+			<dependency name="slot_Height"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
+		</member>
 		<member name="M:OnCachedInit" syntax="OnCachedInit()">
 			<attribute name="public"/>
 			<stacksize value="3"/>
@@ -21152,14 +21355,13 @@
 		</member>
 		<member name="M:OnDialogResponse" syntax="OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="289"/>
+			<stacksize value="264"/>
 			<dependency name="AdminLevels"/>
 			<dependency name="AdminLevels"/>
 			<dependency name="DIALOG_GOTO"/>
 			<dependency name="DIALOG_LOGIN"/>
 			<dependency name="DIALOG_REGISTER"/>
 			<dependency name="DIALOG_SETADMIN"/>
-			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="IsPlayerConnected"/>
 			<dependency name="Kick"/>
@@ -21581,7 +21783,11 @@
 			<summary>This callback is called when a player clicks on a textdraw or cancels the select mode with  the Escape key.</summary>      <seealso name="OnPlayerClickPlayerTextDraw" />  <seealso name="OnPlayerClickPlayer" />  <remarks>The clickable area is defined by <a href="#TextDrawTextSize">TextDrawTextSize</a>.  The  x and y parameters passed to that function must not be zero or negative. </remarks>  <remarks>Do not use <a href="#CancelSelectTextDraw">CancelSelectTextDraw</a> unconditionally within  this callback.  This results in an infinite loop. </remarks>  <returns>  Returning <b><c>1</c></b> in this callback will prevent it being called in other scripts.  This  should be used to signal that the textdraw on which they clicked was 'found' and no further processing  is needed.  You should return <b><c>0</c></b> if the textdraw on which they clicked wasn't found,  just like in <a href="#OnPlayerCommandText">OnPlayerCommandText</a>.<br />  It is always called first in filterscripts so returning <b><c>1</c></b> there also blocks other  scripts from seeing it.  </returns> 
 		</member>
 		<member name="M:OnPlayerCommandPerformed" syntax="OnPlayerCommandPerformed(playerid, cmdtext[], success)">
-			<stacksize value="1"/>
+			<attribute name="public"/>
+			<stacksize value="136"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="ShowNotification"/>
+			<dependency name="format"/>
 			<param name="playerid">
 			</param>
 			<param name="cmdtext">
@@ -22099,8 +22305,7 @@
 		</member>
 		<member name="M:OnPlayerSpawn" syntax="OnPlayerSpawn(playerid)">
 			<attribute name="public"/>
-			<stacksize value="168"/>
-			<dependency name="GetAdminName"/>
+			<stacksize value="135"/>
 			<dependency name="GetAdminName"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -22703,6 +22908,30 @@
 			<attribute name="public"/>
 			<stacksize value="1"/>
 		</member>
+		<member name="M:PlayerPlaySound" syntax="PlayerPlaySound(playerid, soundid, x, y, z)">
+			<tagname value="bool"/>
+			<attribute name="native"/>
+			<referrer name="ShowNotification"/>
+			<param name="playerid">
+				The ID of the player for whom to play the sound
+			</param>
+			<param name="soundid">
+				The sound to play
+			</param>
+			<param name="x">
+				<paraminfo>Float </paraminfo>
+				x coordinate for the sound to play at. (<b><c>optional=0.0</c></b>)
+			</param>
+			<param name="y">
+				<paraminfo>Float </paraminfo>
+				y coordinate for the sound to play at. (<b><c>optional=0.0</c></b>)
+			</param>
+			<param name="z">
+				<paraminfo>Float </paraminfo>
+				z coordinate for the sound to play at. (<b><c>optional=0.0</c></b>)
+			</param>
+			<library>omp_player</library>  <summary>Plays the specified sound for a player.</summary>            <seealso name="PlayCrimeReportForPlayer" />  <seealso name="PlayAudioStreamForPlayer" />  <seealso name="StopAudioStreamForPlayer" />  <remarks>Only use the coordinates if you want the sound to be played at a certain position. By  default, the sound will be played with no position at a certain position.</remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.  </returns> 
+		</member>
 		<member name="M:PlayerTextDrawAlignment" syntax="PlayerTextDrawAlignment(playerid, textid, alignment)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
@@ -22739,7 +22968,11 @@
 		<member name="M:PlayerTextDrawBoxColour" syntax="PlayerTextDrawBoxColour(playerid, textid, boxColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyZoom"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to set the box colour of
@@ -22756,7 +22989,9 @@
 		<member name="M:PlayerTextDrawColour" syntax="PlayerTextDrawColour(playerid, textid, textColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="TaiXiu_SetHistory"/>
 			<referrer name="TaiXiu_UpdateResult"/>
@@ -22775,7 +23010,7 @@
 		<member name="M:PlayerTextDrawDestroy" syntax="PlayerTextDrawDestroy(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="HidePlayerNotification"/>
+			<referrer name="ClearNotificationSlot"/>
 			<referrer name="DestroyTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player who's player-textdraw to destroy
@@ -22789,7 +23024,8 @@
 		<member name="M:PlayerTextDrawFont" syntax="PlayerTextDrawFont(playerid, textid, font)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to change the font of
@@ -22823,7 +23059,10 @@
 		<member name="M:PlayerTextDrawLetterSize" syntax="PlayerTextDrawLetterSize(playerid, textid, width, height)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="playerid">
@@ -22862,7 +23101,8 @@
 		<member name="M:PlayerTextDrawSetProportional" syntax="PlayerTextDrawSetProportional(playerid, textid, proportional)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the proportionality of
@@ -22940,7 +23180,11 @@
 		<member name="M:PlayerTextDrawShow" syntax="PlayerTextDrawShow(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="OnAnimateNotifyZoom"/>
+			<referrer name="OnAnimateNotifyFadeOut"/>
 			<referrer name="ShowTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="TaiXiu_SetHistory"/>
@@ -22958,7 +23202,9 @@
 		<member name="M:PlayerTextDrawTextSize" syntax="PlayerTextDrawTextSize(playerid, textid, width, height)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the size of
@@ -22980,7 +23226,9 @@
 		<member name="M:PlayerTextDrawUseBox" syntax="PlayerTextDrawUseBox(playerid, textid, boxEnabled)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to toggle the box of
@@ -23820,8 +24068,8 @@
 		<member name="M:ResetPlayerMoney" syntax="ResetPlayerMoney(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="GivePlayerCash"/>
 			<referrer name="OnPlayerUpdate"/>
+			<referrer name="GivePlayerCash"/>
 			<param name="playerid">
 				The ID of the player to reset the money of
 			</param>
@@ -24738,11 +24986,11 @@
 		<member name="M:SendClientMessage" syntax="SendClientMessage(playerid, colour, format[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
-			<referrer name="SendClientMessageEx"/>
-			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
 			<referrer name="cmd_delveh"/>
+			<referrer name="SendClientMessageEx"/>
+			<referrer name="SendClientMessageToAllEx"/>
 			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
 			<referrer name="cmd_taixiu"/>
@@ -25686,7 +25934,10 @@
 			<referrer name="SetTimerExAddr"/>
 			<referrer name="Yield_OnCodeInit"/>
 			<referrer name="_Timer_D"/>
-			<referrer name="ShowNotification"/>
+			<referrer name="HideNotificationSlot"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="CreateSlotNotifyTD"/>
+			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="ShowTXThongBao"/>
 			<param name="functionName">
@@ -25805,35 +26056,27 @@
 			<library>omp_vehicle</library>  <summary>Sets the 'virtual world' of a vehicle.  Players will only be able to see vehicles in their  own virtual world.</summary>      <seealso name="GetVehicleVirtualWorld" />  <seealso name="SetPlayerVirtualWorld" /> 
 		</member>
 		<member name="M:ShowNotification" syntax="ShowNotification(playerid, title[], message[], type, duration)">
-			<stacksize value="13"/>
+			<stacksize value="8"/>
 			<referrer name="cmd_testtb"/>
 			<referrer name="NotifyPlayerSpawn"/>
-			<dependency name="operator-(Float:,Float:)"/>
-			<dependency name="operator+(Float:,Float:)"/>
-			<dependency name="operator/(Float:,Float:)"/>
-			<dependency name="CreatePlayerTextDraw"/>
-			<dependency name="HidePlayerNotification"/>
+			<referrer name="OnPlayerCommandPerformed"/>
+			<dependency name="CalculateNotifyHeight"/>
+			<dependency name="ClearNotificationSlot"/>
+			<dependency name="CreateSlotNotifyTD"/>
+			<dependency name="CreateSlotNotifyTDDirect"/>
 			<dependency name="NOTIFY_TYPE_ERROR"/>
 			<dependency name="NOTIFY_TYPE_SUCCESS"/>
 			<dependency name="NOTIFY_TYPE_WARNING"/>
-			<dependency name="PlayerNotification"/>
-			<dependency name="PlayerNotification"/>
-			<dependency name="PlayerTextDrawBoxColour"/>
-			<dependency name="PlayerTextDrawColour"/>
-			<dependency name="PlayerTextDrawFont"/>
-			<dependency name="PlayerTextDrawLetterSize"/>
-			<dependency name="PlayerTextDrawSetProportional"/>
-			<dependency name="PlayerTextDrawShow"/>
-			<dependency name="PlayerTextDrawTextSize"/>
-			<dependency name="PlayerTextDrawUseBox"/>
-			<dependency name="SetTimerEx"/>
-			<dependency name="false"/>
-			<dependency name="nt_BG"/>
-			<dependency name="nt_Body"/>
-			<dependency name="nt_IsShowing"/>
-			<dependency name="nt_Progress"/>
-			<dependency name="nt_Timer"/>
-			<dependency name="nt_Title"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerPlaySound"/>
+			<dependency name="format"/>
+			<dependency name="slot_Active"/>
+			<dependency name="slot_Duration"/>
+			<dependency name="slot_Height"/>
+			<dependency name="slot_Message"/>
+			<dependency name="slot_Title"/>
+			<dependency name="slot_Type"/>
 			<dependency name="true"/>
 			<param name="playerid">
 			</param>
@@ -25889,6 +26132,46 @@
 				<paraminfo> {Bit,Bitmap,XML,XMLEntry,Group,INI,Language,Style,DB,DBResult,Menu,Text,PlayerText,Text3D,PlayerText3D,File,Float,CUSTOM_TAG_TYPES,_} </paraminfo>
 			</param>
 			<library>omp_dialog</library>  <summary>Shows the player a synchronous (only one at a time) dialog box.</summary>                <seealso name="TextDrawShowForPlayer" />  <seealso name="OnDialogResponse" />  <remarks>Use colour embedding for multiple colours in the text. </remarks>  <remarks>Using <b><c>-1</c></b> as dialogid closes all dialogs currently shown on the client's screen.  </remarks>  <returns>  <b><c>1</c></b>: The function executed successfully.<br />  <b><c>0</c></b>: The function failed to execute.  This means the player is not connected.<br />  </returns> 
+		</member>
+		<member name="M:ShowSlotTextAndBar" syntax="ShowSlotTextAndBar(playerid, slotid, posY, height)">
+			<stacksize value="12"/>
+			<referrer name="OnAnimateNotifyZoom"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="NOTIFY_TYPE_ERROR"/>
+			<dependency name="NOTIFY_TYPE_SUCCESS"/>
+			<dependency name="NOTIFY_TYPE_WARNING"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerNotifications"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="PlayerTextDrawUseBox"/>
+			<dependency name="SetTimerEx"/>
+			<dependency name="false"/>
+			<dependency name="slot_BodyTD"/>
+			<dependency name="slot_Duration"/>
+			<dependency name="slot_Message"/>
+			<dependency name="slot_Progress"/>
+			<dependency name="slot_Timer"/>
+			<dependency name="slot_Title"/>
+			<dependency name="slot_TitleTD"/>
+			<dependency name="slot_Type"/>
+			<param name="playerid">
+			</param>
+			<param name="slotid">
+			</param>
+			<param name="posY">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="height">
+				<paraminfo>Float </paraminfo>
+			</param>
 		</member>
 		<member name="M:ShowTXThongBao" syntax="ShowTXThongBao(playerid)">
 			<stacksize value="7"/>
@@ -26487,8 +26770,9 @@
 		</member>
 		<member name="M:Timers_OnPlayerDisconnect" syntax="Timers_OnPlayerDisconnect(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="5"/>
 			<dependency name="Account_Save"/>
+			<dependency name="ClearNotificationSlot"/>
 			<param name="playerid">
 			</param>
 			<param name="reason">
@@ -28459,8 +28743,7 @@
 		</member>
 		<member name="M:cmd_givegun" syntax="cmd_givegun(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="163"/>
-			<dependency name="GetPlayerNameEx"/>
+			<stacksize value="140"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GivePlayerWeapon"/>
 			<dependency name="IsPlayerConnected"/>
@@ -28580,8 +28863,7 @@
 		</member>
 		<member name="M:cmd_setskin" syntax="cmd_setskin(playerid, params[])">
 			<attribute name="public"/>
-			<stacksize value="163"/>
-			<dependency name="GetPlayerNameEx"/>
+			<stacksize value="138"/>
 			<dependency name="GetPlayerNameEx"/>
 			<dependency name="GetPlayerSkin"/>
 			<dependency name="IsInvalidSkin"/>
@@ -29144,7 +29426,7 @@
 			<referrer name="fautocleanup"/>
 			<referrer name="IntToIP"/>
 			<referrer name="CensorIntIP"/>
-			<referrer name="GetAdminName"/>
+			<referrer name="ShowNotification"/>
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_goto"/>
 			<referrer name="cmd_veh"/>
@@ -29152,6 +29434,8 @@
 			<referrer name="cmd_setskin"/>
 			<referrer name="OnPlayerSpawn"/>
 			<referrer name="OnDialogResponse"/>
+			<referrer name="OnPlayerCommandPerformed"/>
+			<referrer name="GetAdminName"/>
 			<referrer name="TaiXiu_SetTop"/>
 			<referrer name="TaiXiu_UpdateMainInfo"/>
 			<referrer name="TaiXiu_UpdateConfig"/>
@@ -30312,6 +30596,7 @@
 			<referrer name="Malloc_SetS"/>
 			<referrer name="Malloc_SetVAS"/>
 			<referrer name="_Timer_S"/>
+			<referrer name="CalculateNotifyHeight"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to get the length of

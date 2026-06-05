@@ -7,6 +7,8 @@ public OnPlayerConnect(playerid)
 public OnPlayerDisconnect(playerid, reason)
 {
     Account_Save(playerid);
+    ClearNotificationSlot(playerid, 0);
+    ClearNotificationSlot(playerid, 1);
 	return 1;
 }
 
@@ -25,7 +27,7 @@ public OnPlayerSpawn(playerid)
             format(string, sizeof(string), "[AD] Ban dang dang nhap voi tai khoan {FF0000}%s", GetAdminName(PlayerInfo[playerid][pAdmin]));
         }
         SendClientMessageEx(playerid, COLOR_SUCCESS, string);
-        SetTimerEx("NotifyPlayerSpawn", 1500, false, "d", playerid);
+        SetTimerEx("NotifyPlayerSpawn", 1000, false, "d", playerid);
         gLoggedIn[playerid] = false;
     }
 	return 1;
@@ -424,4 +426,74 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
 public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 {
 	return 1;
+}
+
+public OnPlayerCommandPerformed(playerid, cmdtext[], success)
+{
+    if(!success)  {
+		new string[128];
+		format(string, sizeof(string), "Lenh %s khong ton tai !", cmdtext);
+		return ShowNotification(playerid, "He Thong", string, NOTIFY_TYPE_ERROR, 3000);
+	} 
+    return 1;
+}
+
+//-----------------------------------------------------------------------------
+// Functions Support
+//-----------------------------------------------------------------------------
+
+stock GetPlayerNameEx(playerid)
+{
+    static name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, sizeof(name));
+    return name;
+}
+
+stock GetPlayerCash(playerid)
+{
+    return PlayerInfo[playerid][pCash];
+}
+
+stock GivePlayerCash(playerid, amount)
+{
+    PlayerInfo[playerid][pCash] += amount;
+
+    ResetPlayerMoney(playerid);
+    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+
+    return 1;
+}
+
+stock SendClientMessageEx(playerid, color, const string[])
+{
+	SendClientMessage(playerid, color, string);
+	return 1;
+}
+
+stock SendClientMessageToAllEx(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		SendClientMessage(i, color, string);
+	}
+	return 1;
+}
+
+stock IsInvalidSkin(skin) {
+	if(!(0 <= skin <= 299)) return 1;
+    return 0;
+}
+
+stock GetAdminName(level)
+{
+    new str[32];
+    for(new i = 0; i < sizeof(AdminLevels); i++)
+    {
+        if(AdminLevels[i][adminLevel] == level) {
+            format(str, sizeof(str), "%s", AdminLevels[i][adminName]);
+            return str;
+        }
+    }
+    format(str, sizeof(str), "Unknown (%d)", level);
+    return str;
 }
