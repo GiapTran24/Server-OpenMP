@@ -1,7 +1,7 @@
 from pathlib import Path
 import re
 
-path = Path('gamemodes/includes/taixiu/TD.pwn')
+path = Path('gamemodes/includes/convs.pwn')
 text = path.read_text('utf-8')
 result = []
 in_string = False

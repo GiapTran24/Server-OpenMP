@@ -476,6 +476,34 @@
 			<referrer name="_@E_AMX_TABLE"/>
 			<library>y_amx</library> 
 		</member>
+		<member name="T:E_BASE_TD" value="8">
+			<member name="C:TD_MAIN_BG" value="0">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_INNER_BG" value="1">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_TITLE" value="2">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_CLOSE_BTN" value="3">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_SCROLL_UP" value="4">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_SCROLL_DOWN" value="5">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_INPUT_BG" value="6">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_INPUT_TXT" value="7">
+				<tagname value="PlayerText"/>
+			</member>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+		</member>
 		<member name="T:E_CHAIN_HOOK" value="17">
 			<tagname value="E_CHAIN_HOOK"/>
 			<member name="C:E_CHAIN_HOOK_NAME" value="0">
@@ -485,6 +513,42 @@
 			</member>
 			<referrer name="Hooks_GetPreloadLibraries"/>
 			<referrer name="CGen_OnCodeInit"/>
+		</member>
+		<member name="T:E_CHAT_ROW" value="3">
+			<member name="C:TD_CHAT_SENDER" value="0">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_CHAT_BODY" value="1">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_CHAT_TIME" value="2">
+				<tagname value="PlayerText"/>
+			</member>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
+		</member>
+		<member name="T:E_CONTACT_ROW" value="5">
+			<member name="C:TD_ROW_BG" value="0">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_ROW_NAME" value="1">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_ROW_LAST_MSG" value="2">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_ROW_TIME" value="3">
+				<tagname value="PlayerText"/>
+			</member>
+			<member name="C:TD_ROW_STATUS" value="4">
+				<tagname value="PlayerText"/>
+			</member>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="Backend_LoadContactList"/>
 		</member>
 		<member name="T:E_CONVERSATION" value="5">
 			<tagname value="E_CONVERSATION"/>
@@ -592,6 +656,17 @@
 			</member>
 			<member name="C:MsgText" value="6">
 				<size value="128"/>
+			</member>
+		</member>
+		<member name="T:E_PLAYER_MSG_DATA" value="4">
+			<tagname value="E_PLAYER_MSG_DATA"/>
+			<member name="C:p_MsgState" value="0">
+			</member>
+			<member name="C:p_TargetAccountID" value="1">
+			</member>
+			<member name="C:p_ScrollIndex" value="2">
+			</member>
+			<member name="C:p_TotalItems" value="3">
 			</member>
 		</member>
 		<member name="T:E_SCRIPTINIT_STATE" value="32">
@@ -2355,7 +2430,7 @@
 		</member>
 		<member name="C:DIALOG_NOTHING" value="0">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:DIALOG_REGISTER" value="1">
 			<referrer name="OnAccountCheck"/>
@@ -2366,7 +2441,7 @@
 			<referrer name="OnDialogResponse"/>
 		</member>
 		<member name="C:DIALOG_TX_ADMIN_EDIT" value="8">
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
 		</member>
 		<member name="C:DIALOG_TX_HISTORY" value="3">
@@ -2374,19 +2449,19 @@
 		</member>
 		<member name="C:DIALOG_TX_TAI" value="4">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:DIALOG_TX_XACNHAN_ROIBAN" value="7">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:DIALOG_TX_XACNHAN_THUHOI" value="6">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:DIALOG_TX_XIU" value="5">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:EOS" value="0">
 			<referrer name="strcopy"/>
@@ -2435,6 +2510,19 @@
 			<referrer name="Hooks_Collate"/>
 			<referrer name="Yield_OnCodeInit"/>
 			<library>y_compilerdata</library>  <remarks>  The maximum array required to store a symbol name.  i.e.  <c>__snamemax + 1</c>.  </remarks> 
+		</member>
+		<member name="C:MSG_STATE_CHAT_VIEW" value="2">
+			<referrer name="OpenChatBox"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+		</member>
+		<member name="C:MSG_STATE_CLOSED" value="0">
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+		</member>
+		<member name="C:MSG_STATE_CONTACTS" value="1">
+			<referrer name="OpenContactList"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
 		</member>
 		<member name="C:NUM_OPCODES" value="138">
 			<referrer name="IsOpcodeValid"/>
@@ -2887,7 +2975,7 @@
 			<referrer name="CodeScanCall"/>
 			<library>y_emit</library>  <remarks>  The JIT plugin address translation register value for use in <c>LCTRL</c>  and <c>SCTRL</c>.  </remarks> 
 		</member>
-		<member name="C:__line" value="41">
+		<member name="C:__line" value="42">
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_gotoco"/>
 			<referrer name="cmd_veh"/>
@@ -3254,7 +3342,7 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:cellmin" value="-2147483648">
 			<referrer name="operator-(Float:)"/>
@@ -3561,10 +3649,11 @@
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="SetPlayerSpawn"/>
 			<referrer name="OnPlayerSpawn"/>
+			<referrer name="Backend_LoadContactList"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="ShowTXThongBao"/>
-			<referrer name="_@yHOnPlayerClickTextDraw@01"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="C:true" value="1">
 			<tagname value="bool"/>
@@ -3657,17 +3746,22 @@
 			<referrer name="SendClientNotification"/>
 			<referrer name="Account_Check"/>
 			<referrer name="SetPlayerSpawn"/>
+			<referrer name="@yH_OnPlayerConnect@01"/>
+			<referrer name="@yH_OnPlayerDisconnect@01"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="@yH_OnDialogResponse@01"/>
+			<referrer name="Backend_LoadContactList"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="ShowTXThongBao"/>
 			<referrer name="InitTaiXiuSystems"/>
-			<referrer name="@yH_OnGameModeInit@01"/>
-			<referrer name="@yH_OnPlayerConnect@01"/>
-			<referrer name="@yH_OnPlayerDisconnect@01"/>
-			<referrer name="@yH_OnPlayerClickTextDraw@01"/>
-			<referrer name="@yH_OnDialogResponse@01"/>
-			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnPlayerDisconnect@02"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@02"/>
+			<referrer name="@yH_OnDialogResponse@02"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@02"/>
 		</member>
 		<member name="C:ucharmax" value="16777215">
 			<referrer name="YSI_IsLocalVarPackedString__"/>
@@ -3875,11 +3969,39 @@
 		</member>
 		<member name="F:BaoTriTaiXiuAD">
 			<referrer name="TaiXiuUpdate"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_taixiu"/>
+		</member>
+		<member name="F:BaseTD">
+			<tagname value="PlayerText"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="Backend_LoadChatMessage"/>
 		</member>
 		<member name="F:CELLMIN_ON_MATCHES">
 			<library>sscanf</library>  <remarks>  The <c>CELLMIN_ON_MATCHES</c> option as a constant string so you can get  compile-time spell checking on the name.  Whatever the value of  <c>MATCH_NAME_PARTIAL</c>, the first found player will always be returned,  so if you do a search for <c>_</c> on an RP server, you could get almost  anyone.  To detect this case, if more than one player will match the  specified string then <em>sscanf</em> will return an ID of <c>cellmin</c>  instead.  This can be combined with <c>U</c> for a lot more power:  <code>  sscanf(params, "?&lt;CELLMIN_ON_MATCHES=1&gt;U(-1)", id);                <br />  if (id == -1)                                                            <br />  {                                                                        <br /><indent />  // No player was entered.                                            <br />  }                                                                        <br />  else if (id == cellmin)                                                  <br />  {                                                                        <br /><indent />  // Multiple matches found                                            <br />  }                                                                        <br />  else if (id == INVALID_PLAYER_ID)                                        <br />  {                                                                        <br /><indent />  // Entered player is not connected.                                  <br />  }                                                                        <br />  else                                                                     <br />  {                                                                        <br /><indent />  // Found just one player.                                            <br />  }  </code>  </remarks> 
+		</member>
+		<member name="F:ChatRowTD">
+			<tagname value="PlayerText"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="Backend_LoadChatMessage"/>
+		</member>
+		<member name="F:ContactRowTD">
+			<tagname value="PlayerText"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="Backend_LoadContactList"/>
 		</member>
 		<member name="F:ConversationCount">
 			<referrer name="GetConversation"/>
@@ -3921,6 +4043,10 @@
 			<referrer name="OnVehicleStreamOut"/>
 			<referrer name="OnPlayerStateChange"/>
 			<library>y_shortvar</library>  <remarks>  <c>false</c>, but usable in tests without a constant expression warning.  </remarks> 
+		</member>
+		<member name="F:FullChatCache">
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="Backend_LoadChatMessage"/>
 		</member>
 		<member name="F:GotoLocations">
 			<referrer name="TeleportPlayerToLocation"/>
@@ -4152,7 +4278,7 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:Iterator@PlayersFromVehicles">
 			<tagname value="_no_itertag"/>
@@ -4269,12 +4395,16 @@
 			<referrer name="AddressofResolve"/>
 			<referrer name="Hooks_WriteFunction"/>
 			<referrer name="Hooks_GenerateContinue"/>
-			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnPlayerConnect@01"/>
 			<referrer name="@yH_OnPlayerDisconnect@01"/>
-			<referrer name="@yH_OnPlayerClickTextDraw@01"/>
-			<referrer name="@yH_OnDialogResponse@01"/>
 			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="@yH_OnDialogResponse@01"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnPlayerDisconnect@02"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@02"/>
+			<referrer name="@yH_OnDialogResponse@02"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@02"/>
 			<library>amx_assembly addressof_light</library>
 		</member>
 		<member name="F:OLD_DEFAULT_CUSTOM">
@@ -4300,14 +4430,14 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:PlayerBetXiu">
 			<referrer name="TaiXiu_HandleClick"/>
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:PlayerInfo">
 			<referrer name="OnPlayerDataLoaded"/>
@@ -4329,6 +4459,16 @@
 			<referrer name="GetPlayerCash"/>
 			<referrer name="GivePlayerCash"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
+		</member>
+		<member name="F:PlayerMsgData">
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
 		</member>
 		<member name="F:PlayerNotifications">
 			<referrer name="ClearNotificationSlot"/>
@@ -4409,7 +4549,7 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:TXHistory">
 			<referrer name="TaiXiu_HandleClick"/>
@@ -4452,6 +4592,8 @@
 			<referrer name="HideTaixiuDisplay"/>
 		</member>
 		<member name="F:UNIQUE_SYMBOL_DOESNT_EXIST">
+		</member>
+		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
 		</member>
 		<member name="F:UNIQUE_SYMBOL_LESS_THAN_0063">
 		</member>
@@ -4982,6 +5124,8 @@
 		</member>
 		<member name="F:Y_UNIQUE_0000_0063_CALLED">
 		</member>
+		<member name="F:Y_UNIQUE_0000_0063_CALLED">
+		</member>
 		<member name="F:_0">
 			<summary>  The first parameter in a <emph>y_functional</emph> lambda function.  This is implicitly declared.  </summary>  <!--  <remarks>  Hide future declarations with <c>_0</c> prefix.  <p/>  Note that the actual hiding itself is done by an XML comment started  earlier and ended here.  </remarks> 
 		</member>
@@ -5100,6 +5244,20 @@
 		</member>
 		<member name="F:__file">
 			<referrer name="cmd_settaixiutime"/>
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
+		</member>
+		<member name="F:__file">
 		</member>
 		<member name="F:__file">
 		</member>
@@ -5955,12 +6113,12 @@
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="ShowTXThongBao"/>
-			<referrer name="_@yHOnPlayerClickTextDraw@01"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:pTX_SessionID">
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:pTX_WinMoney">
 			<referrer name="ProcessTaiXiuResult"/>
@@ -5977,8 +6135,8 @@
 			<referrer name="TaiXiuUpdate"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnPlayerClickTextDraw@01"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 		</member>
 		<member name="F:size_l">
 		</member>
@@ -6244,6 +6402,7 @@
 		<member name="M:operator*(Float:,_:)" syntax="operator*(Float:,_:)(__oper1, __oper2)">
 			<tagname value="Float"/>
 			<stacksize value="4"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<dependency name="float"/>
 			<dependency name="floatmul"/>
 			<param name="__oper1">
@@ -6334,6 +6493,7 @@
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="cmd_veh"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="oper1">
 				<paraminfo>Float </paraminfo>
@@ -7913,13 +8073,37 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnGameModeInit@01" syntax="@yH_OnGameModeInit@01()">
+		<member name="M:@yH_OnDialogResponse@02" syntax="@yH_OnDialogResponse@02(&amp;playerid, &amp;dialogid, &amp;response, &amp;listitem, inputtext[])">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnGameModeInit@01"/>
+			<dependency name="_@yHOnDialogResponse@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="dialogid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="response">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="listitem">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="inputtext">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnGameModeInit@02" syntax="@yH_OnGameModeInit@02()">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnGameModeInit@02"/>
 			<dependency name="true"/>
 		</member>
 		<member name="M:@yH_OnPlayerClickPlayerTextDraw@01" syntax="@yH_OnPlayerClickPlayerTextDraw@01(&amp;playerid, &amp;playertextid)">
@@ -7937,13 +8121,28 @@
 				<paraminfo>PlayerText &amp; </paraminfo>
 			</param>
 		</member>
-		<member name="M:@yH_OnPlayerClickTextDraw@01" syntax="@yH_OnPlayerClickTextDraw@01(&amp;playerid, &amp;clickedid)">
+		<member name="M:@yH_OnPlayerClickPlayerTextDraw@02" syntax="@yH_OnPlayerClickPlayerTextDraw@02(&amp;playerid, &amp;playertextid)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
 			<dependency name="O@A_"/>
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
-			<dependency name="_@yHOnPlayerClickTextDraw@01"/>
+			<dependency name="_@yHOnPlayerClickPlayerTextDraw@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="playertextid">
+				<paraminfo>PlayerText &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerClickTextDraw@02" syntax="@yH_OnPlayerClickTextDraw@02(&amp;playerid, &amp;clickedid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerClickTextDraw@02"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -7964,6 +8163,18 @@
 				<paraminfo> &amp; </paraminfo>
 			</param>
 		</member>
+		<member name="M:@yH_OnPlayerConnect@02" syntax="@yH_OnPlayerConnect@02(&amp;playerid)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerConnect@02"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
 		<member name="M:@yH_OnPlayerDisconnect@01" syntax="@yH_OnPlayerDisconnect@01(&amp;playerid, &amp;reason)">
 			<attribute name="public"/>
 			<stacksize value="8"/>
@@ -7971,6 +8182,21 @@
 			<dependency name="O@V_"/>
 			<dependency name="_@Hy"/>
 			<dependency name="_@yHOnPlayerDisconnect@01"/>
+			<dependency name="true"/>
+			<param name="playerid">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+			<param name="reason">
+				<paraminfo> &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:@yH_OnPlayerDisconnect@02" syntax="@yH_OnPlayerDisconnect@02(&amp;playerid, &amp;reason)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<dependency name="O@A_"/>
+			<dependency name="O@V_"/>
+			<dependency name="_@Hy"/>
+			<dependency name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="true"/>
 			<param name="playerid">
 				<paraminfo> &amp; </paraminfo>
@@ -12319,6 +12545,78 @@
 			</param>
 			<library>sscanf</library>  <remarks>  Converts a version string to  <a href="https://en.wikipedia.org/wiki/Binary-coded_decimal">BCD</a>.  For example:  <code>  BCD(5.6.17);  </code>  Returns:  <code>  0x050617  </code>  Each section (between dots) is assigned a single byte and the last section is  always in the lowest byte.  This implies a maximum of four sections and two  digits per section.  </remarks> 
 		</member>
+		<member name="M:Backend_LoadChatMessage" syntax="Backend_LoadChatMessage(playerid, target_account_id, start_offset)">
+			<attribute name="public"/>
+			<stacksize value="379"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="E_CHAT_ROW"/>
+			<dependency name="FullChatCache"/>
+			<dependency name="FullChatCache"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PlayerTextDrawSetString"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="TD_CHAT_BODY"/>
+			<dependency name="TD_CHAT_SENDER"/>
+			<dependency name="TD_CHAT_TIME"/>
+			<dependency name="TD_TITLE"/>
+			<dependency name="TruncateString"/>
+			<dependency name="format"/>
+			<dependency name="p_TotalItems"/>
+			<param name="playerid">
+			</param>
+			<param name="target_account_id">
+			</param>
+			<param name="start_offset">
+			</param>
+		</member>
+		<member name="M:Backend_LoadContactList" syntax="Backend_LoadContactList(playerid, start_index)">
+			<attribute name="public"/>
+			<stacksize value="149"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="E_CONTACT_ROW"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PlayerTextDrawSetString"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="TD_ROW_LAST_MSG"/>
+			<dependency name="TD_ROW_NAME"/>
+			<dependency name="TD_ROW_STATUS"/>
+			<dependency name="TD_ROW_TIME"/>
+			<dependency name="TruncateString"/>
+			<dependency name="false"/>
+			<dependency name="format"/>
+			<dependency name="p_TotalItems"/>
+			<dependency name="true"/>
+			<param name="playerid">
+			</param>
+			<param name="start_index">
+			</param>
+		</member>
+		<member name="M:Backend_SaveAndSendMessage" syntax="Backend_SaveAndSendMessage(playerid, target_account_id, message[])">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<param name="playerid">
+			</param>
+			<param name="target_account_id">
+			</param>
+			<param name="message">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:Base64Decode" syntax="Base64Decode(dest[], src[], len, offset)">
 			<stacksize value="4"/>
 			<dependency name="__cell_shift"/>
@@ -12859,6 +13157,7 @@
 		<member name="M:CancelSelectTextDraw" syntax="CancelSelectTextDraw(playerid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="HidePlayerMessenger"/>
 			<referrer name="HideTaixiuDisplay"/>
 			<param name="playerid">
 				The ID of the player that should be the textdraw selection disabled
@@ -14027,6 +14326,7 @@
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="CreateSlotNotifyTD"/>
 			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player to create the textdraw for
@@ -14091,6 +14391,7 @@
 			<dependency name="PlayerTextDrawFont"/>
 			<dependency name="PlayerTextDrawLetterSize"/>
 			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawSetShadow"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="PlayerTextDrawTextSize"/>
 			<dependency name="PlayerTextDrawUseBox"/>
@@ -14115,7 +14416,7 @@
 		</member>
 		<member name="M:CreateTaiXiuTD" syntax="CreateTaiXiuTD(playerid)">
 			<stacksize value="6"/>
-			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="_@yHOnPlayerConnect@02"/>
 			<dependency name="CreatePlayerTextDraw"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="LSuPhien"/>
@@ -14536,7 +14837,7 @@
 		</member>
 		<member name="M:DestroyTaiXiuTD" syntax="DestroyTaiXiuTD(playerid)">
 			<stacksize value="5"/>
-			<referrer name="_@yHOnPlayerDisconnect@01"/>
+			<referrer name="_@yHOnPlayerDisconnect@02"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="PicXucXac"/>
@@ -16326,7 +16627,7 @@
 		</member>
 		<member name="M:GetPlayerCash" syntax="GetPlayerCash(playerid)">
 			<stacksize value="1"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="pCash"/>
 			<param name="playerid">
@@ -16933,7 +17234,7 @@
 		<member name="M:GivePlayerCash" syntax="GivePlayerCash(playerid, amount)">
 			<stacksize value="4"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="GivePlayerMoney"/>
 			<dependency name="PlayerInfo"/>
 			<dependency name="PlayerInfo"/>
@@ -17086,11 +17387,32 @@
 			<param name="slotid">
 			</param>
 		</member>
+		<member name="M:HidePlayerMessenger" syntax="HidePlayerMessenger(playerid)">
+			<stacksize value="6"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="CancelSelectTextDraw"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="E_BASE_TD"/>
+			<dependency name="E_CHAT_ROW"/>
+			<dependency name="E_CONTACT_ROW"/>
+			<dependency name="MSG_STATE_CLOSED"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="p_MsgState"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:HideTaixiuDisplay" syntax="HideTaixiuDisplay(playerid)">
 			<stacksize value="5"/>
 			<referrer name="ToggleTaiXiuDisplay"/>
-			<referrer name="_@yHOnPlayerClickTextDraw@01"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnPlayerClickTextDraw@02"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="CancelSelectTextDraw"/>
 			<dependency name="LSuPhien"/>
 			<dependency name="LSuPhien"/>
@@ -18257,7 +18579,7 @@
 		</member>
 		<member name="M:InitTaiXiuSystems" syntax="InitTaiXiuSystems()">
 			<stacksize value="5"/>
-			<referrer name="_@yHOnGameModeInit@01"/>
+			<referrer name="_@yHOnGameModeInit@02"/>
 			<dependency name="SetTimer"/>
 			<dependency name="StartTaiXiuSession"/>
 			<dependency name="TX"/>
@@ -18512,7 +18834,7 @@
 			<tagname value="bool"/>
 			<stacksize value="5"/>
 			<referrer name="isnumeric"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="YSI_IsLocalVarPackedString__"/>
 			<dependency name="cellmin"/>
 			<param name="str">
@@ -21249,12 +21571,16 @@
 			<referrer name="SSCANF_OnPlayerConnect"/>
 			<referrer name="AddressofResolve"/>
 			<referrer name="Hooks_GenerateContinue"/>
-			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnPlayerConnect@01"/>
 			<referrer name="@yH_OnPlayerDisconnect@01"/>
-			<referrer name="@yH_OnPlayerClickTextDraw@01"/>
-			<referrer name="@yH_OnDialogResponse@01"/>
 			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="@yH_OnDialogResponse@01"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnPlayerDisconnect@02"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@02"/>
+			<referrer name="@yH_OnDialogResponse@02"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@02"/>
 			<dependency name="O@V_"/>
 			<dependency name="cellbytes"/>
 			<dependency name="false"/>
@@ -22889,6 +23215,64 @@
 			</param>
 			<library>amx_assembly opcode</library>
 		</member>
+		<member name="M:OpenChatBox" syntax="OpenChatBox(playerid, target_account_id)">
+			<stacksize value="6"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<dependency name="Backend_LoadChatMessage"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="E_CONTACT_ROW"/>
+			<dependency name="MSG_STATE_CHAT_VIEW"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="TD_CLOSE_BTN"/>
+			<dependency name="TD_INNER_BG"/>
+			<dependency name="TD_INPUT_BG"/>
+			<dependency name="TD_INPUT_TXT"/>
+			<dependency name="TD_MAIN_BG"/>
+			<dependency name="TD_SCROLL_DOWN"/>
+			<dependency name="TD_SCROLL_UP"/>
+			<dependency name="TD_TITLE"/>
+			<dependency name="p_MsgState"/>
+			<dependency name="p_ScrollIndex"/>
+			<dependency name="p_TargetAccountID"/>
+			<param name="playerid">
+			</param>
+			<param name="target_account_id">
+			</param>
+		</member>
+		<member name="M:OpenContactList" syntax="OpenContactList(playerid)">
+			<stacksize value="6"/>
+			<referrer name="cmd_messager"/>
+			<dependency name="Backend_LoadContactList"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="E_CHAT_ROW"/>
+			<dependency name="MSG_STATE_CONTACTS"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawHide"/>
+			<dependency name="PlayerTextDrawShow"/>
+			<dependency name="SelectTextDraw"/>
+			<dependency name="TD_CLOSE_BTN"/>
+			<dependency name="TD_INNER_BG"/>
+			<dependency name="TD_INPUT_BG"/>
+			<dependency name="TD_INPUT_TXT"/>
+			<dependency name="TD_MAIN_BG"/>
+			<dependency name="TD_SCROLL_DOWN"/>
+			<dependency name="TD_SCROLL_UP"/>
+			<dependency name="TD_TITLE"/>
+			<dependency name="p_MsgState"/>
+			<dependency name="p_ScrollIndex"/>
+			<param name="playerid">
+			</param>
+		</member>
 		<member name="M:OpenConversation" syntax="OpenConversation(playerid, conversationid)">
 			<stacksize value="6"/>
 			<dependency name="MessageCount"/>
@@ -23036,6 +23420,7 @@
 		<member name="M:PlayerTextDrawAlignment" syntax="PlayerTextDrawAlignment(playerid, textid, alignment)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the alignment of
@@ -23053,6 +23438,7 @@
 		<member name="M:PlayerTextDrawBackgroundColour" syntax="PlayerTextDrawBackgroundColour(playerid, textid, backgroundColour)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the background colour of
@@ -23074,6 +23460,7 @@
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="OnAnimateNotifyFadeOut"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to set the box colour of
@@ -23093,6 +23480,8 @@
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyFadeOut"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
+			<referrer name="Backend_LoadContactList"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="TaiXiu_SetHistory"/>
 			<referrer name="TaiXiu_UpdateResult"/>
@@ -23112,6 +23501,7 @@
 			<tagname value="bool"/>
 			<attribute name="native"/>
 			<referrer name="ClearNotificationSlot"/>
+			<referrer name="_@yHOnPlayerDisconnect@01"/>
 			<referrer name="DestroyTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player who's player-textdraw to destroy
@@ -23127,6 +23517,7 @@
 			<attribute name="native"/>
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to change the font of
@@ -23144,6 +23535,11 @@
 		<member name="M:PlayerTextDrawHide" syntax="PlayerTextDrawHide(playerid, textid)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="HidePlayerMessenger"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
 			<referrer name="HideTaixiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="TaiXiu_UpdateResult"/>
@@ -23164,6 +23560,7 @@
 			<referrer name="CreateSlotNotifyTD"/>
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyZoom"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<referrer name="AnimateTXThongBao"/>
 			<param name="playerid">
@@ -23186,6 +23583,7 @@
 		<member name="M:PlayerTextDrawSetOutline" syntax="PlayerTextDrawSetOutline(playerid, textid, outlineSize)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the outline of
@@ -23204,6 +23602,7 @@
 			<attribute name="native"/>
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the proportionality of
@@ -23221,6 +23620,7 @@
 		<member name="M:PlayerTextDrawSetSelectable" syntax="PlayerTextDrawSetSelectable(playerid, textid, selectable)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the selectability of
@@ -23238,6 +23638,9 @@
 		<member name="M:PlayerTextDrawSetShadow" syntax="PlayerTextDrawSetShadow(playerid, textid, shadowSize)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="CreateSlotNotifyTDDirect"/>
+			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player to show the textdraw for
@@ -23254,6 +23657,8 @@
 		<member name="M:PlayerTextDrawSetString" syntax="PlayerTextDrawSetString(playerid, textid, format[], ...)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="CheckTXThongBaoLatest"/>
 			<referrer name="TaiXiu_SetTop"/>
@@ -23286,6 +23691,10 @@
 			<referrer name="ShowSlotTextAndBar"/>
 			<referrer name="OnAnimateNotifyZoom"/>
 			<referrer name="OnAnimateNotifyFadeOut"/>
+			<referrer name="OpenContactList"/>
+			<referrer name="OpenChatBox"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
 			<referrer name="ShowTaiXiuDisplay"/>
 			<referrer name="AnimateTXThongBao"/>
 			<referrer name="TaiXiu_SetHistory"/>
@@ -23306,6 +23715,7 @@
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="CreateSlotNotifyTD"/>
 			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose player-textdraw to set the size of
@@ -23330,6 +23740,7 @@
 			<referrer name="CreateSlotNotifyTDDirect"/>
 			<referrer name="CreateSlotNotifyTD"/>
 			<referrer name="ShowSlotTextAndBar"/>
+			<referrer name="_@yHOnPlayerConnect@01"/>
 			<referrer name="CreateTaiXiuTD"/>
 			<param name="playerid">
 				The ID of the player whose textdraw to toggle the box of
@@ -25078,6 +25489,7 @@
 		<member name="M:SelectTextDraw" syntax="SelectTextDraw(playerid, hoverColor)">
 			<tagname value="bool"/>
 			<attribute name="native"/>
+			<referrer name="OpenContactList"/>
 			<referrer name="ShowTaiXiuDisplay"/>
 			<param name="playerid">
 				The ID of the player that should be able to select a textdraw
@@ -25097,8 +25509,9 @@
 			<referrer name="cmd_openconv"/>
 			<referrer name="SendClientMessageEx"/>
 			<referrer name="SendClientMessageToAllEx"/>
-			<referrer name="ProcessTaiXiuResult"/>
 			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="ProcessTaiXiuResult"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_taixiu"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
 			<referrer name="cmd_settaixiutime"/>
@@ -25139,7 +25552,7 @@
 		</member>
 		<member name="M:SendClientMessageToAllEx" syntax="SendClientMessageToAllEx(color, string[])">
 			<stacksize value="6"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="Iterator@Player"/>
 			<dependency name="SendClientMessage"/>
 			<dependency name="cellmax"/>
@@ -26246,8 +26659,9 @@
 			<referrer name="ResultPasswordCheck"/>
 			<referrer name="cmd_setadmin"/>
 			<referrer name="cmd_goto"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
 			<referrer name="TaiXiu_HandleClick"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
 			<param name="playerid">
 				The ID of the player to show the dialog to
@@ -26296,6 +26710,7 @@
 			<dependency name="PlayerTextDrawFont"/>
 			<dependency name="PlayerTextDrawLetterSize"/>
 			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawSetShadow"/>
 			<dependency name="PlayerTextDrawShow"/>
 			<dependency name="PlayerTextDrawTextSize"/>
 			<dependency name="PlayerTextDrawUseBox"/>
@@ -26683,7 +27098,7 @@
 		</member>
 		<member name="M:TaiXiu_HandleClick" syntax="TaiXiu_HandleClick(playerid, playertextid)">
 			<stacksize value="2057"/>
-			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@02"/>
 			<dependency name="DIALOG_NOTHING"/>
 			<dependency name="DIALOG_TX_HISTORY"/>
 			<dependency name="DIALOG_TX_TAI"/>
@@ -26737,7 +27152,7 @@
 			<referrer name="ToggleTaiXiuDisplay"/>
 			<referrer name="TaiXiu_SetThongBaoAll"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<dependency name="SetPVarString"/>
 			<dependency name="ShowTXThongBao"/>
 			<param name="playerid">
@@ -26960,7 +27375,7 @@
 		</member>
 		<member name="M:ToggleTaiXiuDisplay" syntax="ToggleTaiXiuDisplay(playerid)">
 			<stacksize value="8"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_taixiu"/>
 			<dependency name="HideTaixiuDisplay"/>
 			<dependency name="ShowTaiXiuDisplay"/>
@@ -26993,6 +27408,22 @@
 				End of the substring.
 			</param>
 			<library>y_utils - strings</library>        <remarks>  Modifies "start" and "end" to be tight on text in "str".  <c>Strip</c>  removes the characters from the end, so needs a modifiable string, this just  tells you where the ends are.  </remarks> 
+		</member>
+		<member name="M:TruncateString" syntax="TruncateString(source[], dest[], max_len)">
+			<attribute name="public"/>
+			<stacksize value="8"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
+			<dependency name="format"/>
+			<dependency name="strlen"/>
+			<param name="source">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="dest">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="max_len">
+			</param>
 		</member>
 		<member name="M:TryPPM" syntax="TryPPM(ppm)">
 			<tagname value="bool"/>
@@ -27782,12 +28213,16 @@
 		<member name="M:_@Hy" syntax="_@Hy(address, name[], callback[], order, fallback)">
 			<stacksize value="133"/>
 			<automaton name="y_hooks_scan"/>
-			<referrer name="@yH_OnGameModeInit@01"/>
 			<referrer name="@yH_OnPlayerConnect@01"/>
 			<referrer name="@yH_OnPlayerDisconnect@01"/>
-			<referrer name="@yH_OnPlayerClickTextDraw@01"/>
-			<referrer name="@yH_OnDialogResponse@01"/>
 			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="@yH_OnDialogResponse@01"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
+			<referrer name="@yH_OnPlayerConnect@02"/>
+			<referrer name="@yH_OnPlayerDisconnect@02"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@02"/>
+			<referrer name="@yH_OnDialogResponse@02"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@02"/>
 			<dependency name="Debug_Kill_"/>
 			<dependency name="Debug_Print0"/>
 			<dependency name="Hooks_ExtractName"/>
@@ -27986,8 +28421,32 @@
 		</member>
 		<member name="M:_@yHOnDialogResponse@01" syntax="_@yHOnDialogResponse@01(playerid, dialogid, response, listitem, inputtext[])">
 			<attribute name="public"/>
-			<stacksize value="42"/>
+			<stacksize value="8"/>
 			<referrer name="@yH_OnDialogResponse@01"/>
+			<dependency name="Backend_LoadChatMessage"/>
+			<dependency name="Backend_SaveAndSendMessage"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="SendClientMessage"/>
+			<dependency name="p_ScrollIndex"/>
+			<dependency name="p_TargetAccountID"/>
+			<dependency name="strlen"/>
+			<param name="playerid">
+			</param>
+			<param name="dialogid">
+			</param>
+			<param name="response">
+			</param>
+			<param name="listitem">
+			</param>
+			<param name="inputtext">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:_@yHOnDialogResponse@02" syntax="_@yHOnDialogResponse@02(playerid, dialogid, response, listitem, inputtext[])">
+			<attribute name="public"/>
+			<stacksize value="42"/>
+			<referrer name="@yH_OnDialogResponse@02"/>
 			<dependency name="BaoTriTaiXiuAD"/>
 			<dependency name="DIALOG_NOTHING"/>
 			<dependency name="DIALOG_TX_ADMIN_EDIT"/>
@@ -28034,16 +28493,53 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnGameModeInit@01" syntax="_@yHOnGameModeInit@01()">
+		<member name="M:_@yHOnGameModeInit@02" syntax="_@yHOnGameModeInit@02()">
 			<attribute name="public"/>
 			<stacksize value="3"/>
-			<referrer name="@yH_OnGameModeInit@01"/>
+			<referrer name="@yH_OnGameModeInit@02"/>
 			<dependency name="InitTaiXiuSystems"/>
 		</member>
 		<member name="M:_@yHOnPlayerClickPlayerTextDraw@01" syntax="_@yHOnPlayerClickPlayerTextDraw@01(playerid, playertextid)">
 			<attribute name="public"/>
-			<stacksize value="5"/>
+			<stacksize value="266"/>
 			<referrer name="@yH_OnPlayerClickPlayerTextDraw@01"/>
+			<dependency name="Backend_LoadChatMessage"/>
+			<dependency name="Backend_LoadContactList"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="FullChatCache"/>
+			<dependency name="FullChatCache"/>
+			<dependency name="HidePlayerMessenger"/>
+			<dependency name="MSG_STATE_CHAT_VIEW"/>
+			<dependency name="MSG_STATE_CLOSED"/>
+			<dependency name="MSG_STATE_CONTACTS"/>
+			<dependency name="OpenChatBox"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="ShowPlayerDialog"/>
+			<dependency name="TD_CHAT_BODY"/>
+			<dependency name="TD_CLOSE_BTN"/>
+			<dependency name="TD_INPUT_TXT"/>
+			<dependency name="TD_ROW_NAME"/>
+			<dependency name="TD_SCROLL_DOWN"/>
+			<dependency name="TD_SCROLL_UP"/>
+			<dependency name="format"/>
+			<dependency name="p_MsgState"/>
+			<dependency name="p_ScrollIndex"/>
+			<dependency name="p_TargetAccountID"/>
+			<dependency name="p_TotalItems"/>
+			<dependency name="strlen"/>
+			<param name="playerid">
+			</param>
+			<param name="playertextid">
+				<paraminfo>PlayerText </paraminfo>
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerClickPlayerTextDraw@02" syntax="_@yHOnPlayerClickPlayerTextDraw@02(playerid, playertextid)">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<referrer name="@yH_OnPlayerClickPlayerTextDraw@02"/>
 			<dependency name="TaiXiu_HandleClick"/>
 			<param name="playerid">
 			</param>
@@ -28051,10 +28547,10 @@
 				<paraminfo>PlayerText </paraminfo>
 			</param>
 		</member>
-		<member name="M:_@yHOnPlayerClickTextDraw@01" syntax="_@yHOnPlayerClickTextDraw@01(playerid, clickedid)">
+		<member name="M:_@yHOnPlayerClickTextDraw@02" syntax="_@yHOnPlayerClickTextDraw@02(playerid, clickedid)">
 			<attribute name="public"/>
 			<stacksize value="4"/>
-			<referrer name="@yH_OnPlayerClickTextDraw@01"/>
+			<referrer name="@yH_OnPlayerClickTextDraw@02"/>
 			<dependency name="HideTaixiuDisplay"/>
 			<dependency name="false"/>
 			<dependency name="pTXThongBao"/>
@@ -28067,16 +28563,86 @@
 		</member>
 		<member name="M:_@yHOnPlayerConnect@01" syntax="_@yHOnPlayerConnect@01(playerid)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="8"/>
 			<referrer name="@yH_OnPlayerConnect@01"/>
+			<dependency name="operator*(Float:,_:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="CreatePlayerTextDraw"/>
+			<dependency name="MSG_STATE_CLOSED"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerMsgData"/>
+			<dependency name="PlayerTextDrawAlignment"/>
+			<dependency name="PlayerTextDrawBackgroundColour"/>
+			<dependency name="PlayerTextDrawBoxColour"/>
+			<dependency name="PlayerTextDrawColour"/>
+			<dependency name="PlayerTextDrawFont"/>
+			<dependency name="PlayerTextDrawLetterSize"/>
+			<dependency name="PlayerTextDrawSetOutline"/>
+			<dependency name="PlayerTextDrawSetProportional"/>
+			<dependency name="PlayerTextDrawSetSelectable"/>
+			<dependency name="PlayerTextDrawSetShadow"/>
+			<dependency name="PlayerTextDrawTextSize"/>
+			<dependency name="PlayerTextDrawUseBox"/>
+			<dependency name="TD_CHAT_BODY"/>
+			<dependency name="TD_CHAT_SENDER"/>
+			<dependency name="TD_CHAT_TIME"/>
+			<dependency name="TD_CLOSE_BTN"/>
+			<dependency name="TD_INNER_BG"/>
+			<dependency name="TD_INPUT_BG"/>
+			<dependency name="TD_INPUT_TXT"/>
+			<dependency name="TD_MAIN_BG"/>
+			<dependency name="TD_ROW_BG"/>
+			<dependency name="TD_ROW_LAST_MSG"/>
+			<dependency name="TD_ROW_NAME"/>
+			<dependency name="TD_ROW_STATUS"/>
+			<dependency name="TD_ROW_TIME"/>
+			<dependency name="TD_SCROLL_DOWN"/>
+			<dependency name="TD_SCROLL_UP"/>
+			<dependency name="TD_TITLE"/>
+			<dependency name="p_MsgState"/>
+			<dependency name="p_ScrollIndex"/>
+			<dependency name="p_TargetAccountID"/>
+			<dependency name="p_TotalItems"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerConnect@02" syntax="_@yHOnPlayerConnect@02(playerid)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerConnect@02"/>
 			<dependency name="CreateTaiXiuTD"/>
 			<param name="playerid">
 			</param>
 		</member>
 		<member name="M:_@yHOnPlayerDisconnect@01" syntax="_@yHOnPlayerDisconnect@01(playerid, reason)">
 			<attribute name="public"/>
-			<stacksize value="4"/>
+			<stacksize value="6"/>
 			<referrer name="@yH_OnPlayerDisconnect@01"/>
+			<dependency name="BaseTD"/>
+			<dependency name="BaseTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ChatRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="ContactRowTD"/>
+			<dependency name="E_BASE_TD"/>
+			<dependency name="E_CHAT_ROW"/>
+			<dependency name="E_CONTACT_ROW"/>
+			<dependency name="PlayerTextDrawDestroy"/>
+			<param name="playerid">
+			</param>
+			<param name="reason">
+			</param>
+		</member>
+		<member name="M:_@yHOnPlayerDisconnect@02" syntax="_@yHOnPlayerDisconnect@02(playerid, reason)">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<referrer name="@yH_OnPlayerDisconnect@02"/>
 			<dependency name="DestroyTaiXiuTD"/>
 			<param name="playerid">
 			</param>
@@ -29001,6 +29567,16 @@
 				<paraminfo> [] </paraminfo>
 			</param>
 		</member>
+		<member name="M:cmd_messager" syntax="cmd_messager(playerid, params[])">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="OpenContactList"/>
+			<param name="playerid">
+			</param>
+			<param name="params">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
 		<member name="M:cmd_msg" syntax="cmd_msg(playerid, params[])">
 			<attribute name="public"/>
 			<stacksize value="280"/>
@@ -29642,6 +30218,10 @@
 			<referrer name="OnDialogResponse"/>
 			<referrer name="OnPlayerCommandPerformed"/>
 			<referrer name="GetAdminName"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="Backend_LoadContactList"/>
+			<referrer name="Backend_LoadChatMessage"/>
+			<referrer name="TruncateString"/>
 			<referrer name="TaiXiu_SetTop"/>
 			<referrer name="TaiXiu_UpdateMainInfo"/>
 			<referrer name="TaiXiu_UpdateConfig"/>
@@ -29649,7 +30229,7 @@
 			<referrer name="TaiXiu_HandleClick"/>
 			<referrer name="StartTaiXiuSession"/>
 			<referrer name="ProcessTaiXiuResult"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<referrer name="cmd_edittaixiucailonmamay"/>
 			<referrer name="cmd_settaixiutime"/>
 			<param name="output">
@@ -30804,6 +31384,9 @@
 			<referrer name="Malloc_SetVAS"/>
 			<referrer name="_Timer_S"/>
 			<referrer name="CalculateNotifyHeight"/>
+			<referrer name="_@yHOnPlayerClickPlayerTextDraw@01"/>
+			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="TruncateString"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string to get the length of
@@ -30881,7 +31464,7 @@
 			<referrer name="sscanf_vehicle"/>
 			<referrer name="ScriptInit_PurgeTemporaries"/>
 			<referrer name="IPToInt"/>
-			<referrer name="_@yHOnDialogResponse@01"/>
+			<referrer name="_@yHOnDialogResponse@02"/>
 			<param name="string">
 				<paraminfo> [] </paraminfo>
 				The string you want to convert to an integer

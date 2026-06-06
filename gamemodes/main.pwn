@@ -18,6 +18,7 @@
 #include "includes/modules/task.inc"
 #include "includes/modules/cmds.inc"
 #include "includes/main.pwn"
+#include "includes/convs.pwn"
 
 // TaiXiu
 #include "includes/taixiu/Var.pwn"

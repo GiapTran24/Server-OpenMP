@@ -129,6 +129,7 @@ stock CreateSlotNotifyTDDirect(playerid, slotid)
     PlayerNotifications[playerid][slotid][slot_TitleTD] = CreatePlayerTextDraw(playerid, posX + 5.0, posY + 4.0, PlayerNotifications[playerid][slotid][slot_Title]);
     PlayerTextDrawFont(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], TEXT_DRAW_FONT:1);
     PlayerTextDrawLetterSize(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], 0.28, 1.1);
+    PlayerTextDrawSetShadow(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], bool:0);
     PlayerTextDrawColour(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], titleColor);
     PlayerTextDrawSetProportional(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], bool:1);
     PlayerTextDrawShow(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD]);
@@ -138,6 +139,7 @@ stock CreateSlotNotifyTDDirect(playerid, slotid)
     PlayerTextDrawFont(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], TEXT_DRAW_FONT:1);
     PlayerTextDrawLetterSize(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], 0.23, 0.9);
     PlayerTextDrawColour(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], 0xFFFFFFFF);
+    PlayerTextDrawSetShadow(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], bool:0);
     PlayerTextDrawTextSize(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], (posX + width) - 5.0, 0.0);
     PlayerTextDrawSetProportional(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], bool:1);
     PlayerTextDrawShow(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD]);
@@ -249,6 +251,7 @@ stock ShowSlotTextAndBar(playerid, slotid, Float:posY, Float:height)
     PlayerTextDrawFont(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], TEXT_DRAW_FONT:1);
     PlayerTextDrawLetterSize(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], 0.28, 1.1);
     PlayerTextDrawColour(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], titleColor);
+    PlayerTextDrawSetShadow(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], bool:0);
     PlayerTextDrawSetProportional(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD], bool:1);
     PlayerTextDrawShow(playerid, PlayerNotifications[playerid][slotid][slot_TitleTD]);
 
@@ -257,6 +260,7 @@ stock ShowSlotTextAndBar(playerid, slotid, Float:posY, Float:height)
     PlayerTextDrawFont(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], TEXT_DRAW_FONT:1);
     PlayerTextDrawLetterSize(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], 0.23, 0.9);
     PlayerTextDrawColour(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], 0xFFFFFFFF);
+    PlayerTextDrawSetShadow(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], bool:0);
     PlayerTextDrawTextSize(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], (posX + width) - 5.0, 0.0);
     PlayerTextDrawSetProportional(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD], bool:1);
     PlayerTextDrawShow(playerid, PlayerNotifications[playerid][slotid][slot_BodyTD]);

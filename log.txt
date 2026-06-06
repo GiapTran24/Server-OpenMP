@@ -15207,3 +15207,2029 @@ Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\c
 [2026-06-06T01:49:40+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
 [2026-06-06T01:50:14+0700] [Info] [part] Giap_Tran has left the server (0:1)
 [2026-06-06T01:50:18+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info]  ===============================
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info]      sscanf component loaded.   
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info]          Version: 2.13.8
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info]  ===============================
+[2026-06-06T02:19:59+0700] [Info] 
+[2026-06-06T02:19:59+0700] [Info] Loading plugin: mysql
+[2026-06-06T02:19:59+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-06T02:19:59+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-06T02:19:59+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info]          ==============================================================
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-06T02:20:00+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-06T02:20:00+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-06T02:20:00+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-06T02:20:00+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T02:20:00+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-06T02:20:00+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-06T02:20:00+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-06T02:20:00+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-06T02:20:00+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          |                                                            |
+[2026-06-06T02:20:00+0700] [Info]          ==============================================================
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info]  ========================================== 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-06T02:20:00+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-06T02:20:00+0700] [Info]  |  code generation works best with the   | 
+[2026-06-06T02:20:00+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-06T02:20:00+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  |             Please wait...             | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  |             Done in 72ms!              | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  ========================================== 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-06T02:20:00+0700] [Info]  | Started:     06 Jun 2026 - 02:20:00    | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-06T02:20:00+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-06T02:20:00+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-06T02:20:00+0700] [Info]  | Built:       06 Jun 2026 - 02:03:43    | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-06T02:20:00+0700] [Info]  | Master:      -1                        | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-06T02:20:00+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-06T02:20:00+0700] [Info]  |                                        | 
+[2026-06-06T02:20:00+0700] [Info]  ========================================== 
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info]  
+[2026-06-06T02:20:00+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-06T02:20:00+0700] [Info] -----------------------------------------------
+[2026-06-06T02:20:00+0700] [Info] Successfully connected to database!
+[2026-06-06T02:20:00+0700] [Info] -----------------------------------------------
+[2026-06-06T02:20:00+0700] [Info] Legacy Network started on port 7777
+[2026-06-06T02:20:17+0700] [Info] [connection] incoming connection: 127.0.0.1:54559 id: 0
+[2026-06-06T02:20:17+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-06T02:20:37+0700] [Warning] RCON (In-Game): Player #0 (Giap_Tran) has logged in.
+[2026-06-06T02:20:41+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs ntd
+[2026-06-06T02:20:41+0700] [Info] Could not find:
+
+	 filterscripts\ntd.amx 
+While attempting to load a PAWN script, a file-not-found error was
+encountered.  This could be caused by many things:
+
+ * The wrong filename was given.
+ * The wrong gamemodes path was given.
+ * The server was launched from a different directory, making relative paths
+   relative to the wrong place (and thus wrong).
+ * You didn't copy the file to the correct directory or server.
+ * The compilation failed, leading to no output file.
+ * `-l` or `-a` were used to compile, which output intermediate steps for
+   inspecting, rather than a full script.
+ * Anything else, really just check the file is at the path given.
+
+[2026-06-06T02:20:41+0700] [Info] Filterscript 'ntd' load failed.
+[2026-06-06T02:20:46+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs ntd/ntd
+[2026-06-06T02:20:46+0700] [Info] Could not find:
+
+	 filterscripts\ntd\ntd.amx 
+While attempting to load a PAWN script, a file-not-found error was
+encountered.  This could be caused by many things:
+
+ * The wrong filename was given.
+ * The wrong gamemodes path was given.
+ * The server was launched from a different directory, making relative paths
+   relative to the wrong place (and thus wrong).
+ * You didn't copy the file to the correct directory or server.
+ * The compilation failed, leading to no output file.
+ * `-l` or `-a` were used to compile, which output intermediate steps for
+   inspecting, rather than a full script.
+ * Anything else, really just check the file is at the path given.
+
+[2026-06-06T02:20:46+0700] [Info] Filterscript 'ntd/ntd' load failed.
+[2026-06-06T02:21:43+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-06T02:21:46+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info]  ===============================
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info]      sscanf component loaded.   
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info]          Version: 2.13.8
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info]  ===============================
+[2026-06-06T02:36:56+0700] [Info] 
+[2026-06-06T02:36:56+0700] [Info] Loading plugin: mysql
+[2026-06-06T02:36:56+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-06T02:36:56+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-06T02:36:56+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info]          ==============================================================
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-06T02:36:56+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-06T02:36:56+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-06T02:36:56+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-06T02:36:56+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T02:36:56+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-06T02:36:56+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-06T02:36:56+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-06T02:36:56+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-06T02:36:56+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          |                                                            |
+[2026-06-06T02:36:56+0700] [Info]          ==============================================================
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info]  ========================================== 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-06T02:36:56+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-06T02:36:56+0700] [Info]  |  code generation works best with the   | 
+[2026-06-06T02:36:56+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-06T02:36:56+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  |             Please wait...             | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  |             Done in 79ms!              | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  ========================================== 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-06T02:36:56+0700] [Info]  | Started:     06 Jun 2026 - 02:36:56    | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-06T02:36:56+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-06T02:36:56+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-06T02:36:56+0700] [Info]  | Built:       06 Jun 2026 - 02:36:02    | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-06T02:36:56+0700] [Info]  | Master:      -1                        | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-06T02:36:56+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-06T02:36:56+0700] [Info]  |                                        | 
+[2026-06-06T02:36:56+0700] [Info]  ========================================== 
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info]  
+[2026-06-06T02:36:56+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-06T02:36:56+0700] [Info] -----------------------------------------------
+[2026-06-06T02:36:56+0700] [Info] Successfully connected to database!
+[2026-06-06T02:36:56+0700] [Info] -----------------------------------------------
+[2026-06-06T02:36:56+0700] [Info] Legacy Network started on port 7777
+[2026-06-06T02:37:07+0700] [Info] [connection] incoming connection: 127.0.0.1:56600 id: 0
+[2026-06-06T02:37:07+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-06T02:37:10+0700] [Info] [chat] [Giap_Tran]: as
+[2026-06-06T02:37:19+0700] [Warning] RCON (In-Game): Player #0 (Giap_Tran) has logged in.
+[2026-06-06T02:37:23+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs
+[2026-06-06T02:37:23+0700] [Info] Could not find:
+
+	 filterscripts\ 
+While attempting to load a PAWN script, a file-not-found error was
+encountered.  This could be caused by many things:
+
+ * The wrong filename was given.
+ * The wrong gamemodes path was given.
+ * The server was launched from a different directory, making relative paths
+   relative to the wrong place (and thus wrong).
+ * You didn't copy the file to the correct directory or server.
+ * The compilation failed, leading to no output file.
+ * `-l` or `-a` were used to compile, which output intermediate steps for
+   inspecting, rather than a full script.
+ * Anything else, really just check the file is at the path given.
+
+[2026-06-06T02:37:23+0700] [Info] Filterscript '' load failed.
+[2026-06-06T02:37:26+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs ntd
+[2026-06-06T02:37:27+0700] [Info] [NTD] TextDraw editor by Nickk888 v6.1.1 has been successfully initialized!
+
+[2026-06-06T02:37:27+0700] [Info] Filterscript 'ntd' loaded.
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] [NTD] Loading language file "ntd/languages/lang_eng.xml"
+[2026-06-06T02:37:34+0700] [Info] [NTD] Loading templates from "ntd/templates.xml" as language "lang_eng.xml"
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:34+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:39+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T02:37:48+0700] [Info] [part] Giap_Tran has left the server (0:1)
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info]  ===============================
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info]      sscanf component loaded.   
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info]          Version: 2.13.8
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info]  ===============================
+[2026-06-06T14:47:31+0700] [Info] 
+[2026-06-06T14:47:31+0700] [Info] Loading plugin: mysql
+[2026-06-06T14:47:31+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-06T14:47:31+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-06T14:47:31+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info]          ==============================================================
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-06T14:47:31+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-06T14:47:31+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-06T14:47:31+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-06T14:47:31+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T14:47:31+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-06T14:47:31+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-06T14:47:31+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-06T14:47:31+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-06T14:47:31+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          |                                                            |
+[2026-06-06T14:47:31+0700] [Info]          ==============================================================
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info]  ========================================== 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-06T14:47:31+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-06T14:47:31+0700] [Info]  |  code generation works best with the   | 
+[2026-06-06T14:47:31+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-06T14:47:31+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  |             Please wait...             | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  |             Done in 87ms!              | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  ========================================== 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-06T14:47:31+0700] [Info]  | Started:     06 Jun 2026 - 14:47:31    | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-06T14:47:31+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-06T14:47:31+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-06T14:47:31+0700] [Info]  | Built:       06 Jun 2026 - 02:40:50    | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-06T14:47:31+0700] [Info]  | Master:      -1                        | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-06T14:47:31+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-06T14:47:31+0700] [Info]  |                                        | 
+[2026-06-06T14:47:31+0700] [Info]  ========================================== 
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info]  
+[2026-06-06T14:47:31+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-06T14:47:31+0700] [Info] -----------------------------------------------
+[2026-06-06T14:47:31+0700] [Info] Successfully connected to database!
+[2026-06-06T14:47:31+0700] [Info] -----------------------------------------------
+[2026-06-06T14:47:31+0700] [Info] Legacy Network started on port 7777
+[2026-06-06T14:47:33+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info]  ===============================
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info]      sscanf component loaded.   
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info]          Version: 2.13.8
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info]  ===============================
+[2026-06-06T14:48:27+0700] [Info] 
+[2026-06-06T14:48:27+0700] [Info] Loading plugin: mysql
+[2026-06-06T14:48:27+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-06T14:48:27+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-06T14:48:27+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info]          ==============================================================
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-06T14:48:27+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-06T14:48:27+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-06T14:48:27+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-06T14:48:27+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-06T14:48:27+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-06T14:48:27+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-06T14:48:27+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-06T14:48:27+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-06T14:48:27+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          |                                                            |
+[2026-06-06T14:48:27+0700] [Info]          ==============================================================
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info]  ========================================== 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-06T14:48:27+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-06T14:48:27+0700] [Info]  |  code generation works best with the   | 
+[2026-06-06T14:48:27+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-06T14:48:27+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  |             Please wait...             | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  |             Done in 53ms!              | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  ========================================== 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-06T14:48:27+0700] [Info]  | Started:     06 Jun 2026 - 14:48:27    | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-06T14:48:27+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-06T14:48:27+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-06T14:48:27+0700] [Info]  | Built:       06 Jun 2026 - 02:40:50    | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-06T14:48:27+0700] [Info]  | Master:      -1                        | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-06T14:48:27+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-06T14:48:27+0700] [Info]  |                                        | 
+[2026-06-06T14:48:27+0700] [Info]  ========================================== 
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info]  
+[2026-06-06T14:48:27+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-06T14:48:27+0700] [Info] -----------------------------------------------
+[2026-06-06T14:48:27+0700] [Info] Successfully connected to database!
+[2026-06-06T14:48:27+0700] [Info] -----------------------------------------------
+[2026-06-06T14:48:27+0700] [Info] Legacy Network started on port 7777
+[2026-06-06T14:48:44+0700] [Info] [connection] incoming connection: 127.0.0.1:62163 id: 0
+[2026-06-06T14:48:44+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-06T14:48:58+0700] [Warning] RCON (In-Game): Player #0 (Giap_Tran) has logged in.
+[2026-06-06T14:49:03+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs ntd
+[2026-06-06T14:49:05+0700] [Info] [NTD] TextDraw editor by Nickk888 v6.1.1 has been successfully initialized!
+
+[2026-06-06T14:49:05+0700] [Info] Filterscript 'ntd' loaded.
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] [NTD] Loading language file "ntd/languages/lang_eng.xml"
+[2026-06-06T14:49:16+0700] [Info] [NTD] Loading templates from "ntd/templates.xml" as language "lang_eng.xml"
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:16+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:26+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:40+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:40+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] [NTD] Loading language file "ntd/languages/lang_vn.xml"
+[2026-06-06T14:49:57+0700] [Info] [NTD] Loading templates from "ntd/templates.xml" as language "lang_vn.xml"
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:49:57+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:51:01+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T14:59:03+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T15:11:04+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T15:32:59+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T15:33:41+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T15:40:17+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T15:47:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:01:37+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:07:28+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:45+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:45+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:12:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:13:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:13:14+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-06T16:13:16+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-06T16:13:22+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info]  ===============================
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info]      sscanf component loaded.   
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info]          Version: 2.13.8
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info]  ===============================
+[2026-06-07T00:27:04+0700] [Info] 
+[2026-06-07T00:27:04+0700] [Info] Loading plugin: mysql
+[2026-06-07T00:27:04+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T00:27:04+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T00:27:04+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info]          ==============================================================
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T00:27:04+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T00:27:04+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T00:27:04+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T00:27:04+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T00:27:04+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T00:27:04+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T00:27:04+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T00:27:04+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T00:27:04+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          |                                                            |
+[2026-06-07T00:27:04+0700] [Info]          ==============================================================
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info]  ========================================== 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T00:27:04+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T00:27:04+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T00:27:04+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T00:27:04+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  |             Please wait...             | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  |             Done in 66ms!              | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  ========================================== 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T00:27:04+0700] [Info]  | Started:     07 Jun 2026 - 00:27:04    | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T00:27:04+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T00:27:04+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T00:27:04+0700] [Info]  | Built:       07 Jun 2026 - 00:26:08    | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T00:27:04+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T00:27:04+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T00:27:04+0700] [Info]  |                                        | 
+[2026-06-07T00:27:04+0700] [Info]  ========================================== 
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info]  
+[2026-06-07T00:27:04+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T00:27:04+0700] [Info] -----------------------------------------------
+[2026-06-07T00:27:04+0700] [Info] Successfully connected to database!
+[2026-06-07T00:27:04+0700] [Info] -----------------------------------------------
+[2026-06-07T00:27:04+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T00:27:22+0700] [Info] [connection] incoming connection: 127.0.0.1:63094 id: 0
+[2026-06-07T00:27:22+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T00:29:31+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T00:29:55+0700] [Info] [connection] incoming connection: 127.0.0.1:59094 id: 0
+[2026-06-07T00:29:55+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T00:30:10+0700] [Info] [death] Giap_Tran died 54
+[2026-06-07T00:31:02+0700] [Warning] RCON (In-Game): Player #0 (Giap_Tran) has logged in.
+[2026-06-07T00:31:51+0700] [Warning] RCON (In-Game): Player [Giap_Tran] sent command: loadfs ntd
+[2026-06-07T00:31:52+0700] [Info] [NTD] TextDraw editor by Nickk888 v6.1.1 has been successfully initialized!
+
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:31:53+0700] [Info] [NTD] Loading language file "ntd/languages/lang_vn.xml"
+[2026-06-07T00:31:53+0700] [Info] [NTD] Loading templates from "ntd/templates.xml" as language "lang_vn.xml"
+[2026-06-07T00:31:53+0700] [Info] Filterscript 'ntd' loaded.
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:30+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:32:36+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T00:43:49+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T01:12:08+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T01:17:49+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T01:26:13+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T01:26:13+0700] [Info] sscanf warning (`(null)`): "Include / plugin mismatch, please recompile your script for the latest features."
+[2026-06-07T01:26:16+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T01:29:03+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info]  ===============================
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info]      sscanf component loaded.   
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info]          Version: 2.13.8
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info]  ===============================
+[2026-06-07T02:55:40+0700] [Info] 
+[2026-06-07T02:55:40+0700] [Info] Loading plugin: mysql
+[2026-06-07T02:55:40+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T02:55:40+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T02:55:40+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info]          ==============================================================
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T02:55:41+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T02:55:41+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T02:55:41+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T02:55:41+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T02:55:41+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T02:55:41+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T02:55:41+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T02:55:41+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T02:55:41+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          |                                                            |
+[2026-06-07T02:55:41+0700] [Info]          ==============================================================
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info]  ========================================== 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T02:55:41+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T02:55:41+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T02:55:41+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T02:55:41+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  |             Please wait...             | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  |             Done in 109ms!             | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  ========================================== 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T02:55:41+0700] [Info]  | Started:     07 Jun 2026 - 02:55:41    | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T02:55:41+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T02:55:41+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T02:55:41+0700] [Info]  | Built:       07 Jun 2026 - 02:54:55    | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T02:55:41+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T02:55:41+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T02:55:41+0700] [Info]  |                                        | 
+[2026-06-07T02:55:41+0700] [Info]  ========================================== 
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info]  
+[2026-06-07T02:55:41+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T02:55:41+0700] [Info] -----------------------------------------------
+[2026-06-07T02:55:41+0700] [Info] Successfully connected to database!
+[2026-06-07T02:55:41+0700] [Info] -----------------------------------------------
+[2026-06-07T02:55:41+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T02:55:55+0700] [Info] [connection] incoming connection: 127.0.0.1:49958 id: 0
+[2026-06-07T02:55:55+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T02:56:57+0700] [Info] [chat] [Giap_Tran]: q
+[2026-06-07T02:56:58+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T02:57:01+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info]  ===============================
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info]  ===============================
+[2026-06-07T03:01:39+0700] [Info] 
+[2026-06-07T03:01:39+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:01:39+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:01:39+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:01:39+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info]          ==============================================================
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:01:40+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:01:40+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:01:40+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:01:40+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:01:40+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:01:40+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:01:40+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:01:40+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:01:40+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          |                                                            |
+[2026-06-07T03:01:40+0700] [Info]          ==============================================================
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info]  ========================================== 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:01:40+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:01:40+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:01:40+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:01:40+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  |             Done in 138ms!             | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  ========================================== 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:01:40+0700] [Info]  | Started:     07 Jun 2026 - 03:01:40    | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:01:40+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:01:40+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:01:40+0700] [Info]  | Built:       07 Jun 2026 - 03:01:32    | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:01:40+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:01:40+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:01:40+0700] [Info]  |                                        | 
+[2026-06-07T03:01:40+0700] [Info]  ========================================== 
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info]  
+[2026-06-07T03:01:40+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:01:40+0700] [Info] -----------------------------------------------
+[2026-06-07T03:01:40+0700] [Info] Successfully connected to database!
+[2026-06-07T03:01:40+0700] [Info] -----------------------------------------------
+[2026-06-07T03:01:40+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:01:51+0700] [Info] [connection] incoming connection: 127.0.0.1:63904 id: 0
+[2026-06-07T03:01:51+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:02:53+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:02:57+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info]  ===============================
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info]  ===============================
+[2026-06-07T03:10:11+0700] [Info] 
+[2026-06-07T03:10:11+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:10:11+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:10:11+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:10:11+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info]          ==============================================================
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:10:12+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:10:12+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:10:12+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:10:12+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:10:12+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:10:12+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:10:12+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:10:12+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:10:12+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          |                                                            |
+[2026-06-07T03:10:12+0700] [Info]          ==============================================================
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info]  ========================================== 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:10:12+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:10:12+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:10:12+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:10:12+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  |             Done in 69ms!              | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  ========================================== 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:10:12+0700] [Info]  | Started:     07 Jun 2026 - 03:10:12    | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:10:12+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:10:12+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:10:12+0700] [Info]  | Built:       07 Jun 2026 - 03:10:04    | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:10:12+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:10:12+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:10:12+0700] [Info]  |                                        | 
+[2026-06-07T03:10:12+0700] [Info]  ========================================== 
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info]  
+[2026-06-07T03:10:12+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:10:12+0700] [Info] -----------------------------------------------
+[2026-06-07T03:10:12+0700] [Info] Successfully connected to database!
+[2026-06-07T03:10:12+0700] [Info] -----------------------------------------------
+[2026-06-07T03:10:12+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:10:22+0700] [Info] [connection] incoming connection: 127.0.0.1:49761 id: 0
+[2026-06-07T03:10:22+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:11:39+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:11:43+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info]  ===============================
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info]  ===============================
+[2026-06-07T03:13:09+0700] [Info] 
+[2026-06-07T03:13:09+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:13:09+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:13:09+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:13:09+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info]          ==============================================================
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:13:09+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:13:09+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:13:09+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:13:09+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:13:09+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:13:09+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:13:09+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:13:09+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:13:09+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          |                                                            |
+[2026-06-07T03:13:09+0700] [Info]          ==============================================================
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info]  ========================================== 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:13:09+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:13:09+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:13:09+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:13:09+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  |             Done in 85ms!              | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  ========================================== 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:13:09+0700] [Info]  | Started:     07 Jun 2026 - 03:13:09    | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:13:09+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:13:09+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:13:09+0700] [Info]  | Built:       07 Jun 2026 - 03:12:53    | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:13:09+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:13:09+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:13:09+0700] [Info]  |                                        | 
+[2026-06-07T03:13:09+0700] [Info]  ========================================== 
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info]  
+[2026-06-07T03:13:09+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:13:09+0700] [Info] -----------------------------------------------
+[2026-06-07T03:13:09+0700] [Info] Successfully connected to database!
+[2026-06-07T03:13:09+0700] [Info] -----------------------------------------------
+[2026-06-07T03:13:09+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:13:20+0700] [Info] [connection] incoming connection: 127.0.0.1:53541 id: 0
+[2026-06-07T03:13:20+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:17:12+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:17:15+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info]  ===============================
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info]  ===============================
+[2026-06-07T03:19:00+0700] [Info] 
+[2026-06-07T03:19:00+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:19:00+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:19:00+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:19:00+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info]          ==============================================================
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:19:00+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:19:00+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:19:00+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:19:00+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:19:00+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:19:00+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:19:00+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:19:00+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:19:00+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          |                                                            |
+[2026-06-07T03:19:00+0700] [Info]          ==============================================================
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info]  ========================================== 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:19:00+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:19:00+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:19:00+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:19:00+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  |             Done in 87ms!              | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  ========================================== 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:19:00+0700] [Info]  | Started:     07 Jun 2026 - 03:19:00    | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:19:00+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:19:00+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:19:00+0700] [Info]  | Built:       07 Jun 2026 - 03:18:55    | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:19:00+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:19:00+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:19:00+0700] [Info]  |                                        | 
+[2026-06-07T03:19:00+0700] [Info]  ========================================== 
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info]  
+[2026-06-07T03:19:00+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:19:00+0700] [Info] -----------------------------------------------
+[2026-06-07T03:19:00+0700] [Info] Successfully connected to database!
+[2026-06-07T03:19:00+0700] [Info] -----------------------------------------------
+[2026-06-07T03:19:00+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:19:11+0700] [Info] [connection] incoming connection: 127.0.0.1:57981 id: 0
+[2026-06-07T03:19:11+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:20:40+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:20:43+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info]  ===============================
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info]  ===============================
+[2026-06-07T03:25:57+0700] [Info] 
+[2026-06-07T03:25:57+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:25:57+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:25:57+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:25:57+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info]          ==============================================================
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:25:57+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:25:57+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:25:57+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:25:57+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:25:57+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:25:57+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:25:57+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:25:57+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:25:57+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          |                                                            |
+[2026-06-07T03:25:57+0700] [Info]          ==============================================================
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info]  ========================================== 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:25:57+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:25:57+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:25:57+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:25:57+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  |             Done in 97ms!              | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  ========================================== 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:25:57+0700] [Info]  | Started:     07 Jun 2026 - 03:25:57    | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:25:57+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:25:57+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:25:57+0700] [Info]  | Built:       07 Jun 2026 - 03:25:52    | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:25:57+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:25:57+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:25:57+0700] [Info]  |                                        | 
+[2026-06-07T03:25:57+0700] [Info]  ========================================== 
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info]  
+[2026-06-07T03:25:57+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:25:57+0700] [Info] -----------------------------------------------
+[2026-06-07T03:25:57+0700] [Info] Successfully connected to database!
+[2026-06-07T03:25:57+0700] [Info] -----------------------------------------------
+[2026-06-07T03:25:57+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:26:09+0700] [Info] [connection] incoming connection: 127.0.0.1:56883 id: 0
+[2026-06-07T03:26:09+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:26:30+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:26:33+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info]  ===============================
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info]  ===============================
+[2026-06-07T03:27:48+0700] [Info] 
+[2026-06-07T03:27:48+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:27:48+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:27:48+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:27:48+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info]          ==============================================================
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:27:48+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:27:48+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:27:48+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:27:48+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:27:48+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:27:48+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:27:48+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:27:48+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:27:48+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          |                                                            |
+[2026-06-07T03:27:48+0700] [Info]          ==============================================================
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info]  ========================================== 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:27:48+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:27:48+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:27:48+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:27:48+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  |             Done in 73ms!              | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  ========================================== 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:27:48+0700] [Info]  | Started:     07 Jun 2026 - 03:27:48    | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:27:48+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:27:48+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:27:48+0700] [Info]  | Built:       07 Jun 2026 - 03:27:39    | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:27:48+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:27:48+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:27:48+0700] [Info]  |                                        | 
+[2026-06-07T03:27:48+0700] [Info]  ========================================== 
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info]  
+[2026-06-07T03:27:48+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:27:48+0700] [Info] -----------------------------------------------
+[2026-06-07T03:27:48+0700] [Info] Successfully connected to database!
+[2026-06-07T03:27:48+0700] [Info] -----------------------------------------------
+[2026-06-07T03:27:48+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:28:00+0700] [Info] [connection] incoming connection: 127.0.0.1:65477 id: 0
+[2026-06-07T03:28:00+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:29:42+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:29:46+0700] [Info] plugin.mysql: Unloading plugin...
+Starting open.mp server (1.5.8.3079) from commit c6759bd8d265171ae3d86598895a23d5a8d92a3b
+Loading component $CAPI.dll
+	Successfully loaded component C-API (1.5.8.3079) with UID 10467dd8d4c56fc6
+Loading component Actors.dll
+	Successfully loaded component Actors (1.5.8.3079) with UID c81ca021eae2ad5c
+Loading component Checkpoints.dll
+	Successfully loaded component Checkpoints (1.5.8.3079) with UID 44a937350d611dde
+Loading component Classes.dll
+	Successfully loaded component Classes (1.5.8.3079) with UID 8cfb3183976da208
+Loading component Console.dll
+	Successfully loaded component Console (1.5.8.3079) with UID bfa24e49d0c95ee4
+Loading component CustomModels.dll
+	Successfully loaded component CustomModels (1.5.8.3079) with UID 15e3cb1e7c77ffff
+Loading component Databases.dll
+	Successfully loaded component Databases (1.5.8.3079) with UID 80092e7eb5821a96
+Loading component Dialogs.dll
+	Successfully loaded component Dialogs (1.5.8.3079) with UID 44a111350d611dde
+Loading component GangZones.dll
+	Successfully loaded component GangZones (1.5.8.3079) with UID b3351d11ee8d8056
+Loading component LegacyConfig.dll
+	Successfully loaded component LegacyConfig (1.5.8.3079) with UID 24ef6216838f9ffc
+Loading component LegacyNetwork.dll
+	Successfully loaded component RakNetLegacyNetwork (1.5.8.3079) with UID ea9799fd79cf8442
+Loading component Menus.dll
+	Successfully loaded component Menus (1.5.8.3079) with UID 621e219eb97ee0b2
+Loading component NPCs.dll
+	Successfully loaded component NPCs (1.5.8.3079) with UID 3d0e59e87f4e90bc
+Loading component Objects.dll
+	Successfully loaded component Objects (1.5.8.3079) with UID 59f8415f72da6160
+Loading component Pawn.dll
+	Successfully loaded component Pawn (1.5.8.3079) with UID 78906cd9f19c36a6
+Loading component Pickups.dll
+	Successfully loaded component Pickups (1.5.8.3079) with UID cf304faa363dd971
+Loading component Recordings.dll
+	Successfully loaded component Recordings (1.5.8.3079) with UID 871144d399f5f613
+Loading component sscanf.dll
+	Successfully loaded component sscanf (2.13.8.0) with UID a1e7c01e55caa1f2
+Loading component TextDraws.dll
+	Successfully loaded component TextDraws (1.5.8.3079) with UID 9b5dc2b1d15c992a
+Loading component TextLabels.dll
+	Successfully loaded component TextLabels (1.5.8.3079) with UID a0c57ea80a009742
+Loading component Timers.dll
+	Successfully loaded component Timers (1.5.8.3079) with UID 2ad8124c5ea257a3
+Loading component Variables.dll
+	Successfully loaded component Variables (1.5.8.3079) with UID 75e121848bc01fa2
+Loading component Vehicles.dll
+	Successfully loaded component Vehicles (1.5.8.3079) with UID 3f1f62ee9e22ab19
+Loaded 23 component(s) from C:\Users\TranGiap\Desktop\DATA\SAMP\Open-mp\Server\components
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info]  ===============================
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info]      sscanf component loaded.   
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info]          Version: 2.13.8
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info]    (c) 2022 Alex "Y_Less" Cole  
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info]  ===============================
+[2026-06-07T03:32:58+0700] [Info] 
+[2026-06-07T03:32:58+0700] [Info] Loading plugin: mysql
+[2026-06-07T03:32:58+0700] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2026-06-07T03:32:58+0700] [Info] Loading plugin: samp_bcrypt
+[2026-06-07T03:32:58+0700] [Info] [SampBcrypt] [info]: Version: 0.4.1
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info]          ==============================================================
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2026-06-07T03:32:58+0700] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2026-06-07T03:32:58+0700] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2026-06-07T03:32:58+0700] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2026-06-07T03:32:58+0700] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2026-06-07T03:32:58+0700] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2026-06-07T03:32:58+0700] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2026-06-07T03:32:58+0700] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2026-06-07T03:32:58+0700] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2026-06-07T03:32:58+0700] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          |                                                            |
+[2026-06-07T03:32:58+0700] [Info]          ==============================================================
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info]  ========================================== 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  |   Generating code, this may take a     | 
+[2026-06-07T03:32:58+0700] [Info]  |  little bit of time.  Note that this   | 
+[2026-06-07T03:32:58+0700] [Info]  |  code generation works best with the   | 
+[2026-06-07T03:32:58+0700] [Info]  |     JIT plugin, which you are not      | 
+[2026-06-07T03:32:58+0700] [Info]  |     currently using.  Get it here:     | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  |       https://git.io/jit-plugin        | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  |             Please wait...             | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  |             Done in 87ms!              | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  ========================================== 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  | Server:      open.mp 1.5.8.3079 (W)    | 
+[2026-06-07T03:32:58+0700] [Info]  | Started:     07 Jun 2026 - 03:32:58    | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  | Compiler:    3.10.11 (Windows)         | 
+[2026-06-07T03:32:58+0700] [Info]  | Includes:    open.mp v037030           | 
+[2026-06-07T03:32:58+0700] [Info]  | Codepage:    <none>                    | 
+[2026-06-07T03:32:58+0700] [Info]  | Built:       07 Jun 2026 - 03:32:52    | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  | YSI:         v05.10.0006               | 
+[2026-06-07T03:32:58+0700] [Info]  | Master:      -1                        | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  | JIT:         <none>                    | 
+[2026-06-07T03:32:58+0700] [Info]  | Crashdetect: <none>                    | 
+[2026-06-07T03:32:58+0700] [Info]  |                                        | 
+[2026-06-07T03:32:58+0700] [Info]  ========================================== 
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info]  
+[2026-06-07T03:32:58+0700] [Info] Chuong trinh may chu dang duoc khoi dong, vui long cho doi....
+[2026-06-07T03:32:58+0700] [Info] -----------------------------------------------
+[2026-06-07T03:32:58+0700] [Info] Successfully connected to database!
+[2026-06-07T03:32:58+0700] [Info] -----------------------------------------------
+[2026-06-07T03:32:58+0700] [Info] Legacy Network started on port 7777
+[2026-06-07T03:33:09+0700] [Info] [connection] incoming connection: 127.0.0.1:56331 id: 0
+[2026-06-07T03:33:09+0700] [Info] [join] Giap_Tran has joined the server (0:127.0.0.1)
+[2026-06-07T03:34:10+0700] [Info] [part] Giap_Tran has left the server (0:1)
+[2026-06-07T03:34:14+0700] [Info] plugin.mysql: Unloading plugin...
