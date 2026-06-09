@@ -3,7 +3,7 @@ Account_Check(playerid) {
 	new query[256];
     TogglePlayerSpectating(playerid, true);
     mysql_format(g_DatabaseHandle, query, sizeof(query),
-        "SELECT * FROM Accounts WHERE Username='%e'",
+        "SELECT ID, Logged FROM Accounts WHERE Username='%e'",
         GetPlayerNameEx(playerid));
 
     mysql_tquery(g_DatabaseHandle, query, "OnAccountCheck", "d", playerid);
@@ -15,6 +15,14 @@ public OnAccountCheck(playerid)
 {
     if(cache_num_rows())
     {
+        cache_get_value_name_int(0, "Logged",
+            PlayerInfo[playerid][pLogged]);
+        if(PlayerInfo[playerid][pLogged] == 1) {
+            ShowPlayerDialog(playerid, DIALOG_NOTHING, DIALOG_STYLE_MSGBOX, "Thong Bao", "Tai khoan dang duoc dang nhap noi khac !\nKhong the dang nhap 2 tai khoan cung luc !", "OK", "");
+            return Kick(playerid);
+        }
+        cache_get_value_name_int(0, "ID", PlayerInfo[playerid][pID]);
+        SetAccountOnline(playerid, 1);
         ShowPlayerDialog(
             playerid,
             DIALOG_LOGIN,
@@ -65,7 +73,7 @@ public OnAccountRegister(playerid)
     PlayerInfo[playerid][pID] = cache_insert_id();
 	PlayerInfo[playerid][pLevel] = 1;
 	PlayerInfo[playerid][pCash] = 5000;
-	PlayerInfo[playerid][pBank] = 0;
+	PlayerInfo[playerid][pBank] = 2000;
 	PlayerInfo[playerid][pAdmin] = 0;
 	PlayerInfo[playerid][pPosX] = InitPlayerPos[0];
 	PlayerInfo[playerid][pPosY] = InitPlayerPos[1];
@@ -73,9 +81,10 @@ public OnAccountRegister(playerid)
 	PlayerInfo[playerid][pAngle] = InitPlayerPos[3];
 	PlayerInfo[playerid][pInterior] = 0;
 	PlayerInfo[playerid][pVirtualWorld] = 0;
-	PlayerInfo[playerid][pSkin] = 27;
+	PlayerInfo[playerid][pSkin] = 2;
 	PlayerInfo[playerid][pGender] = 0;
 	SetPlayerSpawn(playerid);
+    SetAccountOnline(playerid, 1);
     return 1;
 }
 
@@ -141,7 +150,6 @@ SetPlayerSpawn(playerid) {
         PlayerInfo[playerid][pCash]
     );
 
-	PlayerInfo[playerid][pLogged] = true;
     gLoggedIn[playerid] = true;
     SpawnPlayer(playerid);
 	return 1;
@@ -199,94 +207,3 @@ TeleportPlayerToLocation(playerid, locationid)
 //-----------------------------------------------------------------------------
 // Conversation && Messages
 //-----------------------------------------------------------------------------
-stock GetConversation(player1, player2)
-{
-    for(new i; i < ConversationCount; i++)
-    {
-        if(
-            (ConversationData[i][ConvPlayer1] == player1 &&
-             ConversationData[i][ConvPlayer2] == player2)
-        ||
-            (ConversationData[i][ConvPlayer1] == player2 &&
-             ConversationData[i][ConvPlayer2] == player1)
-        )
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-stock CreateConversation(player1, player2)
-{
-    new id = ConversationCount++;
-
-    ConversationData[id][ConvID] = id;
-    ConversationData[id][ConvPlayer1] = player1;
-    ConversationData[id][ConvPlayer2] = player2;
-
-    return id;
-}
-
-stock SendMessage(sender, receiver, const text[])
-{
-    new conv = GetConversation(sender, receiver);
-
-    if(conv == -1)
-    {
-        conv = CreateConversation(sender, receiver);
-    }
-
-    new msgid = MessageCount++;
-
-    MessageData[msgid][MsgID] = msgid;
-    MessageData[msgid][MsgConversation] = conv;
-    MessageData[msgid][MsgSender] = sender;
-    MessageData[msgid][MsgReceiver] = receiver;
-    MessageData[msgid][MsgTime] = gettime();
-    MessageData[msgid][MsgRead] = 0;
-
-    format(
-        MessageData[msgid][MsgText],
-        MAX_MESSAGE_LEN,
-        "%s",
-        text
-    );
-
-    ConversationData[conv][ConvLastMessage] = msgid;
-    ConversationData[conv][ConvLastTime] = gettime();
-
-    return msgid;
-}
-
-stock ShowConversationList(playerid)
-{
-    for(new i; i < ConversationCount; i++)
-    {
-        if(
-            ConversationData[i][ConvPlayer1] == playerid ||
-            ConversationData[i][ConvPlayer2] == playerid
-        )
-        {
-            printf(
-                "Conversation ID: %d",
-                ConversationData[i][ConvID]
-            );
-        }
-    }
-}
-
-stock OpenConversation(playerid, conversationid)
-{
-    for(new i; i < MessageCount; i++)
-    {
-        if(MessageData[i][MsgConversation] == conversationid)
-        {
-            printf(
-                "[%d] %s",
-                MessageData[i][MsgSender],
-                MessageData[i][MsgText]
-            );
-        }
-    }
-}

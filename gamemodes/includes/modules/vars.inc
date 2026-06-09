@@ -4,6 +4,7 @@ new MySQL:g_DatabaseHandle;
 // Pinfo
 enum pInfo {
 	pID,
+    pName,
 
     pLevel,
     pCash,
@@ -20,12 +21,11 @@ enum pInfo {
 
     pSkin,
     pGender,
-
-    bool:pLogged
+    pLogged
 }
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
-new gLoggedIn[MAX_PLAYERS];
+new bool:gLoggedIn[MAX_PLAYERS] = false;
 
 // Admin
 enum E_ADMIN_LEVEL
@@ -73,26 +73,30 @@ new GotoLocations[][E_GOTO_LOC] =
 //-----------------------------------------------------------------------------
 // Conversation && Messages
 //-----------------------------------------------------------------------------
-enum E_CONVERSATION
+enum E_PLAYER_MESSENGER
+{
+    CurrentConvID,
+    CurrentCacheID
+};
+
+new PlayerMessenger[MAX_PLAYERS][E_PLAYER_MESSENGER];
+
+enum E_CONVERSATION_CACHE
 {
     ConvID,
     ConvPlayer1,
     ConvPlayer2,
-    ConvLastMessage,
-    ConvLastTime
+    ConvMessageCount,
+    bool:ConvLoaded
 };
-new ConversationData[MAX_CONVERSATIONS][E_CONVERSATION];
-new ConversationCount;
 
-enum E_MESSAGE
+new ConversationCache[MAX_CONVERSATIONS][E_CONVERSATION_CACHE];
+
+enum E_MESSAGE_CACHE
 {
-    MsgID,
-    MsgConversation,
-    MsgSender,
-    MsgReceiver,
-    MsgTime,
-    MsgRead,
-    MsgText[MAX_MESSAGE_LEN]
+    MsgSenderID,
+    MsgTimestamp,
+    MsgText[256]
 };
-new MessageData[MAX_MESSAGES][E_MESSAGE];
-new MessageCount;
+
+new ConversationMessages[MAX_CONVERSATIONS][MAX_CONV_MESSAGES][E_MESSAGE_CACHE];

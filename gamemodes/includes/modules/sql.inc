@@ -1,40 +1,11 @@
-
-MySQL_Init() {
-    AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
-	g_DatabaseHandle = mysql_connect_file("mysql.ini");
-
-    if (mysql_errno(g_DatabaseHandle) == 0) 
-    {
-        print("-----------------------------------------------");
-        print("Successfully connected to database!");
-        print("-----------------------------------------------");
-    }
-    else 
-    {
-        print("-----------------------------------------------");
-        print("Failed to connect to database!");
-        print("Please verify your mysql.ini settings");
-        print("Server will be locked for maintenance...");
-        print("-----------------------------------------------");
-
-        SendRconCommand("password TvHRY2FmQjXEsCq");
-        SendRconCommand("name Server is under maintenance!");
-    }
-	return 1;
-}
-
-MySQL_Close() {
-	mysql_close(g_DatabaseHandle);
-	return 1;
-}
-
 /// Accounts
+
 LoadPlayerData(playerid)
 {
     new query[256];
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
-        "SELECT * FROM Accounts WHERE Username='%e'",
+        "SELECT * FROM accounts WHERE Username='%e'",
         GetPlayerNameEx(playerid)
     );
 
@@ -49,6 +20,8 @@ public OnPlayerDataLoaded(playerid)
 
     cache_get_value_name_int(0, "ID",
         PlayerInfo[playerid][pID]);
+    cache_get_value_name(0, "Username",
+        PlayerInfo[playerid][pName]);
 
     cache_get_value_name_int(0, "Level",
         PlayerInfo[playerid][pLevel]);
@@ -86,15 +59,24 @@ public OnPlayerDataLoaded(playerid)
     cache_get_value_name_int(0, "Gender",
         PlayerInfo[playerid][pGender]);
 
-    
+    cache_get_value_name_int(0, "Logged",
+        PlayerInfo[playerid][pLogged]);
+
+
 	SetPlayerSpawn(playerid);
+    return 1;
+}
+
+SetAccountOnline(playerid, stateid) {
+    new query[256];
+    mysql_format(g_DatabaseHandle, query, sizeof(query), "UPDATE `accounts` SET `Logged`=%d, `LastLogin` = NOW() WHERE `ID` = %d", stateid, PlayerInfo[playerid][pID]);
+    mysql_tquery(g_DatabaseHandle, query);
     return 1;
 }
 
 Account_Save(playerid)
 {
-    if(!PlayerInfo[playerid][pLogged])
-        return 0;
+    if(PlayerInfo[playerid][pLogged] != 1) return 1;
 
     GetPlayerPos(
         playerid,
@@ -115,7 +97,7 @@ Account_Save(playerid)
     new query[1024];
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
-        "UPDATE Accounts SET \
+        "UPDATE accounts SET \
         Level=%d,\
         Cash=%d,\
         Bank=%d,\

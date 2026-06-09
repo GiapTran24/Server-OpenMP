@@ -9,6 +9,7 @@ public OnPlayerDisconnect(playerid, reason)
     Account_Save(playerid);
     ClearNotificationSlot(playerid, 0);
     ClearNotificationSlot(playerid, 1);
+	SetAccountOnline(playerid, 0);
 	return 1;
 }
 
@@ -27,6 +28,7 @@ public OnPlayerSpawn(playerid)
             format(string, sizeof(string), "[AD] Ban dang dang nhap voi tai khoan {FF0000}%s", GetAdminName(PlayerInfo[playerid][pAdmin]));
         }
         SendClientMessageEx(playerid, COLOR_SUCCESS, string);
+
         SetTimerEx("NotifyPlayerSpawn", 1000, false, "d", playerid);
         gLoggedIn[playerid] = false;
     }
@@ -41,12 +43,14 @@ public NotifyPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, WEAPON:reason)
 {
+	SpawnPlayer(playerid);
+    SetPlayerHealth(playerid, 100);
     if(gAdminGod[playerid]) {
         SpawnPlayer(playerid);
         SetPlayerHealth(playerid, 100);
         return 0;
     }
-	return 1;
+	return 0;
 }
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
@@ -82,7 +86,6 @@ public OnPlayerUpdate(playerid)
         ResetPlayerMoney(playerid);
         GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
     }
-
 	return 1;
 }
 
@@ -133,6 +136,8 @@ public OnActorStreamOut(actorid, forplayerid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+    //HandleDialogConversation(playerid, dialogid, response, listitem, inputtext);
+    
 	switch (dialogid)
     {
         case DIALOG_REGISTER:
@@ -479,6 +484,28 @@ stock SendClientMessageToAllEx(color, const string[])
 	return 1;
 }
 
+stock GetPlayerOnline(playerid) {
+    if(PlayerInfo[playerid][pLogged]) return 1;
+    return -1;
+}
+
+stock GetPlayerSQLId(playerid)
+{
+	if(PlayerInfo[playerid][pLogged])
+	{
+		return PlayerInfo[playerid][pID];
+	}
+	return -1;
+}
+
+stock GetPlayerSQLName(playerid) {
+    new name[MAX_PLAYER_NAME];
+    if(PlayerInfo[playerid][pLogged]) {
+        format(name, sizeof(name), PlayerInfo[playerid][pName]);
+        return name;
+    }
+    return -1;
+}
 stock IsInvalidSkin(skin) {
 	if(!(0 <= skin <= 299)) return 1;
     return 0;

@@ -5,6 +5,12 @@ enum
     DIALOG_REGISTER,
     DIALOG_LOGIN,
 
+    // Dialog Conversations
+    DIALOG_MESSENGER_LIST,
+    DIALOG_CONVERSATION_VIEW,
+    DIALOG_SEND_MESSAGE,
+    DIALOG_NEW_MESSAGE,
+
     // Dialog Taixiu
     DIALOG_TX_HISTORY,
     DIALOG_TX_TAI,

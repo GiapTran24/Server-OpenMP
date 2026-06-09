@@ -7,6 +7,5 @@
 //-----------------------------------------------------------------------------
 // Conversation && Messages
 //-----------------------------------------------------------------------------
-#define MAX_CONVERSATIONS 1000
-#define MAX_MESSAGES      5000
-#define MAX_MESSAGE_LEN   128
+#define MAX_CONVERSATIONS     (1000)
+#define MAX_CONV_MESSAGES     (10)
