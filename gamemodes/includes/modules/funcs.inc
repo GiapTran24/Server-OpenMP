@@ -24,7 +24,7 @@ public OnAccountCheck(playerid)
         cache_get_value_name_int(0, "ID", PlayerInfo[playerid][pID]);
         SetAccountOnline(playerid, 1);
         new fakeName[MAX_PLAYER_NAME];
-        format(fakeName, sizeof(fakeName), "UID%d", PlayerInfo[playerid][pID]);
+        format(fakeName, sizeof(fakeName), "Player_0%d", PlayerInfo[playerid][pID]);
         SetPlayerName(playerid, fakeName);
         ShowPlayerDialog(
             playerid,
@@ -93,7 +93,7 @@ public OnAccountRegister(playerid)
     SetAccountOnline(playerid, 1);
     
     new fakeName[MAX_PLAYER_NAME];
-    format(fakeName, sizeof(fakeName), "UID%d", PlayerInfo[playerid][pID]);
+    format(fakeName, sizeof(fakeName), "Player_0%d", PlayerInfo[playerid][pID]);
     SetPlayerName(playerid, fakeName);
 	SetPlayerSpawn(playerid);
     return 1;

@@ -10,14 +10,14 @@ enum {
 new PlayerText:LoadingTD[MAX_PLAYERS][4]; 
 new PlayerBar:LoadingProgressBar[MAX_PLAYERS];
 
-new Float:p_LoadingProgress[MAX_PLAYERS];
-new p_LoadingType[MAX_PLAYERS];
-new loadingTimer[MAX_PLAYERS];
+new Float:pLoadingProgress[MAX_PLAYERS];
+new pLoadingType[MAX_PLAYERS];
+new pLoadingTimer[MAX_PLAYERS];
 
 hook OnPlayerConnect(playerid)
 {
-    p_LoadingProgress[playerid] = 0.0;
-    p_LoadingType[playerid] = LOADING_TYPE_NONE;
+    pLoadingProgress[playerid] = 0.0;
+    pLoadingType[playerid] = LOADING_TYPE_NONE;
 
     LoadingTD[playerid][0] = CreatePlayerTextDraw(playerid, 320.0, 255.0, "_");
     PlayerTextDrawFont(playerid, LoadingTD[playerid][0], TEXT_DRAW_FONT:1);
@@ -71,10 +71,10 @@ hook OnPlayerConnect(playerid)
     return 1;
 }
 
-stock ShowPlayerLoading(playerid, const title[], loading_type)
+stock ShowPlayerLoading(playerid, const title[], loading_type, Float:p_step = 1.5)
 {
-    p_LoadingProgress[playerid] = 0.0;
-    p_LoadingType[playerid] = loading_type;
+    pLoadingProgress[playerid] = 0.0;
+    pLoadingType[playerid] = loading_type;
 
     PlayerTextDrawSetString(playerid, LoadingTD[playerid][2], title);
     PlayerTextDrawSetString(playerid, LoadingTD[playerid][3], "0%");
@@ -85,13 +85,13 @@ stock ShowPlayerLoading(playerid, const title[], loading_type)
     }
     ShowPlayerProgressBar(playerid, LoadingProgressBar[playerid]);
 
-    loadingTimer[playerid] = SetTimerEx("LoadingTimer", 100, true, "i", playerid);
+    pLoadingTimer[playerid] = SetTimerEx("LoadingTimer", 40, true, "if", playerid, p_step);
 }
 
 stock HidePlayerLoading(playerid)
 {
-    p_LoadingType[playerid] = LOADING_TYPE_NONE;
-    p_LoadingProgress[playerid] = 0.0;
+    pLoadingType[playerid] = LOADING_TYPE_NONE;
+    pLoadingProgress[playerid] = 0.0;
 
     for(new i = 0; i < 4; i++) {
         PlayerTextDrawHide(playerid, LoadingTD[playerid][i]);
@@ -101,24 +101,24 @@ stock HidePlayerLoading(playerid)
 
 stock UpdatePlayerLoading(playerid, Float:value)
 {
-    if(p_LoadingType[playerid] == LOADING_TYPE_NONE) return 0;
+    if(pLoadingType[playerid] == LOADING_TYPE_NONE) return 0;
 
-    p_LoadingProgress[playerid] += value;
-    if(p_LoadingProgress[playerid] > 100.0) p_LoadingProgress[playerid] = 100.0;
+    pLoadingProgress[playerid] += value;
+    if(pLoadingProgress[playerid] > 100.0) pLoadingProgress[playerid] = 100.0;
 
-    SetPlayerProgressBarValue(playerid, LoadingProgressBar[playerid], p_LoadingProgress[playerid]);
+    SetPlayerProgressBarValue(playerid, LoadingProgressBar[playerid], pLoadingProgress[playerid]);
     ShowPlayerProgressBar(playerid, LoadingProgressBar[playerid]);
 
     new str[16];
-    format(str, sizeof(str), "%d%%", floatround(p_LoadingProgress[playerid]));
+    format(str, sizeof(str), "%d%%", floatround(pLoadingProgress[playerid]));
     PlayerTextDrawSetString(playerid, LoadingTD[playerid][3], str);
 
-    if(p_LoadingProgress[playerid] >= 100.0)
+    if(pLoadingProgress[playerid] >= 100.0)
     {
         PlayerTextDrawSetString(playerid, LoadingTD[playerid][2], "Hoan Thanh");
         PlayerTextDrawColour(playerid, LoadingTD[playerid][2], COLOR_CYAN);
         PlayerTextDrawShow(playerid, LoadingTD[playerid][2]);
-        KillTimer(loadingTimer[playerid]); 
+        KillTimer(pLoadingTimer[playerid]); 
         SetTimerEx("OnPlayerFinishLoading", 1000, false, "i", playerid);
     }
     return 1;
@@ -129,7 +129,7 @@ public OnPlayerFinishLoading(playerid)
 {
     PlayerTextDrawColour(playerid, LoadingTD[playerid][2], -1);
     HidePlayerLoading(playerid);
-    switch(p_LoadingType[playerid])
+    switch(pLoadingType[playerid])
     {
         case LOADING_TYPE_LOGIN:
         {
@@ -150,16 +150,17 @@ public OnPlayerFinishLoading(playerid)
     return 1;
 }
 
-CMD:testloading(playerid, params[])
+// test
+CMD:loading(playerid, params[])
 {
     ShowPlayerLoading(playerid, "Dang lay du lieu", LOADING_TYPE_JOB);
     return 1;
 }
 
-forward LoadingTimer(playerid);
-public LoadingTimer(playerid)
+forward LoadingTimer(playerid, Float:step);
+public LoadingTimer(playerid, Float:step)
 {
-    if(p_LoadingType[playerid] == LOADING_TYPE_NONE) return KillTimer(loadingTimer[playerid]); 
-    UpdatePlayerLoading(playerid, 2.5); 
+    if(pLoadingType[playerid] == LOADING_TYPE_NONE) return KillTimer(pLoadingTimer[playerid]); 
+    UpdatePlayerLoading(playerid, step); 
     return 1;
 }
