@@ -156,8 +156,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			mysql_format(g_DatabaseHandle, query, sizeof(query),
 				"SELECT Password FROM Accounts \
-				WHERE Username='%e'",
-				GetPlayerNameEx(playerid)
+				WHERE ID='%d'",
+				PlayerInfo[playerid][pID]
 			);
 
 			mysql_tquery(g_DatabaseHandle, query, "OnPasswordCheck", "ds",
@@ -487,15 +487,6 @@ stock SendClientMessageToAllEx(color, const string[])
 stock GetPlayerOnline(playerid) {
     if(PlayerInfo[playerid][pLogged]) return 1;
     return -1;
-}
-
-stock GetPlayerSQLId(playerid)
-{
-	if(PlayerInfo[playerid][pLogged])
-	{
-		return PlayerInfo[playerid][pID];
-	}
-	return -1;
 }
 
 stock GetPlayerSQLName(playerid) {

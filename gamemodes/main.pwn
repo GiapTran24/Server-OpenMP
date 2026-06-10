@@ -1,19 +1,25 @@
 #include <open.mp>
 #include <a_mysql>
-//#include <sscanf2>
+#include <progress2>
 #include <samp_bcrypt>
 #include <zcmd>
+
+new MySQL:g_DatabaseHandle;
 
 // YSI
 #include <YSI_Coding\y_hooks>
 #include <YSI_Coding\y_timers>
 
+
+//Helpers
+#include "includes/helpers/colors.inc"
+#include "includes/helpers/notify.inc"
+#include "includes/helpers/loading.inc"
+
 // Main
-#include "includes/modules/colors.inc"
 #include "includes/modules/defines.inc"
 #include "includes/modules/dialogs.inc"
 #include "includes/modules/vars.inc"
-#include "includes/modules/notify.inc"
 #include "includes/modules/sql.inc"
 #include "includes/modules/funcs.inc"
 #include "includes/modules/task.inc"
@@ -33,19 +39,8 @@ main() {}
 public OnGameModeInit()
 {
 	print("Chuong trinh may chu dang duoc khoi dong, vui long cho doi....");
-	print("");
-	MySQL_Init();
-	return 1;
-}
-
-public OnGameModeExit()
-{
-	MySQL_Close();
-	return 1;
-}
-
-MySQL_Init() {
-    AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
+	
+	AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
 	g_DatabaseHandle = mysql_connect_file("mysql.ini");
 
     if (mysql_errno(g_DatabaseHandle) == 0) 
@@ -62,13 +57,20 @@ MySQL_Init() {
         print("Server will be locked for maintenance...");
         print("-----------------------------------------------");
 
-        SendRconCommand("password TvHRY2FmQjXEsCq");
+        SendRconCommand("password 123123");
         SendRconCommand("name Server is under maintenance!");
     }
+
+	ShowNameTags(false);
 	return 1;
 }
 
-MySQL_Close() {
+public OnGameModeExit()
+{
+	new query[256];
+    mysql_format(g_DatabaseHandle, query, sizeof(query), "UPDATE `accounts` SET `Logged`=0 WHERE `Logged` = 1");
+    mysql_tquery(g_DatabaseHandle, query);
+
 	mysql_close(g_DatabaseHandle);
 	return 1;
 }

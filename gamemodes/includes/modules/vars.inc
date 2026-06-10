@@ -1,15 +1,15 @@
-// SQL INIT VARIABLE
-new MySQL:g_DatabaseHandle;
 
 // Pinfo
 enum pInfo {
 	pID,
-    pName,
+    pName[MAX_PLAYER_NAME],
 
     pLevel,
     pCash,
     pBank,
     pAdmin,
+    Float:pHealth,
+    Float:pArmor,
 
     Float:pPosX,
     Float:pPosY,

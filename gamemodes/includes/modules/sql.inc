@@ -5,8 +5,8 @@ LoadPlayerData(playerid)
     new query[256];
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
-        "SELECT * FROM accounts WHERE Username='%e'",
-        GetPlayerNameEx(playerid)
+        "SELECT * FROM accounts WHERE ID='%d'",
+        PlayerInfo[playerid][pID]
     );
 
     mysql_tquery(g_DatabaseHandle, query, "OnPlayerDataLoaded", "d", playerid);

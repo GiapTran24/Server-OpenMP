@@ -27,15 +27,6 @@
 #tryinclude <logger>
 #tryinclude <YSI_Data\y_iterate>
 
-
-#if(!defined _INC_y_iterate)
-	#tryinclude <foreach>
-#endif
-
-#if(!defined Iter_Init)
-	#error "Progress2 needs standlone foreach or y_iterate to work"
-#endif
-
 #tryinclude <YSI_Coding\y_hooks>
 
 #if defined MAX_PLAYER_BARS
@@ -113,8 +104,8 @@ enum E_PROGRESSBAR_BOUNDRY {
 static PlayerText:pbar_TextDraw[MAX_PLAYERS][MAX_PLAYER_BARS][E_BAR_TEXT_DRAW];
 
 new
-	#if(defined Iter_Init)
-		Iterator:pbar_Index[MAX_PLAYERS]<MAX_PLAYER_BARS>,
+	#if(defined _INC_y_iterate)
+		Iterator:pbar_Index[MAX_PLAYERS]<PlayerBar:(_:MAX_PLAYER_BARS)>,
 	#endif
 	pbar_Data[MAX_PLAYERS][MAX_PLAYER_BARS][E_BAR_DATA]
 ;
@@ -183,12 +174,10 @@ stock PlayerBar:CreatePlayerProgressBar(
 	const Float:max = 100.0,
 	const progressbar_direction:direction = BAR_DIRECTION_RIGHT
 ) {
-	if(!IsPlayerConnected(playerid)) {
-		#if defined _logger_included
-			Logger_Err("attempt to create player progress bar for invalid player",
+	if( !IsPlayerConnected(playerid) ) {
+		#if(defined _logger_included)
+		Logger_Err("attempt to create player progress bar for invalid player",
 			Logger_I("playerid", playerid));
-		#else 
-			printf("attempt to create player progress bar for invalid player | playerid: %d", playerid);
 		#endif
 		return INVALID_PLAYER_BAR_ID;
 	}
@@ -196,14 +185,12 @@ stock PlayerBar:CreatePlayerProgressBar(
 		PlayerBarUI_ResetAll();
 	}
 
-	#if(defined Iter_Free)
+	#if(defined _INC_y_iterate)
 	new PlayerBar:barid = PlayerBar:Iter_Free(pbar_Index[playerid]);
 
 	if( barid == PlayerBar:ITER_NONE ) {
-		#if defined _logger_included
-			Logger_Err("MAX_PLAYER_BARS limit reached.");
-		#else 
-			print("MAX_PLAYER_BARS limit reached.");
+		#if(defined _logger_included)
+		Logger_Err("MAX_PLAYER_BARS limit reached.");
 		#endif
 		return INVALID_PLAYER_BAR_ID;
 	}
@@ -211,9 +198,7 @@ stock PlayerBar:CreatePlayerProgressBar(
 	new PlayerBar:barid = PlayerBarUI_FindFree(playerid);
 	if( barid == INVALID_PLAYER_BAR_ID ) {
 		#if(defined _logger_included)
-			Logger_Err("MAX_PLAYER_BARS limit reached.");
-		#else
-			print("MAX_PLAYER_BARS limit reached.");
+		Logger_Err("MAX_PLAYER_BARS limit reached.");
 		#endif
 		return INVALID_PLAYER_BAR_ID;
 	}
@@ -236,7 +221,7 @@ stock PlayerBar:CreatePlayerProgressBar(
 	pbar_Data[playerid][barid][E_PADDING_X] = 1.2;
 	pbar_Data[playerid][barid][E_PADDING_Y] = 1.0;
 
-	#if(defined Iter_Add)
+	#if(defined _INC_y_iterate)
 	Iter_Add(pbar_Index[playerid], barid);
 	#endif
 
@@ -253,7 +238,7 @@ stock DestroyPlayerProgressBar(const playerid, const PlayerBar:barid) {
 	_ptextdraw_destroy_array(playerid, pbar_TextDraw[playerid][barid]);
 
 	pbar_Data[playerid][barid][is_created] = false;
-	#if(defined Iter_Remove)
+	#if(defined _INC_y_iterate)
 	Iter_Remove(pbar_Index[playerid], barid);
 	#endif
 
@@ -292,7 +277,7 @@ stock HidePlayerProgressBar(const playerid, const PlayerBar:barid) {
 }
 
 stock IsValidPlayerProgressBar(const playerid, const PlayerBar:barid) {
-	#if(defined Iter_Contains)
+	#if(defined _INC_y_iterate)
 		return Iter_Contains(pbar_Index[playerid], barid);
 	#else
 		if( INVALID_PLAYER_BAR_ID < barid && barid < MAX_PLAYER_BARS ) {
@@ -633,136 +618,32 @@ _progress2_renderBar(const playerid, const PlayerBar:barid) {
 
 	return true;
 }
-#if defined _inc_y_hooks
-	hook OnScriptInit() {
-		PlayerBarUI_ResetAll();
-		Iter_Init(pbar_Index);
-	}
-	hook OnPlayerDisconnect(playerid, reason) {
-		Iter_Clear(pbar_Index[playerid]);
-	}
-	hook OnScriptExit() {
-		for(new i = 0; i < MAX_PLAYERS; i++) {
-			if(IsPlayerConnected(i)) {
-				DestroyAllPlayerProgressBars(i);
-			}
-		}
-	}
-#else 
-	#if defined FILTERSCRIPT
-		public OnFilterScriptInit()
-		{
-			PlayerBarUI_ResetAll();
-			Iter_Init(pbar_Index);
-		#if    defined    pbar__OnFilterScriptInit
-			pbar__OnFilterScriptInit();
-		#endif
-			return 1;
-		}
-		#if    defined    _ALS_OnFilterScriptInit
-			#undef    OnFilterScriptInit
-		#else
-			#define    _ALS_OnFilterScriptInit
-		#endif
-		#define    OnFilterScriptInit    pbar__OnFilterScriptInit
-		#if    defined    pbar__OnFilterScriptInit
-			forward pbar__OnFilterScriptInit();
-		#endif 
-
-		// ===============================
-
-		public OnFilterScriptExit()
-		{
-			for(new i = 0; i < MAX_PLAYERS; i++) {
-				if(IsPlayerConnected(i)) {
-					DestroyAllPlayerProgressBars(i);
-				}
-			}
-		#if    defined    pbar__OnFilterScriptExit
-			pbar__OnFilterScriptExit();
-		#endif
-			return 1;
-		}
-		#if    defined    _ALS_OnFilterScriptExit
-			#undef    OnFilterScriptExit
-		#else
-			#define    _ALS_OnFilterScriptExit
-		#endif
-		#define    OnFilterScriptExit    pbar__OnFilterScriptExit
-		#if    defined    pbar__OnFilterScriptExit
-			forward pbar__OnFilterScriptExit();
-		#endif 
-	#else 
-		public OnGameModeExit()
-		{
-			for(new i = 0; i < MAX_PLAYERS; i++) {
-				if(IsPlayerConnected(i)) {
-					DestroyAllPlayerProgressBars(i);
-				}
-			}
-		#if    defined    pbar__OnGameModeExit
-			pbar__OnGameModeExit();
-		#endif
-			return 1;
-		}
-		#if    defined    _ALS_OnGameModeExit
-			#undef    OnGameModeExit
-		#else
-			#define    _ALS_OnGameModeExit
-		#endif
-		#define    OnGameModeExit    pbar__OnGameModeExit
-		#if    defined    pbar__OnGameModeExit
-			forward pbar__OnGameModeExit();
-		#endif 
-
-		public OnGameModeInit()
-		{
-			Iter_Init(pbar_Index);
-		#if    defined    pbar__OnGameModeInit
-			pbar__OnGameModeInit();
-		#endif
-			return 1;
-		}
-		#if    defined    _ALS_OnGameModeInit
-			#undef    OnGameModeInit
-		#else
-			#define    _ALS_OnGameModeInit
-		#endif
-		#define    OnGameModeInit    pbar__OnGameModeInit
-		#if    defined    pbar__OnGameModeInit
-			forward pbar__OnGameModeInit();
-		#endif 
+#if(defined _INC_y_hooks)
+hook OnScriptInit() {
+	PlayerBarUI_ResetAll();
+	#if(defined _INC_y_iterate)
+	Iter_Init(pbar_Index);
 	#endif
+}
 
-
-	// ===============================
-
-	public OnPlayerDisconnect(playerid, reason)
-	{
-		Iter_Clear(pbar_Index[playerid]);
-	#if    defined    pbar__OnPlayerDisconnect
-		pbar__OnPlayerDisconnect(playerid, reason);
+hook OnPlayerDisconnect(playerid, reason) {
+	#if(defined _INC_y_iterate)
+	Iter_Clear(pbar_Index[playerid]);
 	#endif
-		return 1;
+}
+
+hook OnScriptExit() {
+	for(new i = 0; i < MAX_PLAYERS; i++) {
+		if( IsPlayerConnected(i) ) {
+			DestroyAllPlayerProgressBars(i);
+		}
 	}
-	#if    defined    _ALS_OnPlayerDisconnect
-		#undef    OnPlayerDisconnect
-	#else
-		#define    _ALS_OnPlayerDisconnect
-	#endif
-	#define    OnPlayerDisconnect    pbar__OnPlayerDisconnect
-	#if    defined    pbar__OnPlayerDisconnect
-		forward pbar__OnPlayerDisconnect(playerid, reason);
-	#endif 
-
-	// ===============================
-
+}
 #endif
 
-
-stock DestroyAllPlayerProgressBars(playerid) {
-	for (new PlayerBar:i = PlayerBar:0; i < MAX_PLAYER_BARS; i++) {
-		DestroyPlayerProgressBar(playerid, PlayerBar:i);
+stock DestroyAllPlayerProgressBars(const playerid) {
+	for(new PlayerBar:i = PlayerBar:0; i < MAX_PLAYER_BARS; i++) {
+		DestroyPlayerProgressBar(playerid, i);
 	}
 
 	return 1;

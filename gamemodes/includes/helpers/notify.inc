@@ -330,14 +330,12 @@ public OnAnimateNotifyFadeOut(playerid, slotid)
         default:                  { titleColor = 0x3498DBFF; barColor = 0x2980B9FF; }
     }
 
-    // Nếu đã mờ hẳn -> Gọi hàm Clear sạch sẽ bộ nhớ và biến trạng thái
     if(PlayerNotifications[playerid][slotid][slot_Alpha] <= 0)
     {
         ClearNotificationSlot(playerid, slotid);
         return 1;
     }
 
-    // Đoạn code cập nhật độ mờ Alpha (Giữ nguyên)
     new currentAlpha = PlayerNotifications[playerid][slotid][slot_Alpha];
     new textAlpha = (currentAlpha * 255) / 170; 
 
