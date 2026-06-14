@@ -19,8 +19,6 @@ public OnPlayerDataLoaded(playerid)
 
     cache_get_value_name_int(0, "ID",
         PlayerInfo[playerid][pID]);
-    cache_get_value_name(0, "Username",
-        PlayerInfo[playerid][pName]);
 
     cache_get_value_name_int(0, "Level",
         PlayerInfo[playerid][pLevel]);
@@ -131,5 +129,68 @@ Account_Save(playerid)
 
     mysql_tquery(g_DatabaseHandle, query);
 
+    return 1;
+}
+
+
+// Sy_Friends
+stock SavePlayerFriends(playerid)
+{
+    new query[256];
+
+    for(new i; i < FriendCount[playerid]; i++)
+    {
+        if(!PlayerFriends[playerid][i][Status]) continue;
+
+        mysql_format(g_DatabaseHandle, query, sizeof(query),
+            "INSERT INTO FRIENDS \
+            (PlayerID, FriendID, Status, Sender) \
+            VALUES (%d, %d, %d, %d)",
+            PlayerInfo[playerid][pID],
+            PlayerFriends[playerid][i][ID],
+            PlayerFriends[playerid][i][Status],
+            PlayerFriends[playerid][i][Sender]
+        );
+
+        mysql_tquery(g_DatabaseHandle, query);
+    }
+    return 1;
+}
+
+stock LoadPlayerFriends(playerid) {
+    new query[128];
+    print("Loading List Friends");
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
+        "SELECT * FROM FRIENDS WHERE PlayerID = %d",
+        PlayerInfo[playerid][pID]
+    );
+
+    mysql_tquery(g_DatabaseHandle, query, "OnPlayerFriendsLoad", "d", playerid);
+}
+forward OnPlayerFriendsLoad(playerid);
+public OnPlayerFriendsLoad(playerid)
+{
+    new rows = cache_num_rows();
+
+    FriendCount[playerid] = 0;
+
+    for(new i; i < rows; i++)
+    {
+        if(FriendCount[playerid] >= MAX_FRIENDS)
+            break;
+
+        cache_get_value_name_int(i, "FriendID",
+            PlayerFriends[playerid][i][ID]);
+
+        cache_get_value_name_int(i, "Status",
+            PlayerFriends[playerid][i][Status]);
+
+        cache_get_value_name_int(i, "Sender",
+            PlayerFriends[playerid][i][Sender]);
+
+        FriendCount[playerid]++;
+    }
+    
+    UpdateFriendTags(playerid);
     return 1;
 }

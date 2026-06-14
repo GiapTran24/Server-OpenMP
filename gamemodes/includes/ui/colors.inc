@@ -4,6 +4,7 @@
 #define _COLORS_INC
 
 // Basic
+#define COLOR_OOC              0xE0FFFFAA
 #define COLOR_WHITE            0xFFFFFFFF
 #define COLOR_BLACK            0x000000FF
 #define COLOR_RED              0xFF0000FF
@@ -16,6 +17,12 @@
 #define COLOR_CYAN             0x00FFFFFF
 #define COLOR_BROWN            0x8B4513FF
 #define COLOR_GREY             0x808080FF
+
+#define COLOR_FADE1            0xE6E6E6E6
+#define COLOR_FADE2            0xC8C8C8C8
+#define COLOR_FADE3            0xAAAAAAAA
+#define COLOR_FADE4            0x8C8C8C8C
+#define COLOR_FADE5            0x6E6E6E6E
 
 // Light
 #define COLOR_LIGHTRED         0xFF6666FF

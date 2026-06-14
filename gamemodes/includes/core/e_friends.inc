@@ -57,7 +57,7 @@ stock ListFriends(playerid) {
                     format(status, sizeof(status), "Online");
                 }
             }
-            format(line, sizeof(line), "%s\t%s\n", PlayerFriends[playerid][i][Name], status);
+            format(line, sizeof(line), "%s\t%s\n", GetplayerSQLName(PlayerFriends[playerid][i][ID]), status);
             strcat(listFriends, line);
         }
     }
@@ -77,7 +77,6 @@ stock RequestFriend(playerid, targetID) {
     for(new i; i < MAX_FRIENDS; i++) {
         if(!PlayerFriends[playerid][i][ID]) {
             PlayerFriends[playerid][i][ID] = PlayerInfo[targetID][pID];
-            PlayerFriends[playerid][i][Name] = GetPlayerNameEx(targetID);
             PlayerFriends[playerid][i][Status] = 0;
             PlayerFriends[playerid][i][Sender] = PlayerInfo[playerid][pID];
             break;
@@ -86,17 +85,16 @@ stock RequestFriend(playerid, targetID) {
     for(new i; i < MAX_FRIENDS; i++) {
         if(!PlayerFriends[targetID][i][ID]) {
             PlayerFriends[targetID][i][ID] = PlayerInfo[playerid][pID];
-            PlayerFriends[targetID][i][Name] = GetPlayerNameEx(playerid);
             PlayerFriends[targetID][i][Status] = 0;
             PlayerFriends[targetID][i][Sender] = PlayerInfo[playerid][pID];
             break;
         }
     }
 
-    format(msg, sizeof(msg), "%s Gui cho ban loi moi ket ban !", GetPlayerNameEx(playerid));
+    format(msg, sizeof(msg), "%s - Gui cho ban loi moi ket ban !", GetPlayerNameEx(playerid));
     SendClientNotification(targetID, "Friend Request", msg);
 
-    format(msg, sizeof(msg), "Da gui loi moi ket ban toi %s", GetPlayerNameEx(targetID));
+    format(msg, sizeof(msg), "Da gui loi moi ket ban toi - %s", GetPlayerNameEx(targetID));
     SendClientNotification(playerid, "Friend Request", msg);
 
     FriendCount[playerid]++;
@@ -108,7 +106,7 @@ stock ShowListReqFriends(playerid) {
     new listReqFriends[1024], count = 0;
     for(new i; i < MAX_FRIENDS; i++) {
         if(PlayerFriends[playerid][i][ID] && PlayerFriends[playerid][i][Status] < 1 && PlayerFriends[playerid][i][Sender] != PlayerInfo[playerid][pID]) {
-            format(listReqFriends, sizeof(listReqFriends), "%s%s\n", listReqFriends, PlayerFriends[playerid][i][Name]);
+            format(listReqFriends, sizeof(listReqFriends), "%s%s\n", listReqFriends, GetplayerSQLName(PlayerFriends[playerid][i][ID]));
             count ++;
             gListIDReqFriends[playerid][count - 1] = PlayerFriends[playerid][i][ID];
         }
@@ -124,7 +122,7 @@ stock AcceptFriend(playerid, targetid) {
     for(new i; i < MAX_FRIENDS; i ++) {
         if(PlayerFriends[playerid][i][ID] == targetid) {
             PlayerFriends[playerid][i][Status] = 1;
-            FriendCount[playerid] ++;
+            SavePlayerFriends(playerid);
             break;
         }
     }
@@ -132,11 +130,13 @@ stock AcceptFriend(playerid, targetid) {
         for(new i; i < MAX_FRIENDS; i ++) {
             if(PlayerFriends[p][i][ID] == GetPlayerSQLId(playerid)) {
                 PlayerFriends[p][i][Status] = 1;
-                FriendCount[p] ++;
+                SavePlayerFriends(p);
                 return 1;
             }
         }
     }
+    ShowPlayerNameTagForPlayer(playerid, targetid, true);
+    ShowPlayerNameTagForPlayer(targetid, playerid, true);
     return 1;
 }
 stock DenyFriend(playerid, targetid) {
@@ -165,10 +165,30 @@ stock IsFriend(playerid, friendid)
 {
     new accountid = GetPlayerSQLId(friendid);
 
-    for(new i; i < FriendCount[playerid]; i++)
+    for(new i; i < MAX_FRIENDS; i++)
     {
         if(PlayerFriends[playerid][i][ID] == accountid && PlayerFriends[playerid][i][Status] > 0) return 1;
     }
 
     return 0;
+}
+
+stock UpdateFriendTags(playerid)
+{
+    foreach(new p : Player)
+    {
+        if(p == playerid) continue;
+
+        if(IsFriend(playerid, p))
+        {
+            ShowPlayerNameTagForPlayer(playerid, p, true);
+            ShowPlayerNameTagForPlayer(p, playerid, true);
+        }
+        else
+        {
+            ShowPlayerNameTagForPlayer(playerid, p, false);
+            ShowPlayerNameTagForPlayer(p, playerid, false);
+        }
+    }
+    return 1;
 }

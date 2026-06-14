@@ -25,9 +25,7 @@ public OnAccountCheck(playerid)
         }
         cache_get_value_name_int(0, "ID", PlayerInfo[playerid][pID]);
         SetAccountOnline(playerid, 1);
-        new fakeName[MAX_PLAYER_NAME];
-        format(fakeName, sizeof(fakeName), "Stranger0%d", PlayerInfo[playerid][pID]);
-        SetPlayerName(playerid, fakeName);
+
         ShowPlayerDialog(
             playerid,
             DIALOG_LOGIN,
@@ -78,7 +76,6 @@ forward OnAccountRegister(playerid);
 public OnAccountRegister(playerid)
 {
     PlayerInfo[playerid][pID] = cache_insert_id();
-    GetPlayerName(playerid, PlayerInfo[playerid][pName], MAX_PLAYER_NAME),
 
 	PlayerInfo[playerid][pLevel] = 1;
 	PlayerInfo[playerid][pCash] = 5000;
@@ -96,9 +93,6 @@ public OnAccountRegister(playerid)
 
     SetAccountOnline(playerid, 1);
     
-    new fakeName[MAX_PLAYER_NAME];
-    format(fakeName, sizeof(fakeName), "Stranger0%d", PlayerInfo[playerid][pID]);
-    SetPlayerName(playerid, fakeName);
 	SetPlayerSpawn(playerid);
     return 1;
 }

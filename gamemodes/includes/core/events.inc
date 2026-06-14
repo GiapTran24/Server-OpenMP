@@ -29,6 +29,7 @@ public OnPlayerSpawn(playerid)
         }
         SendClientMessageEx(playerid, COLOR_SUCCESS, string);
 
+		LoadPlayerFriends(playerid);
         SetTimerEx("NotifyPlayerSpawn", 1000, false, "d", playerid);
         gLoggedIn[playerid] = false;
     }
@@ -76,7 +77,46 @@ public OnVehicleDeath(vehicleid, killerid)
 
 public OnPlayerText(playerid, text[])
 {
-	return 1;
+	if(gLoggedIn[playerid]) return 0;
+
+	if(strfind(text, "|", true) != -1) {
+	    SendClientMessageEx(playerid, COLOR_DANGER, "Ban khong the su dung '|' nhan vat trong van ban.");
+		return 0;
+	}
+
+	new Float: f_playerPos[3], sendername[MAX_PLAYER_NAME], string[255];
+	sendername = GetPlayerNameEx(playerid);
+	GetPlayerPos(playerid, f_playerPos[0], f_playerPos[1], f_playerPos[2]);
+
+	foreach(new i: Player)
+	{
+		if(GetPlayerVirtualWorld(i) == GetPlayerVirtualWorld(playerid)) {
+			
+			if(IsPlayerInRangeOfPoint(i, 20.0 / 16, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				format(string, sizeof(string), "%s noi: %s", sendername, text);
+				SendClientMessageEx(i, COLOR_FADE1, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, 20.0 / 8, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				format(string, sizeof(string), "%s noi: %s", sendername, text);
+				SendClientMessageEx(i, COLOR_FADE2, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, 20.0 / 4, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				format(string, sizeof(string), "%s noi: %s", sendername, text);
+				SendClientMessageEx(i, COLOR_FADE3, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, 20.0 / 2, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				format(string, sizeof(string), "%s noi: %s", sendername, text);
+				SendClientMessageEx(i, COLOR_FADE4, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, 20.0, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				format(string, sizeof(string), "%s noi: %s", sendername, text);
+				SendClientMessageEx(i, COLOR_FADE5, string);
+			}
+		}
+	}
+
+	SetPlayerChatBubble(playerid, text, COLOR_WHITE, 20.0, 5000);
+	return 0;
 }
 
 public OnPlayerUpdate(playerid)
@@ -476,15 +516,40 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 // Functions Support
 //-----------------------------------------------------------------------------
 
-stock GetPlayerNameEx(playerid)
-{
-    static name[MAX_PLAYER_NAME];
-    format(name, sizeof(name), "%s", PlayerInfo[playerid][pName]);
-    return name;
+stock GetPlayerNameEx(playerid) {
+
+	new
+		szName[MAX_PLAYER_NAME],
+		iPos;
+
+	GetPlayerName(playerid, szName, MAX_PLAYER_NAME);
+	while ((iPos = strfind(szName, "_", false, iPos)) != -1) szName[iPos] = ' ';
+	return szName;
 }
 
 stock GetPlayerSQLId(playerid) {
 	return PlayerInfo[playerid][pID];
+}
+
+stock GetplayerSQLName(sqlid)
+{
+    new query[128];
+	new name[MAX_PLAYER_NAME];
+
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
+        "SELECT Username FROM Accounts WHERE ID = %d LIMIT 1",
+        sqlid
+    );
+
+    mysql_query(g_DatabaseHandle, query);
+
+    if(cache_num_rows())
+    {
+        cache_get_value_name(0, "Username", name, sizeof(name));
+        return name;
+    }
+	name = "Unknown";
+	return name;
 }
 
 stock GetPlayerCash(playerid)
@@ -532,6 +597,35 @@ stock GetAdminName(level)
     return str;
 }
 
+ProxDetector(Float: f_Radius, playerid, const string[],col1,col2,col3,col4,col5)
+{
+	new
+		Float: f_playerPos[3];
+
+	GetPlayerPos(playerid, f_playerPos[0], f_playerPos[1], f_playerPos[2]);
+	foreach(new i: Player)
+	{
+		if(GetPlayerVirtualWorld(i) == GetPlayerVirtualWorld(playerid)) {
+			if(IsPlayerInRangeOfPoint(i, f_Radius / 16, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				SendClientMessageEx(i, col1, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, f_Radius / 8, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				SendClientMessageEx(i, col2, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, f_Radius / 4, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				SendClientMessageEx(i, col3, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, f_Radius / 2, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				SendClientMessageEx(i, col4, string);
+			}
+			else if(IsPlayerInRangeOfPoint(i, f_Radius, f_playerPos[0], f_playerPos[1], f_playerPos[2])) {
+				SendClientMessageEx(i, col5, string);
+			}
+		}
+	}
+	return 1;
+}
+
 ProxDetectorS(Float:radi, playerid, targetid)
 {
 	new
@@ -544,4 +638,14 @@ ProxDetectorS(Float:radi, playerid, targetid)
 		return 1;
 	}
 	return 0;
+}
+
+stock OOCOff(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		if(!gOoc[i]) {
+			SendClientMessageEx(i, color, string);
+		}
+	}
 }

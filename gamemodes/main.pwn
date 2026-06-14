@@ -27,7 +27,6 @@ new MySQL:g_DatabaseHandle;
 
 // Commands
 #include "includes/commands/commands.inc"
-#include "includes/commands/friends.inc"
 
 // Core event handlers
 #include "includes/core/events.inc"
@@ -68,7 +67,7 @@ public OnGameModeInit()
         SendRconCommand("name Server is under maintenance!");
     }
 
-	ShowNameTags(false);
+	//ShowNameTags(false);
 	return 1;
 }
 

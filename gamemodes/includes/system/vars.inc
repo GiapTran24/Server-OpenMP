@@ -2,7 +2,6 @@
 // Pinfo
 enum pInfo {
 	pID,
-    pName[MAX_PLAYER_NAME],
 
     pLevel,
     pCash,
@@ -27,6 +26,8 @@ new PlayerInfo[MAX_PLAYERS][pInfo];
 new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 new bool:gLoggedIn[MAX_PLAYERS] = false;
 new InteractTarget[MAX_PLAYERS] = INVALID_PLAYER_ID;
+
+new bool:gOoc[MAX_PLAYERS] = true;
 
 // Admin
 enum E_ADMIN_LEVEL
@@ -73,7 +74,6 @@ new GotoLocations[][E_GOTO_LOC] =
 // Sy_Friends
 enum E_FRIEND_INFO {
     ID,
-    Name[MAX_PLAYER_NAME],
     Status,
     Sender
 };
