@@ -11,28 +11,35 @@ new MySQL:g_DatabaseHandle;
 #include <YSI_Coding\y_timers>
 
 
-//Helpers
-#include "includes/helpers/colors.inc"
-#include "includes/helpers/notify.inc"
-#include "includes/helpers/loading.inc"
+// UI
+#include "includes/ui/colors.inc"
+#include "includes/ui/notify.inc"
+#include "includes/ui/loading.inc"
 
-// Main
-#include "includes/modules/defines.inc"
-#include "includes/modules/dialogs.inc"
-#include "includes/modules/vars.inc"
-#include "includes/modules/sql.inc"
-#include "includes/modules/funcs.inc"
-#include "includes/modules/task.inc"
-#include "includes/modules/cmds.inc"
-#include "includes/main.pwn"
+// System
+#include "includes/system/defines.inc"
+#include "includes/system/dialogs.inc"
+#include "includes/system/vars.inc"
+#include "includes/system/database.inc"
+#include "includes/system/account.inc"
+#include "includes/system/tasks.inc"
 
-//Conversations
+
+// Commands
+#include "includes/commands/commands.inc"
+#include "includes/commands/friends.inc"
+
+// Core event handlers
+#include "includes/core/events.inc"
+#include "includes/core/e_friends.inc"
+
+// Conversations
 //#include "includes/conversations/messager.inc"
 
 // TaiXiu
-#include "includes/taixiu/Var.pwn"
-#include "includes/taixiu/TD.pwn"
-#include "includes/taixiu/System.pwn"
+#include "includes/minigames/taixiu/Var.pwn"
+#include "includes/minigames/taixiu/TD.pwn"
+#include "includes/minigames/taixiu/System.pwn"
 
 main() {}
 

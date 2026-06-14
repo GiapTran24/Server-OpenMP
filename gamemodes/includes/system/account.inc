@@ -2,9 +2,11 @@
 Account_Check(playerid) {
 	new query[256];
     TogglePlayerSpectating(playerid, true);
+    new name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, sizeof(name));
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "SELECT ID, Logged FROM Accounts WHERE Username='%e'",
-        GetPlayerNameEx(playerid));
+        name);
 
     mysql_tquery(g_DatabaseHandle, query, "OnAccountCheck", "d", playerid);
 	return 1;
@@ -24,7 +26,7 @@ public OnAccountCheck(playerid)
         cache_get_value_name_int(0, "ID", PlayerInfo[playerid][pID]);
         SetAccountOnline(playerid, 1);
         new fakeName[MAX_PLAYER_NAME];
-        format(fakeName, sizeof(fakeName), "Player_0%d", PlayerInfo[playerid][pID]);
+        format(fakeName, sizeof(fakeName), "Stranger0%d", PlayerInfo[playerid][pID]);
         SetPlayerName(playerid, fakeName);
         ShowPlayerDialog(
             playerid,
@@ -56,13 +58,15 @@ public OnPasswordHash(playerid)
 {
     new hash[BCRYPT_HASH_LENGTH];
     bcrypt_get_hash(hash);
+    new name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, MAX_PLAYER_NAME);
 
     new query[512];
 	mysql_format(g_DatabaseHandle, query, sizeof(query),
 		"INSERT INTO Accounts \
 		(Username, Password) \
 		VALUES ('%e', '%e')",
-		GetPlayerNameEx(playerid),
+		name,
 		hash
 	);
 
@@ -93,7 +97,7 @@ public OnAccountRegister(playerid)
     SetAccountOnline(playerid, 1);
     
     new fakeName[MAX_PLAYER_NAME];
-    format(fakeName, sizeof(fakeName), "Player_0%d", PlayerInfo[playerid][pID]);
+    format(fakeName, sizeof(fakeName), "Stranger0%d", PlayerInfo[playerid][pID]);
     SetPlayerName(playerid, fakeName);
 	SetPlayerSpawn(playerid);
     return 1;
@@ -123,7 +127,6 @@ public ResultPasswordCheck(playerid, bool:match) {
         );
 		return 1;
 	} 
-
 	LoadPlayerData(playerid);
     return 1;
 }
@@ -213,8 +216,3 @@ TeleportPlayerToLocation(playerid, locationid)
 
     return 1;
 }
-
-
-//-----------------------------------------------------------------------------
-// Conversation && Messages
-//-----------------------------------------------------------------------------

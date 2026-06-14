@@ -2,6 +2,7 @@
 
 enum {
     LOADING_TYPE_NONE = 0,
+    LOADING_TYPE_DEFAULT,
     LOADING_TYPE_LOGIN,
     LOADING_TYPE_MAP,
     LOADING_TYPE_JOB
@@ -127,10 +128,13 @@ stock UpdatePlayerLoading(playerid, Float:value)
 forward OnPlayerFinishLoading(playerid);
 public OnPlayerFinishLoading(playerid)
 {
+    new loading_type = pLoadingType[playerid];
     PlayerTextDrawColour(playerid, LoadingTD[playerid][2], -1);
     HidePlayerLoading(playerid);
-    switch(pLoadingType[playerid])
+    
+    switch(loading_type)
     {
+        case LOADING_TYPE_DEFAULT: return 1;
         case LOADING_TYPE_LOGIN:
         {
             SendClientMessage(playerid, -1, "Dang nhap thanh cong! Du lieu nhan vat da tai xong.");
@@ -150,13 +154,6 @@ public OnPlayerFinishLoading(playerid)
     return 1;
 }
 
-// test
-CMD:loading(playerid, params[])
-{
-    ShowPlayerLoading(playerid, "Dang lay du lieu", LOADING_TYPE_JOB);
-    return 1;
-}
-
 forward LoadingTimer(playerid, Float:step);
 public LoadingTimer(playerid, Float:step)
 {
@@ -164,3 +161,12 @@ public LoadingTimer(playerid, Float:step)
     UpdatePlayerLoading(playerid, step); 
     return 1;
 }
+
+// CMD: test
+/*
+CMD:loading(playerid, params[])
+{
+    ShowPlayerLoading(playerid, "Dang lay du lieu", LOADING_TYPE_JOB);
+    return 1;
+}
+*/

@@ -49,7 +49,7 @@
     "language": "Envi",
     "logging": {
         "enable": true,
-        "file": "log.txt",
+        "file": "sv_log.log",
         "log_chat": true,
         "log_connection_messages": true,
         "log_cookies": false,

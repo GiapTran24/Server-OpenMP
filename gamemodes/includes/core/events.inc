@@ -91,6 +91,20 @@ public OnPlayerUpdate(playerid)
 
 public OnPlayerKeyStateChange(playerid, KEY:newkeys, KEY:oldkeys)
 {
+	if(newkeys && KEY_YES) {
+		if(GetPlayerTargetPlayer(playerid) != INVALID_PLAYER_ID && ProxDetectorS(3.0, playerid, GetPlayerTargetPlayer(playerid)) && !IsPlayerNPC(GetPlayerTargetPlayer(playerid))) {
+			new title[MAX_PLAYER_NAME + 52];
+			InteractTarget[playerid] = GetPlayerTargetPlayer(playerid);
+
+			if(IsFriend(playerid, GetPlayerTargetPlayer(playerid))) {
+				format(title, sizeof(title), "%s (Your Friend)", GetPlayerNameEx(GetPlayerTargetPlayer(playerid)));
+				ShowPlayerDialog(playerid, DIALOG_CLICK_PLAYER, DIALOG_STYLE_LIST, title, "Pay", "Chon", "Thoat");
+			} else {
+				GetPlayerName(GetPlayerTargetPlayer(playerid), title, sizeof(title));
+				ShowPlayerDialog(playerid, DIALOG_CLICK_PLAYER, DIALOG_STYLE_LIST, title, "Pay\nKet Ban", "Chon", "Thoat");
+			}
+		}
+	}
     return 1;
 }
 
@@ -136,8 +150,6 @@ public OnActorStreamOut(actorid, forplayerid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-    //HandleDialogConversation(playerid, dialogid, response, listitem, inputtext);
-    
 	switch (dialogid)
     {
         case DIALOG_REGISTER:
@@ -202,6 +214,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SendClientMessageEx(targetid, COLOR_GREEN, str);
 
         }
+
+		case DIALOG_CLICK_PLAYER: {
+			if(!response) {
+				InteractTarget[playerid] = INVALID_PLAYER_ID;
+				return 1;
+			}
+			switch(listitem) {
+				case 0: {
+					ShowPlayerDialog(playerid, DIALOG_GIVE_MONEY, DIALOG_STYLE_INPUT, "Pay", "Nhap so tien !", "Gui", "Thoat");
+				}
+				case 1: {
+					RequestFriend(playerid, InteractTarget[playerid]);
+					InteractTarget[playerid] = INVALID_PLAYER_ID;
+				}
+			}
+		}
     }
 	return 1;
 }
@@ -350,6 +378,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, WEAPON:weaponid, bo
 
 public OnPlayerClickPlayer(playerid, clickedplayerid, CLICK_SOURCE:source)
 {
+	if(clickedplayerid == INVALID_PLAYER_ID) return 1;
 	return 1;
 }
 
@@ -450,8 +479,12 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 stock GetPlayerNameEx(playerid)
 {
     static name[MAX_PLAYER_NAME];
-    GetPlayerName(playerid, name, sizeof(name));
+    format(name, sizeof(name), "%s", PlayerInfo[playerid][pName]);
     return name;
+}
+
+stock GetPlayerSQLId(playerid) {
+	return PlayerInfo[playerid][pID];
 }
 
 stock GetPlayerCash(playerid)
@@ -462,10 +495,6 @@ stock GetPlayerCash(playerid)
 stock GivePlayerCash(playerid, amount)
 {
     PlayerInfo[playerid][pCash] += amount;
-
-    ResetPlayerMoney(playerid);
-    GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
-
     return 1;
 }
 
@@ -484,19 +513,6 @@ stock SendClientMessageToAllEx(color, const string[])
 	return 1;
 }
 
-stock GetPlayerOnline(playerid) {
-    if(PlayerInfo[playerid][pLogged]) return 1;
-    return -1;
-}
-
-stock GetPlayerSQLName(playerid) {
-    new name[MAX_PLAYER_NAME];
-    if(PlayerInfo[playerid][pLogged]) {
-        format(name, sizeof(name), PlayerInfo[playerid][pName]);
-        return name;
-    }
-    return -1;
-}
 stock IsInvalidSkin(skin) {
 	if(!(0 <= skin <= 299)) return 1;
     return 0;
@@ -514,4 +530,18 @@ stock GetAdminName(level)
     }
     format(str, sizeof(str), "Unknown (%d)", level);
     return str;
+}
+
+ProxDetectorS(Float:radi, playerid, targetid)
+{
+	new
+		Float: fp_playerPos[3];
+
+	GetPlayerPos(targetid, fp_playerPos[0], fp_playerPos[1], fp_playerPos[2]);
+
+	if(IsPlayerInRangeOfPoint(playerid, radi, fp_playerPos[0], fp_playerPos[1], fp_playerPos[2]) && GetPlayerVirtualWorld(playerid) == GetPlayerVirtualWorld(targetid))
+	{
+		return 1;
+	}
+	return 0;
 }

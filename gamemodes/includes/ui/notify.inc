@@ -183,7 +183,7 @@ stock CreateSlotNotifyTD(playerid, slotid)
 }
 
 // Hàm chính để hiển thị thông báo với hiệu ứng thu phóng và xếp chồng
-stock SendClientNotification(playerid, const title[], const message[], e_NOTIFY_TYPE:type, duration = 5000)
+stock SendClientNotification(playerid, const title[], const message[], e_NOTIFY_TYPE:type = NOTIFY_TYPE_INFO, duration = 5000)
 {
     // 1. Nếu Slot 1 (Dưới) đang hiện -> Xóa sạch lập tức để nhường chỗ
     if(PlayerNotifications[playerid][1][slot_Active])

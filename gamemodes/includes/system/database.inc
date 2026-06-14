@@ -1,5 +1,4 @@
 /// Accounts
-
 LoadPlayerData(playerid)
 {
     new query[256];
@@ -61,7 +60,6 @@ public OnPlayerDataLoaded(playerid)
 
     cache_get_value_name_int(0, "Logged",
         PlayerInfo[playerid][pLogged]);
-
 
 	SetPlayerSpawn(playerid);
     return 1;

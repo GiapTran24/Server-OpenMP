@@ -26,6 +26,7 @@ enum pInfo {
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 new bool:gLoggedIn[MAX_PLAYERS] = false;
+new InteractTarget[MAX_PLAYERS] = INVALID_PLAYER_ID;
 
 // Admin
 enum E_ADMIN_LEVEL
@@ -69,34 +70,13 @@ new GotoLocations[][E_GOTO_LOC] =
     {"DOC",      -2029.23, -78.33, 35.32,    0, 0}
 };
 
-
-//-----------------------------------------------------------------------------
-// Conversation && Messages
-//-----------------------------------------------------------------------------
-enum E_PLAYER_MESSENGER
-{
-    CurrentConvID,
-    CurrentCacheID
+// Sy_Friends
+enum E_FRIEND_INFO {
+    ID,
+    Name[MAX_PLAYER_NAME],
+    Status,
+    Sender
 };
-
-new PlayerMessenger[MAX_PLAYERS][E_PLAYER_MESSENGER];
-
-enum E_CONVERSATION_CACHE
-{
-    ConvID,
-    ConvPlayer1,
-    ConvPlayer2,
-    ConvMessageCount,
-    bool:ConvLoaded
-};
-
-new ConversationCache[MAX_CONVERSATIONS][E_CONVERSATION_CACHE];
-
-enum E_MESSAGE_CACHE
-{
-    MsgSenderID,
-    MsgTimestamp,
-    MsgText[256]
-};
-
-new ConversationMessages[MAX_CONVERSATIONS][MAX_CONV_MESSAGES][E_MESSAGE_CACHE];
+new PlayerFriends[MAX_PLAYERS][MAX_FRIENDS][E_FRIEND_INFO];
+new FriendCount[MAX_PLAYERS];
+new gListIDReqFriends[MAX_PLAYERS][MAX_FRIENDS];
