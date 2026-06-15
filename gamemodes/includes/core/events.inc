@@ -121,11 +121,13 @@ public OnPlayerText(playerid, text[])
 
 public OnPlayerUpdate(playerid)
 {
-	if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
-    {
-        ResetPlayerMoney(playerid);
-        GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
-    }
+	if(PlayerInfo[playerid][pLogged] == 1) {
+		if(GetPlayerMoney(playerid) != PlayerInfo[playerid][pCash])
+		{
+			ResetPlayerMoney(playerid);
+			GivePlayerMoney(playerid, PlayerInfo[playerid][pCash]);
+		}
+	}
 	return 1;
 }
 

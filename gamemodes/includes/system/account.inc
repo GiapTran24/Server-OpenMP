@@ -153,7 +153,17 @@ SetPlayerSpawn(playerid) {
         PlayerInfo[playerid][pVirtualWorld]
     );
 
-    GivePlayerMoney(
+    SetPlayerHealth(
+        playerid, 
+        PlayerInfo[playerid][pHealth]
+    );
+    
+    SetPlayerArmour(
+        playerid, 
+        PlayerInfo[playerid][pArmour]
+    );
+
+    GivePlayerCash(
         playerid,
         PlayerInfo[playerid][pCash]
     );

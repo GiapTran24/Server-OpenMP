@@ -32,6 +32,12 @@ public OnPlayerDataLoaded(playerid)
     cache_get_value_name_int(0, "Admin",
         PlayerInfo[playerid][pAdmin]);
 
+    cache_get_value_name_float(0, "Health",
+        PlayerInfo[playerid][pHealth]);
+
+    cache_get_value_name_float(0, "Armour",
+        PlayerInfo[playerid][pArmour]);
+
     cache_get_value_name_float(0, "PosX",
         PlayerInfo[playerid][pPosX]);
 
@@ -91,10 +97,15 @@ Account_Save(playerid)
     PlayerInfo[playerid][pSkin] = GetPlayerSkin(playerid);
 
     new query[1024];
+    new Float:playerHealth, Float:playerArmour;
+    GetPlayerHealth(playerid, playerHealth);
+    GetPlayerArmour(playerid, playerArmour);
 
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "UPDATE accounts SET \
         Level=%d,\
+        Health=%f,\
+        Armour=%f,\
         Cash=%d,\
         Bank=%d,\
         Admin=%d,\
@@ -109,6 +120,8 @@ Account_Save(playerid)
         WHERE ID=%d",
 
         PlayerInfo[playerid][pLevel],
+        playerHealth,
+        playerArmour,
         PlayerInfo[playerid][pCash],
         PlayerInfo[playerid][pBank],
         PlayerInfo[playerid][pAdmin],

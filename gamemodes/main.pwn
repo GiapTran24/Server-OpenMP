@@ -26,6 +26,7 @@ new MySQL:g_DatabaseHandle;
 
 
 // Commands
+#include "includes/commands/admins.inc"
 #include "includes/commands/commands.inc"
 
 // Core event handlers

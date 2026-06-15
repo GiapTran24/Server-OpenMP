@@ -8,7 +8,7 @@ enum pInfo {
     pBank,
     pAdmin,
     Float:pHealth,
-    Float:pArmor,
+    Float:pArmour,
 
     Float:pPosX,
     Float:pPosY,
