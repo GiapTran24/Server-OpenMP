@@ -4,6 +4,8 @@ enum pInfo {
 	pID,
 
     pLevel,
+    pExp,
+    pPlaytime,
     pCash,
     pBank,
     pAdmin,
@@ -14,7 +16,6 @@ enum pInfo {
     Float:pPosY,
     Float:pPosZ,
     Float:pAngle,
-
     pInterior,
     pVirtualWorld,
 

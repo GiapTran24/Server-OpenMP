@@ -22,6 +22,12 @@ public OnPlayerDataLoaded(playerid)
 
     cache_get_value_name_int(0, "Level",
         PlayerInfo[playerid][pLevel]);
+    
+    cache_get_value_name_int(0, "Exp",
+        PlayerInfo[playerid][pExp]);
+
+    cache_get_value_name_int(0, "Playtime",
+        PlayerInfo[playerid][pPlaytime]);
 
     cache_get_value_name_int(0, "Cash",
         PlayerInfo[playerid][pCash]);
@@ -104,6 +110,8 @@ Account_Save(playerid)
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "UPDATE accounts SET \
         Level=%d,\
+        Exp=%d,\
+        Playtime=%d,\
         Health=%f,\
         Armour=%f,\
         Cash=%d,\
@@ -120,6 +128,8 @@ Account_Save(playerid)
         WHERE ID=%d",
 
         PlayerInfo[playerid][pLevel],
+        PlayerInfo[playerid][pExp],
+        PlayerInfo[playerid][pPlaytime],
         playerHealth,
         playerArmour,
         PlayerInfo[playerid][pCash],
@@ -172,7 +182,6 @@ stock SavePlayerFriends(playerid)
 
 stock LoadPlayerFriends(playerid) {
     new query[128];
-    print("Loading List Friends");
     mysql_format(g_DatabaseHandle, query, sizeof(query),
         "SELECT * FROM FRIENDS WHERE PlayerID = %d",
         PlayerInfo[playerid][pID]

@@ -1,3 +1,9 @@
+CMD:stats(playerid, params[])
+{
+    ShowStats(playerid, playerid);
+    return 1;
+}
+
 CMD:ooc(playerid, params[])
 {
 	if(gLoggedIn[playerid]) return 1;
@@ -55,13 +61,5 @@ CMD:b(playerid, params[])
 
 CMD:friends(playerid, params[]) {
     ListFriends(playerid);
-    return 1;
-}
-CMD:friendlist(playerid, params[]) {
-    new msg[128];
-    for(new i; i < FriendCount[playerid]; i++) {
-        format(msg, sizeof(msg), "[%d] Friend: %d | Status: %d | Sender: %d", i, PlayerFriends[playerid][i][ID], PlayerFriends[playerid][i][Status], PlayerFriends[playerid][i][Sender]);
-        SendClientMessageEx(playerid, COLOR_GREEN, msg);
-    }
     return 1;
 }

@@ -157,13 +157,13 @@ SetPlayerSpawn(playerid) {
         playerid, 
         PlayerInfo[playerid][pHealth]
     );
-    
+
     SetPlayerArmour(
         playerid, 
         PlayerInfo[playerid][pArmour]
     );
 
-    GivePlayerCash(
+    GivePlayerMoney(
         playerid,
         PlayerInfo[playerid][pCash]
     );

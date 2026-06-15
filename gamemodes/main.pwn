@@ -15,6 +15,7 @@ new MySQL:g_DatabaseHandle;
 #include "includes/ui/colors.inc"
 #include "includes/ui/notify.inc"
 #include "includes/ui/loading.inc"
+#include "includes/ui/zones.inc"
 
 // System
 #include "includes/system/defines.inc"
@@ -32,6 +33,7 @@ new MySQL:g_DatabaseHandle;
 // Core event handlers
 #include "includes/core/events.inc"
 #include "includes/core/e_friends.inc"
+#include "includes/core/e_player.inc"
 
 // Conversations
 //#include "includes/conversations/messager.inc"

@@ -5,6 +5,8 @@ CREATE TABLE `Accounts` (
 
     -- Thông tin nhân vật
     `Level` INT NOT NULL DEFAULT 1,
+    `Exp` INT NOT NULL DEFAULT 0,
+    `Playtime` INT NOT NULL DEFAULT 0,
     `Cash` INT NOT NULL DEFAULT 5000,
     `Bank` INT NOT NULL DEFAULT 0,
     `Admin` INT NOT NULL DEFAULT 0,

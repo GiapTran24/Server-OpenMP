@@ -285,9 +285,9 @@ CMD:sethp(playerid, params[])
 				SendClientMessageEx(playerid, COLOR_WHITE, string);
 			}
 		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+		else return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay.");
+	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
@@ -299,21 +299,21 @@ CMD:setarmour(playerid, params[])
 		if(IsPlayerConnected(playa)) {
 			if(playa != INVALID_PLAYER_ID)
 			{
-				SetPlayerArmour(playerid, armour)
+				SetPlayerArmour(playerid, armour);
 				format(string, sizeof(string), "Ban da thiet lap %s's armour cho %d.", GetPlayerNameEx(playa), armour);
 				SendClientMessageEx(playerid, COLOR_WHITE, string);
 			}
 		}
-		else return SendClientMessageEx(playerid, COLOR_GRAD1, "Nguoi choi khong hop le.");
+		else return SendClientMessageEx(playerid, COLOR_GREY, "Nguoi choi khong hop le.");
 	}
-	else return SendClientMessageEx(playerid, COLOR_GRAD1, "Ban khong duoc phep su dung lenh nay.");
+	else return SendClientMessageEx(playerid, COLOR_GREY, "Ban khong duoc phep su dung lenh nay.");
 	return 1;
 }
 
 CMD:god(playerid, params[]) {
     if (PlayerInfo[playerid][pAdmin] >= 1) {
         gAdminGod[playerid] = !gAdminGod[playerid];
-        SendClientMessageEx(playerid, COLOR_SUCCESS, gAdminGod[playerid] ? "[AD] God mode enabled." : "[AD] God mode disabled.");
+        SendClientNotification(playerid, "Admin", gAdminGod[playerid] ? "[AD] God mode enabled." : "[AD] God mode disabled.", NOTIFY_TYPE_INFO);
     } else {
         SendClientMessageEx(playerid, COLOR_DANGER, "Ban khong duoc phep su dung lenh nay.");
     }
