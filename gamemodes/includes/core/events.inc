@@ -30,6 +30,7 @@ public OnPlayerSpawn(playerid)
         SendClientMessageEx(playerid, COLOR_SUCCESS, string);
 
 		LoadPlayerFriends(playerid);
+        SetTimerEx("PlaytimeTimer", 60000, true, "d", playerid);
         SetTimerEx("NotifyPlayerSpawn", 1000, false, "d", playerid);
         gLoggedIn[playerid] = false;
     }

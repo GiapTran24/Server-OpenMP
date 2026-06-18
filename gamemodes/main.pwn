@@ -35,6 +35,9 @@ new MySQL:g_DatabaseHandle;
 #include "includes/core/e_friends.inc"
 #include "includes/core/e_player.inc"
 
+// Inventory
+#include "includes/inventory/inv_td.inc"
+
 // Conversations
 //#include "includes/conversations/messager.inc"
 
@@ -76,6 +79,10 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
+	foreach(new p: Player) {
+		Account_Save(p);
+	}
+	
 	new query[256];
     mysql_format(g_DatabaseHandle, query, sizeof(query), "UPDATE `accounts` SET `Logged`=0 WHERE `Logged` = 1");
     mysql_tquery(g_DatabaseHandle, query);

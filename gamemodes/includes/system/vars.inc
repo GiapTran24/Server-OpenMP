@@ -26,6 +26,7 @@ enum pInfo {
 new PlayerInfo[MAX_PLAYERS][pInfo];
 new Float:InitPlayerPos[4] = {1958.38, 1343.16, 15.3746, 0.0};
 new bool:gLoggedIn[MAX_PLAYERS] = false;
+new gTimeOnline[MAX_PLAYERS] = 0;
 new InteractTarget[MAX_PLAYERS] = INVALID_PLAYER_ID;
 
 new bool:gOoc[MAX_PLAYERS] = true;

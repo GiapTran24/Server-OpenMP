@@ -7,9 +7,3 @@ task SaveAllAccounts[120000]()
             Account_Save(p);
     }
 }
-
-// Playtime
-task RunPlaytime[60000]()
-{
-    PlaytimeTimer();
-}

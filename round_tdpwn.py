@@ -1,7 +1,7 @@
 from pathlib import Path
 import re
 
-path = Path('gamemodes/includes/loading.inc')
+path = Path('gamemodes/includes/inventory/round.inc')
 text = path.read_text('utf-8')
 result = []
 in_string = False

@@ -544,6 +544,7 @@ static PlayerBarUI_createGeometry(const playerid, const PlayerBar:barid, const b
 	PlayerTextDrawLetterSize(playerid, ptd_main, 1.0, boundary[E_PBAR_VALUE_HEIGHT]);
 	PlayerTextDrawUseBox		(playerid, ptd_main, draw_main);
 
+
 	pbar_TextDraw[playerid][barid][pbar_back] = ptd_back;
 	pbar_TextDraw[playerid][barid][pbar_fill] = ptd_fill;
 	pbar_TextDraw[playerid][barid][pbar_main] = ptd_main;

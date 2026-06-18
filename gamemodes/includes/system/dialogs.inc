@@ -21,5 +21,8 @@ enum
 
     // Dialog Admin
     DIALOG_SETADMIN,
-    DIALOG_GOTO
+    DIALOG_GOTO,
+
+    //Dialog Inventory
+    DIALOG_ITEMS
 };

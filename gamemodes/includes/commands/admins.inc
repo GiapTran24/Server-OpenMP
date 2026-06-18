@@ -319,3 +319,31 @@ CMD:god(playerid, params[]) {
     }
     return 1;
 }
+
+CMD:check(playerid, params[])
+{
+    if(PlayerInfo[playerid][pAdmin]) return 1;
+    new targetid;
+    if(sscanf(params, "u", targetid)) return SendClientMessageEx(playerid, COLOR_ADMIN, "USE: /check [Player]");
+    ShowStats(playerid, targetid);
+    return 1;
+}
+
+CMD:fixveh(playerid, params[])
+{
+    if(IsPlayerConnected(playerid)) {
+        if(PlayerInfo[playerid][pAdmin] < 1) {
+            SendClientMessageEx(playerid, COLOR_DANGER, "Ban khong duoc phep su dung lenh nay.");
+            return 1;
+        }
+        if(IsPlayerInAnyVehicle(playerid)) {
+            new Float:vrot;
+            GetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
+            SetVehicleZAngle(GetPlayerVehicleID(playerid), vrot);
+            RepairVehicle(GetPlayerVehicleID(playerid));
+            SetVehicleHealth(GetPlayerVehicleID(playerid), 1000.0);
+            SendClientMessageEx(playerid, COLOR_GREY, "   Xe da duoc sua!");
+        }
+    }
+    return 1;
+}

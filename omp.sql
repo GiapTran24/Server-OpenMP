@@ -58,7 +58,7 @@ CREATE TABLE `Messages` (
     FOREIGN KEY (`SenderID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `FRIENDS` (
+CREATE TABLE `Friends` (
     `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `PlayerID` INT UNSIGNED NOT NULL,
     `FriendID` INT UNSIGNED NOT NULL,
@@ -70,3 +70,21 @@ CREATE TABLE `FRIENDS` (
     FOREIGN KEY (`Sender`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
     `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--Inventory Player
+CREATE TABLE `Inventory`
+(
+    player_id INT UNSIGNED NOT NULL,
+    slot INT NOT NULL,
+
+    item_id INT NOT NULL,
+    amount INT NOT NULL,
+
+    value1 INT DEFAULT 0,
+    value2 INT DEFAULT 0,
+    value3 INT DEFAULT 0,
+
+    PRIMARY KEY(player_id, slot),
+    FOREIGN KEY (`player_id`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
+);

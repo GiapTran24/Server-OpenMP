@@ -163,10 +163,8 @@ public LoadingTimer(playerid, Float:step)
 }
 
 // CMD: test
-/*
 CMD:loading(playerid, params[])
 {
     ShowPlayerLoading(playerid, "Dang lay du lieu", LOADING_TYPE_JOB);
     return 1;
 }
-*/

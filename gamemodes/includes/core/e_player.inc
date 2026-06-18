@@ -1,3 +1,5 @@
+#include <YSI_Coding\y_hooks>
+
 stock ShowStats(playerid, targetid) {
     new string[1024];
     new Float:px, Float:py, Float:pz;
@@ -17,7 +19,7 @@ stock ShowStats(playerid, targetid) {
     Bank\t$%d\n\n\
     Exp\t%d / %d\n\
     Playtime\t%s\n\n\
-    Location\t%s\t(%0.2f, %0.2f, %0.2f)\n\
+    Location\t%s\t(%0.2f, %0.2f, %0.2f)\n\n\
     \n",
     GetPlayerNameEx(targetid),
     PlayerInfo[targetid][pLevel],
@@ -42,10 +44,10 @@ stock ShowStats(playerid, targetid) {
 stock GetNextLevelExp(playerid)
 {
     new level = PlayerInfo[playerid][pLevel];
-    return level * level * 75;
+    return level * level * 65;
 }
 
-stock GivePlayerExp(playerid, amount)
+stock GivePlayerExp(playerid, const title[], amount = 5)
 {
     if(!IsPlayerConnected(playerid))
         return 0;
@@ -55,7 +57,7 @@ stock GivePlayerExp(playerid, amount)
     new string[128];
     format(string, sizeof(string),
         "[EXP] +%d Exp", amount);
-    SendClientNotification(playerid, "Completed", string, NOTIFY_TYPE_SUCCESS, 3000);
+    SendClientNotification(playerid, title, string, NOTIFY_TYPE_SUCCESS, 3000);
 
     CheckPlayerLevel(playerid);
     return 1;
@@ -63,31 +65,33 @@ stock GivePlayerExp(playerid, amount)
 
 stock CheckPlayerLevel(playerid)
 {
-    new level = PlayerInfo[playerid][pLevel];
-
     if(PlayerInfo[playerid][pExp] >= GetNextLevelExp(playerid))
     {
         PlayerInfo[playerid][pLevel]++;
+        SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
 
-        level = PlayerInfo[playerid][pLevel];
+        new level = PlayerInfo[playerid][pLevel];
 
         new string[144];
         format(string, sizeof(string),
-            "Chuc mung! ban da len level %d!",
-            level);
+            "Chuc mung! ban da len level %d! (Thuong $%d)",
+            level, level * 1000);
         SendClientNotification(playerid, "LEVEL UP", string, NOTIFY_TYPE_SUCCESS, 3000);        
 
         GivePlayerCash(playerid, level * 1000);
-        SetPlayerScore(playerid, level);
     }
     return 1;
 }
 
-stock PlaytimeTimer()
+// duoc chay khi player spawn khi vao game
+forward PlaytimeTimer(playerid);
+public PlaytimeTimer(playerid)
 {
-    foreach(new i : Player)
-    {
-        PlayerInfo[i][pPlaytime]++;
+    PlayerInfo[playerid][pPlaytime]++;
+    gTimeOnline[playerid]++;
+    if(gTimeOnline[playerid] >= 60) {
+        gTimeOnline[playerid] = 0;
+        GivePlayerExp(playerid, "Thuong Online", 10); // Thuong online 1h (+10Exp)
     }
     return 1;
 }
@@ -97,6 +101,10 @@ stock GetPlaytimeString(playerid, dest[], size)
     new hours = PlayerInfo[playerid][pPlaytime] / 60;
     new mins  = PlayerInfo[playerid][pPlaytime] % 60;
 
+    if(hours < 1) {
+        format(dest, size, "%dm", mins);
+        return 1;
+    }
     format(dest, size, "%dh %dm", hours, mins);
     return 1;
 }
