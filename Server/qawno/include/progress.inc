@@ -218,8 +218,8 @@ stock PlayerBar:CreatePlayerProgressBar(
 	pbar_Data[playerid][barid][pbar_maxValue] = max;
 	pbar_Data[playerid][barid][pbar_progressValue] = 0.0;
 	pbar_Data[playerid][barid][pbar_direction] = direction;
-	pbar_Data[playerid][barid][E_PADDING_X] = 0.0;
-	pbar_Data[playerid][barid][E_PADDING_Y] = 0.0;
+	pbar_Data[playerid][barid][E_PADDING_X] = 0.0; // 1.2
+	pbar_Data[playerid][barid][E_PADDING_Y] = 0.0; // 1.0
 
 	#if(defined _INC_y_iterate)
 	Iter_Add(pbar_Index[playerid], barid);
@@ -439,7 +439,7 @@ stock SetPlayerProgressBarValue(const playerid, const PlayerBar:barid, Float:val
 	{
 		PlayerTextDrawSetPos(playerid, ptd_main, boundary[E_PBAR_VALUE_POS_X], boundary[E_PBAR_VALUE_POS_Y]);
 		PlayerTextDrawTextSize(playerid, ptd_main, boundary[E_PBAR_VALUE_RIGHT], 0.0);
-		PlayerTextDrawLetterSize(playerid, ptd_main, 1.0, boundary[E_PBAR_VALUE_HEIGHT]);
+		PlayerTextDrawLetterSize(playerid, ptd_main, 0.0, boundary[E_PBAR_VALUE_HEIGHT]); // doan da sua lai 1.0
 		PlayerTextDrawUseBox(playerid, ptd_main, draw_main);
 	}
 	#else
@@ -459,7 +459,7 @@ stock SetPlayerProgressBarValue(const playerid, const PlayerBar:barid, Float:val
 			(ptd_back != PlayerText:INVALID_TEXT_DRAW && ptd_back < ptd_main)
 		) {
 			PlayerTextDrawTextSize(playerid, ptd_main, boundary[E_PBAR_VALUE_RIGHT], 0.0);
-			PlayerTextDrawLetterSize(playerid, ptd_main, 1.0, boundary[E_PBAR_VALUE_HEIGHT]);
+			PlayerTextDrawLetterSize(playerid, ptd_main, 0.0, boundary[E_PBAR_VALUE_HEIGHT]); // doan da sua lai 1.0
 			PlayerTextDrawUseBox(playerid, ptd_main, draw_main);
 			pbar_TextDraw[playerid][barid][pbar_main] = ptd_main;
 		} else {	// Rare case: main/value textdraw was created UNDER(with lower ID than) filler/background textdraw -> recreate whole bar again.
@@ -531,19 +531,18 @@ static PlayerBarUI_createGeometry(const playerid, const PlayerBar:barid, const b
 	new PlayerText:ptd_back, PlayerText:ptd_fill, PlayerText:ptd_main;
 	ptd_back = CreatePlayerTextDraw(playerid, boundary[E_PBAR_BACKGROUND_POS_X], boundary[E_PBAR_BACKGROUND_POS_Y], "_");
 	PlayerTextDrawTextSize		(playerid, ptd_back, boundary[E_PBAR_BACKGROUND_RIGHT], 0.0);
-	PlayerTextDrawLetterSize	(playerid, ptd_back, 1.0, boundary[E_PBAR_BACKGROUND_HEIGHT]);
+	PlayerTextDrawLetterSize	(playerid, ptd_back, 0.0, boundary[E_PBAR_BACKGROUND_HEIGHT]);
 	PlayerTextDrawUseBox		(playerid, ptd_back, true);
 
 	ptd_fill = CreatePlayerTextDraw(playerid, boundary[E_PBAR_FILLER_POS_X], boundary[E_PBAR_FILLER_POS_Y], "_");
 	PlayerTextDrawTextSize		(playerid, ptd_fill, boundary[E_PBAR_FILLER_RIGHT], 0.0);
-	PlayerTextDrawLetterSize	(playerid, ptd_fill, 1.0, boundary[E_PBAR_FILLER_HEIGHT]);
+	PlayerTextDrawLetterSize	(playerid, ptd_fill, 0.0, boundary[E_PBAR_FILLER_HEIGHT]);
 	PlayerTextDrawUseBox		(playerid, ptd_fill, true);
 
 	ptd_main = CreatePlayerTextDraw(playerid, boundary[E_PBAR_VALUE_POS_X], boundary[E_PBAR_VALUE_POS_Y], "_");
 	PlayerTextDrawTextSize(playerid, ptd_main, boundary[E_PBAR_VALUE_RIGHT], 0.0);
-	PlayerTextDrawLetterSize(playerid, ptd_main, 1.0, boundary[E_PBAR_VALUE_HEIGHT]);
+	PlayerTextDrawLetterSize(playerid, ptd_main, 0.0, boundary[E_PBAR_VALUE_HEIGHT]);
 	PlayerTextDrawUseBox		(playerid, ptd_main, draw_main);
-
 
 	pbar_TextDraw[playerid][barid][pbar_back] = ptd_back;
 	pbar_TextDraw[playerid][barid][pbar_fill] = ptd_fill;
@@ -743,8 +742,7 @@ static stock PlayerBarUI_computeBoundry(const playerid, const PlayerBar:barid, b
 		_normalise_range_f(value_pos_x1, value_pos_x2);
 		_normalise_range_f(value_pos_y1, value_pos_y2);
 	}
-	// new Float:correction_x = 1.25;
-	new Float:correction_x = 0.0;
+	new Float:correction_x = 0.0; // 1.25
 	value_pos_x1 += correction_x;
 	value_pos_x2 -= correction_x;
 	inner_pos_x1 += correction_x;

@@ -397,7 +397,96 @@ stock InvInfoItem(playerid) {
 //////////////////////////////////////////
 // BOX RIGHT
 /////////////////////////////////////////
+new PlayerText:Equip_CharPreview[MAX_PLAYERS];
+new PlayerText:Equip_Box[MAX_PLAYERS][16];   // Tăng lên 16 ô
+new PlayerText:Equip_Model[MAX_PLAYERS][16]; // Tăng lên 16 ô
+new PlayerBar:Equip_Bar[MAX_PLAYERS][16];   // Tăng lên 16 ô
 
+stock CreatePlayerRpgEquipment(playerid)
+{
+    // ==========================================================
+    // 1. MODEL NHÂN VẬT 3D (Giữ nguyên vị trí nửa trên)
+    // ==========================================================
+    Equip_CharPreview[playerid] = CreatePlayerTextDraw(playerid, 537.5, 268.0, "_");
+    PlayerTextDrawFont(playerid, Equip_CharPreview[playerid], TEXT_DRAW_FONT:5);
+    PlayerTextDrawLetterSize(playerid, Equip_CharPreview[playerid], 0.0, (80.0 / 9.5)); 
+    PlayerTextDrawTextSize(playerid, Equip_CharPreview[playerid], 80.0, 80.0);
+    PlayerTextDrawAlignment(playerid, Equip_CharPreview[playerid], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBoxColour(playerid, Equip_CharPreview[playerid], 0);
+    PlayerTextDrawBackgroundColour(playerid, Equip_CharPreview[playerid], 0);
+    PlayerTextDrawUseBox(playerid, Equip_CharPreview[playerid], true);
+    PlayerTextDrawColour(playerid, Equip_CharPreview[playerid], -1);
+    PlayerTextDrawSetPreviewModel(playerid, Equip_CharPreview[playerid], GetPlayerSkin(playerid)); 
+    PlayerTextDrawSetPreviewRot(playerid, Equip_CharPreview[playerid], -10.0, 0.0, -20.0, 1.0);
+    PlayerTextDrawShow(playerid, Equip_CharPreview[playerid]);
+
+    // ==========================================================
+    // 2. TẠO 4 Ô TRANG BỊ TRÊN (ID 0 đến 3)
+    // ==========================================================
+    new Float:topSlotsX[4] = {543.0, 543.0, 600.0, 600.0};
+    new Float:topSlotsY[4] = {275.0, 305.0, 275.0, 305.0};
+    new Float:sSize = 16.0;
+
+    for(new i = 0; i < 4; i++)
+    {
+        CreateSingleEquipSlot(playerid, i, topSlotsX[i], topSlotsY[i], sSize);
+    }
+
+    // ==========================================================
+    // 3. TẠO 12 Ô LƯỚI PHÍA DƯỚI (Mở rộng thành 3 Hàng x 4 Cột)
+    // ID chạy tiếp tục từ 4 đến 15
+    // ==========================================================
+    new Float:bottomStartX = 540.5;
+    new Float:bottomStartY = 354.0; // Đẩy lên Y=354 để lấy thêm không gian cho hàng thứ 3
+    new Float:spacingX = 5.0;
+    new Float:spacingY = 12.0; // Khoảng cách dọc giữa các hàng ô dưới
+    
+    new slotId = 4;
+    for(new r = 0; r < 3; r++) // TĂNG LÊN 3 HÀNG dọc
+    {
+        for(new c = 0; c < 4; c++) // 4 Cột ngang
+        {
+            new Float:posX = bottomStartX + (c * (sSize + spacingX));
+            new Float:posY = bottomStartY + (r * (sSize + spacingY));
+            
+            CreateSingleEquipSlot(playerid, slotId, posX, posY, sSize);
+            slotId++;
+        }
+    }
+}
+
+// Giữ nguyên hàm phụ trợ CreateSingleEquipSlot bên dưới...
+
+// Hàm phụ trợ tạo nhanh từng ô để code gọn gàng, không bị lặp dòng
+stock CreateSingleEquipSlot(playerid, slotId, Float:posX, Float:posY, Float:size)
+{
+    Equip_Bar[playerid][slotId] = CreatePlayerProgressBar(playerid, posX, posY + size - 0.5, size, 1.0);
+    SetPlayerProgressBarValue(playerid, Equip_Bar[playerid][slotId], 30.0);
+    ShowPlayerProgressBar(playerid, Equip_Bar[playerid][slotId]);
+
+    // Lớp 1: Box nền
+    Equip_Box[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+    PlayerTextDrawFont(playerid, Equip_Box[playerid][slotId], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, Equip_Box[playerid][slotId], 0.0, (size / 9.5));
+    PlayerTextDrawTextSize(playerid, Equip_Box[playerid][slotId], posX + size, 0.0);
+    PlayerTextDrawAlignment(playerid, Equip_Box[playerid][slotId], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][slotId], 255);
+    PlayerTextDrawBackgroundColour(playerid, Equip_Box[playerid][slotId], 255);
+    PlayerTextDrawUseBox(playerid, Equip_Box[playerid][slotId], true);
+    PlayerTextDrawShow(playerid, Equip_Box[playerid][slotId]);
+
+    // Lớp 2: Model Preview vật phẩm
+    Equip_Model[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+    PlayerTextDrawFont(playerid, Equip_Model[playerid][slotId], TEXT_DRAW_FONT:5);
+    PlayerTextDrawLetterSize(playerid, Equip_Model[playerid][slotId], 0.0, (size / 9.5));
+    PlayerTextDrawTextSize(playerid, Equip_Model[playerid][slotId], size, size);
+    PlayerTextDrawAlignment(playerid, Equip_Model[playerid][slotId], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBackgroundColour(playerid, Equip_Model[playerid][slotId], 0);
+    PlayerTextDrawColour(playerid, Equip_Model[playerid][slotId], -1);
+    PlayerTextDrawSetSelectable(playerid, Equip_Model[playerid][slotId], true);
+    PlayerTextDrawSetPreviewModel(playerid, Equip_Model[playerid][slotId], 0);
+    PlayerTextDrawShow(playerid, Equip_Model[playerid][slotId]);
+}
 
 //////////////////////////////////////////
 // Navigation Bar
@@ -493,6 +582,7 @@ CMD:inv(playerid, params[]) {
     InvNavigationBtn(playerid);
 
     PlayerTextDrawShow(playerid, BgRight[playerid]);
+    CreatePlayerRpgEquipment(playerid);
 
     PlayerTextDrawShow(playerid, BgCenter[playerid]);
     CreatePlayerInventoryGrid(playerid);
