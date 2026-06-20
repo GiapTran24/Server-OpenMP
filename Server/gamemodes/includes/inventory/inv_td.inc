@@ -4,10 +4,11 @@
 #define INVENTORY_COLS  5
 #define TOTAL_SLOTS     (INVENTORY_ROWS * INVENTORY_COLS)
 
-#define INV_COLOR_BG    0x151515EE
-#define INV_COLOR_BOX   0x00000088
-#define INV_COLOR_ITEM  0x2E2E2EAA
-#define INV_COLOR_HOVER 0xE0A96DFF
+#define INV_COLOR_BG    0x0A0A0AFF
+#define INV_COLOR_BOX   0x232323FF
+#define INV_COLOR_ITEM  0x1F1F1FFF
+#define INV_COLOR_HOVER 0x00C4FFFF
+#define INV_COLOR_BUTTON 0x00A8E8FF
 
 new PlayerText:Background_Under[MAX_PLAYERS];
 new PlayerText:BgRight[MAX_PLAYERS];
@@ -18,6 +19,39 @@ new PlayerText:TxtHeaderTitle[MAX_PLAYERS];
 new PlayerText:TxtHeaderName[MAX_PLAYERS];
 new PlayerText:TxtHeaderStats[MAX_PLAYERS];
 
+// State & selection tracking
+new bool:InvTD_Created[MAX_PLAYERS];
+new bool:PlayerHasInvVisible[MAX_PLAYERS];
+new SelectedInvSlot[MAX_PLAYERS];
+new SelectedEquipSlot[MAX_PLAYERS];
+
+// Box center layers (declared here so other functions can access)
+new PlayerText:InvSlot_Box[MAX_PLAYERS][TOTAL_SLOTS];   // Lớp 1: Ô nền
+new PlayerText:InvSlot_Model[MAX_PLAYERS][TOTAL_SLOTS]; // Lớp 2: Hình ảnh vật phẩm
+new PlayerText:InvSlot_Text[MAX_PLAYERS][TOTAL_SLOTS];  // Lớp 3: Số lượng chữ
+
+// Left panel globals (made global so OnPlayerClick can reference)
+new PlayerText:header_title[MAX_PLAYERS];
+new PlayerText:header_Pname[MAX_PLAYERS];
+new PlayerText:header_weight[MAX_PLAYERS];
+
+new PlayerText:btn_use[MAX_PLAYERS];
+new PlayerText:btn_give[MAX_PLAYERS];
+new PlayerText:btn_drop[MAX_PLAYERS];
+new PlayerText:btn_close[MAX_PLAYERS];
+
+new PlayerText:info_model[MAX_PLAYERS];
+new PlayerText:info_text1[MAX_PLAYERS];
+new PlayerText:info_text2[MAX_PLAYERS];
+new PlayerText:info_text3[MAX_PLAYERS];
+new PlayerText:info_text4[MAX_PLAYERS];
+new PlayerText:info_text5[MAX_PLAYERS];
+
+// Navigation globals
+new PlayerText:inv_navBox[MAX_PLAYERS];
+new PlayerText:inv_navLeft[MAX_PLAYERS];
+new PlayerText:inv_navRight[MAX_PLAYERS];
+new PlayerText:inv_navPageInfo[MAX_PLAYERS];
 
 stock CreateInvTD(playerid) {
     Background_Under[playerid] = CreatePlayerTextDraw(playerid, 492.5, 246.0, "_");
@@ -85,7 +119,7 @@ stock CreateInvTD(playerid) {
     PlayerTextDrawAlignment(playerid, BgLeft[playerid], TEXT_DRAW_ALIGN:2);
     PlayerTextDrawColour(playerid, BgLeft[playerid], -1);
     PlayerTextDrawBackgroundColour(playerid, BgLeft[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, BgLeft[playerid], INV_COLOR_BG);
+    PlayerTextDrawBoxColour(playerid, BgLeft[playerid], INV_COLOR_BOX);
     PlayerTextDrawUseBox(playerid, BgLeft[playerid], true);
     PlayerTextDrawSetProportional(playerid, BgLeft[playerid], true);
     PlayerTextDrawSetSelectable(playerid, BgLeft[playerid], false);
@@ -97,10 +131,7 @@ stock CreateInvTD(playerid) {
 // BOX CENTER ( GRID ITEM INV )
 ///////////////////////////////
 
-// Định nghĩa mảng cho 3 lớp
-new PlayerText:InvSlot_Box[MAX_PLAYERS][TOTAL_SLOTS];   // Lớp 1: Ô nền
-new PlayerText:InvSlot_Model[MAX_PLAYERS][TOTAL_SLOTS]; // Lớp 2: Hình ảnh vật phẩm
-new PlayerText:InvSlot_Text[MAX_PLAYERS][TOTAL_SLOTS];  // Lớp 3: Số lượng chữ
+// (InvSlot arrays declared above as globals)
 
 stock CreatePlayerInventoryGrid(playerid)
 {
@@ -173,21 +204,6 @@ stock CreatePlayerInventoryGrid(playerid)
 // BOX LEFT
 ////////////////////////////
 stock InvInfoItem(playerid) {
-    new PlayerText:header_title[MAX_PLAYERS];
-    new PlayerText:header_Pname[MAX_PLAYERS];
-    new PlayerText:header_weight[MAX_PLAYERS];
-
-    new PlayerText:btn_use[MAX_PLAYERS];
-    new PlayerText:btn_give[MAX_PLAYERS];
-    new PlayerText:btn_drop[MAX_PLAYERS];
-    new PlayerText:btn_close[MAX_PLAYERS];
-
-    new PlayerText:info_model[MAX_PLAYERS];
-    new PlayerText:info_text1[MAX_PLAYERS];
-    new PlayerText:info_text2[MAX_PLAYERS];
-    new PlayerText:info_text3[MAX_PLAYERS];
-    new PlayerText:info_text4[MAX_PLAYERS];
-    new PlayerText:info_text5[MAX_PLAYERS];
 
     header_title[playerid] = CreatePlayerTextDraw(playerid, 365.0, 246.0, "inventory");
     PlayerTextDrawFont(playerid, header_title[playerid], TEXT_DRAW_FONT:2);
@@ -240,7 +256,7 @@ stock InvInfoItem(playerid) {
     PlayerTextDrawAlignment(playerid, btn_use[playerid], TEXT_DRAW_ALIGN:2);
     PlayerTextDrawColour(playerid, btn_use[playerid], -1);
     PlayerTextDrawBackgroundColour(playerid, btn_use[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_use[playerid], 1687547336);
+    PlayerTextDrawBoxColour(playerid, btn_use[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawUseBox(playerid, btn_use[playerid], true);
     PlayerTextDrawSetProportional(playerid, btn_use[playerid], true);
     PlayerTextDrawSetSelectable(playerid, btn_use[playerid], true);
@@ -254,7 +270,7 @@ stock InvInfoItem(playerid) {
     PlayerTextDrawAlignment(playerid, btn_give[playerid], TEXT_DRAW_ALIGN:2);
     PlayerTextDrawColour(playerid, btn_give[playerid], -1);
     PlayerTextDrawBackgroundColour(playerid, btn_give[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_give[playerid], 1687547336);
+    PlayerTextDrawBoxColour(playerid, btn_give[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawUseBox(playerid, btn_give[playerid], true);
     PlayerTextDrawSetProportional(playerid, btn_give[playerid], true);
     PlayerTextDrawSetSelectable(playerid, btn_give[playerid], true);
@@ -268,7 +284,7 @@ stock InvInfoItem(playerid) {
     PlayerTextDrawAlignment(playerid, btn_drop[playerid], TEXT_DRAW_ALIGN:2);
     PlayerTextDrawColour(playerid, btn_drop[playerid], -1);
     PlayerTextDrawBackgroundColour(playerid, btn_drop[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_drop[playerid], 1687547336);
+    PlayerTextDrawBoxColour(playerid, btn_drop[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawUseBox(playerid, btn_drop[playerid], true);
     PlayerTextDrawSetProportional(playerid, btn_drop[playerid], true);
     PlayerTextDrawSetSelectable(playerid, btn_drop[playerid], true);
@@ -367,7 +383,7 @@ stock InvInfoItem(playerid) {
     PlayerTextDrawSetOutline(playerid, btn_close[playerid], 1);
     PlayerTextDrawSetShadow(playerid, btn_close[playerid], 0);
     PlayerTextDrawAlignment(playerid, btn_close[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, btn_close[playerid], 1687547336);
+    PlayerTextDrawColour(playerid, btn_close[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawBackgroundColour(playerid, btn_close[playerid], -1094795776);
     PlayerTextDrawBoxColour(playerid, btn_close[playerid], 65280);
     PlayerTextDrawUseBox(playerid, btn_close[playerid], true);
@@ -455,8 +471,6 @@ stock CreatePlayerRpgEquipment(playerid)
     }
 }
 
-// Giữ nguyên hàm phụ trợ CreateSingleEquipSlot bên dưới...
-
 // Hàm phụ trợ tạo nhanh từng ô để code gọn gàng, không bị lặp dòng
 stock CreateSingleEquipSlot(playerid, slotId, Float:posX, Float:posY, Float:size)
 {
@@ -470,7 +484,7 @@ stock CreateSingleEquipSlot(playerid, slotId, Float:posX, Float:posY, Float:size
     PlayerTextDrawLetterSize(playerid, Equip_Box[playerid][slotId], 0.0, (size / 9.5));
     PlayerTextDrawTextSize(playerid, Equip_Box[playerid][slotId], posX + size, 0.0);
     PlayerTextDrawAlignment(playerid, Equip_Box[playerid][slotId], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][slotId], 255);
+    PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][slotId], INV_COLOR_ITEM);
     PlayerTextDrawBackgroundColour(playerid, Equip_Box[playerid][slotId], 255);
     PlayerTextDrawUseBox(playerid, Equip_Box[playerid][slotId], true);
     PlayerTextDrawShow(playerid, Equip_Box[playerid][slotId]);
@@ -492,10 +506,7 @@ stock CreateSingleEquipSlot(playerid, slotId, Float:posX, Float:posY, Float:size
 // Navigation Bar
 /////////////////////////////////////////
 stock InvNavigationBtn(playerid) {
-    new PlayerText:inv_navBox[MAX_PLAYERS];
-    new PlayerText:inv_navLeft[MAX_PLAYERS];
-    new PlayerText:inv_navRight[MAX_PLAYERS];
-    new PlayerText:inv_navPageInfo[MAX_PLAYERS];
+    // inv_nav globals are declared at file scope
 
     inv_navBox[playerid] = CreatePlayerTextDraw(playerid, 450.0, 433.0, "_");
     PlayerTextDrawFont(playerid, inv_navBox[playerid], TEXT_DRAW_FONT:1);
@@ -506,7 +517,7 @@ stock InvNavigationBtn(playerid) {
     PlayerTextDrawAlignment(playerid, inv_navBox[playerid], TEXT_DRAW_ALIGN:2);
     PlayerTextDrawColour(playerid, inv_navBox[playerid], -1);
     PlayerTextDrawBackgroundColour(playerid, inv_navBox[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, inv_navBox[playerid], INV_COLOR_BG);
+    PlayerTextDrawBoxColour(playerid, inv_navBox[playerid], 0x232323FF);
     PlayerTextDrawUseBox(playerid, inv_navBox[playerid], true);
     PlayerTextDrawSetProportional(playerid, inv_navBox[playerid], true);
     PlayerTextDrawSetSelectable(playerid, inv_navBox[playerid], false);
@@ -518,7 +529,7 @@ stock InvNavigationBtn(playerid) {
     PlayerTextDrawSetOutline(playerid, inv_navLeft[playerid], 1);
     PlayerTextDrawSetShadow(playerid, inv_navLeft[playerid], 0);
     PlayerTextDrawAlignment(playerid, inv_navLeft[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, inv_navLeft[playerid], 1687547336);
+    PlayerTextDrawColour(playerid, inv_navLeft[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawBackgroundColour(playerid, inv_navLeft[playerid], -1094795776);
     PlayerTextDrawBoxColour(playerid, inv_navLeft[playerid], 65280);
     PlayerTextDrawUseBox(playerid, inv_navLeft[playerid], true);
@@ -532,7 +543,7 @@ stock InvNavigationBtn(playerid) {
     PlayerTextDrawSetOutline(playerid, inv_navRight[playerid], 1);
     PlayerTextDrawSetShadow(playerid, inv_navRight[playerid], 0);
     PlayerTextDrawAlignment(playerid, inv_navRight[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, inv_navRight[playerid], 1687547336);
+    PlayerTextDrawColour(playerid, inv_navRight[playerid], INV_COLOR_BUTTON);
     PlayerTextDrawBackgroundColour(playerid, inv_navRight[playerid], -1094795776);
     PlayerTextDrawBoxColour(playerid, inv_navRight[playerid], 65280);
     PlayerTextDrawUseBox(playerid, inv_navRight[playerid], true);
@@ -557,39 +568,265 @@ stock InvNavigationBtn(playerid) {
     PlayerTextDrawShow(playerid, inv_navLeft[playerid]);
     PlayerTextDrawShow(playerid, inv_navRight[playerid]);
     PlayerTextDrawShow(playerid, inv_navPageInfo[playerid]);
+    SelectTextDraw(playerid, INV_COLOR_HOVER);
     return 1;
 }
 
 
 hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 {
-    if(playertextid == InvSlot_Model[playerid][0]) {
-        PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][0], INV_COLOR_HOVER);
-        PlayerTextDrawShow(playerid, InvSlot_Box[playerid][0]);
+    // Inventory grid selection
+    for(new s = 0; s < TOTAL_SLOTS; s++)
+    {
+        if(playertextid == InvSlot_Model[playerid][s] || playertextid == InvSlot_Box[playerid][s] || playertextid == InvSlot_Text[playerid][s])
+        {
+            // unselect previous
+            new prev = SelectedInvSlot[playerid];
+            if(prev != -1 && prev >= 0 && prev < TOTAL_SLOTS)
+            {
+                PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][prev], INV_COLOR_ITEM);
+                PlayerTextDrawShow(playerid, InvSlot_Box[playerid][prev]);
+            }
+
+            SelectedInvSlot[playerid] = s;
+            PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][s], INV_COLOR_HOVER);
+            PlayerTextDrawShow(playerid, InvSlot_Box[playerid][s]);
+
+            // update left info panel
+            new itemid = PlayerInventory[playerid][s][invItemID];
+            if(itemid > 0 && ItemData[itemid][itemExists])
+            {
+                PlayerTextDrawSetPreviewModel(playerid, info_model[playerid], ItemData[itemid][itemModelID]);
+                new tmp[128];
+                format(tmp, sizeof(tmp), "Name: ~y~%s", ItemData[itemid][itemName]);
+                PlayerTextDrawSetString(playerid, info_text1[playerid], tmp);
+                format(tmp, sizeof(tmp), "Category: ~b~%d", ItemData[itemid][itemType]);
+                PlayerTextDrawSetString(playerid, info_text2[playerid], tmp);
+                format(tmp, sizeof(tmp), "Weight: ~g~%.2fkg", ItemData[itemid][itemWeight]);
+                PlayerTextDrawSetString(playerid, info_text3[playerid], tmp);
+                format(tmp, sizeof(tmp), "Quantity: ~r~%d", PlayerInventory[playerid][s][invAmount]);
+                PlayerTextDrawSetString(playerid, info_text4[playerid], tmp);
+                PlayerTextDrawSetString(playerid, info_text5[playerid], ItemData[itemid][itemDescription]);
+            }
+            else
+            {
+                PlayerTextDrawSetPreviewModel(playerid, info_model[playerid], 0);
+                PlayerTextDrawSetString(playerid, info_text1[playerid], "");
+                PlayerTextDrawSetString(playerid, info_text2[playerid], "");
+                PlayerTextDrawSetString(playerid, info_text3[playerid], "");
+                PlayerTextDrawSetString(playerid, info_text4[playerid], "");
+                PlayerTextDrawSetString(playerid, info_text5[playerid], "");
+            }
+
+            return 1;
+        }
+    }
+
+    // Equipment selection
+    for(new e = 0; e < 16; e++)
+    {
+        if(playertextid == Equip_Model[playerid][e] || playertextid == Equip_Box[playerid][e])
+        {
+            new prev = SelectedEquipSlot[playerid];
+            if(prev != -1 && prev >= 0 && prev < 16)
+            {
+                PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][prev], 255);
+                PlayerTextDrawShow(playerid, Equip_Box[playerid][prev]);
+            }
+            SelectedEquipSlot[playerid] = e;
+            PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][e], INV_COLOR_HOVER);
+            PlayerTextDrawShow(playerid, Equip_Box[playerid][e]);
+            return 1;
+        }
+    }
+
+    // Buttons
+    if(playertextid == btn_use[playerid])
+    {
+        new slot = SelectedInvSlot[playerid];
+        if(slot < 0) return 1;
+        new itemid = PlayerInventory[playerid][slot][invItemID];
+        SendClientMessage(playerid, -1, "Use item: placeholder (implement effect based on item type)");
         return 1;
     }
-	return 1;
+
+    if(playertextid == btn_give[playerid])
+    {
+        SendClientMessage(playerid, -1, "Give item: not implemented (select target player then give)");
+        return 1;
+    }
+
+    if(playertextid == btn_drop[playerid])
+    {
+        new slot = SelectedInvSlot[playerid];
+        if(slot < 0) return 1;
+        PlayerInventory[playerid][slot][invItemID] = 0;
+        PlayerInventory[playerid][slot][invAmount] = 0;
+        ClearInventorySlot(playerid, slot);
+        UpdateInventorySlotTD(playerid, slot);
+        SaveInventory(playerid);
+        SendClientMessage(playerid, -1, "Item dropped.");
+        return 1;
+    }
+
+    if(playertextid == btn_close[playerid])
+    {
+        HideInventory(playerid);
+        return 1;
+    }
+
+    // Navigation
+    if(playertextid == inv_navLeft[playerid])
+    {
+        SendClientMessage(playerid, -1, "Nav: previous page (not implemented)");
+        return 1;
+    }
+    if(playertextid == inv_navRight[playerid])
+    {
+        SendClientMessage(playerid, -1, "Nav: next page (not implemented)");
+        return 1;
+    }
+
+    return 1;
 }
 
-CMD:inv(playerid, params[]) {
+// Ensure creation helper and UI refresh routines
+stock EnsureInvCreated(playerid)
+{
+    if(InvTD_Created[playerid]) return 1;
+
     CreateInvTD(playerid);
+    CreatePlayerRpgEquipment(playerid);
+    CreatePlayerInventoryGrid(playerid);
+    InvInfoItem(playerid);
+    InvNavigationBtn(playerid);
+
+    InvTD_Created[playerid] = true;
+    SelectedInvSlot[playerid] = -1;
+    SelectedEquipSlot[playerid] = -1;
+    PlayerHasInvVisible[playerid] = false;
+    return 1;
+}
+
+// Update a single inventory slot's TDs from PlayerInventory / ItemData
+stock UpdateInventorySlotTD(playerid, slot)
+{
+    if(slot < 0 || slot >= TOTAL_SLOTS) return 0;
+
+    new itemid = PlayerInventory[playerid][slot][invItemID];
+    new amount = PlayerInventory[playerid][slot][invAmount];
+
+    if(itemid > 0 && ItemData[itemid][itemExists])
+    {
+        PlayerTextDrawSetPreviewModel(playerid, InvSlot_Model[playerid][slot], ItemData[itemid][itemModelID]);
+        new buf[16]; format(buf, sizeof(buf), "%d", amount);
+        PlayerTextDrawSetString(playerid, InvSlot_Text[playerid][slot], buf);
+    }
+    else
+    {
+        PlayerTextDrawSetPreviewModel(playerid, InvSlot_Model[playerid][slot], 0);
+        PlayerTextDrawSetString(playerid, InvSlot_Text[playerid][slot], "");
+    }
+
+    PlayerTextDrawShow(playerid, InvSlot_Model[playerid][slot]);
+    PlayerTextDrawShow(playerid, InvSlot_Text[playerid][slot]);
+    return 1;
+}
+
+stock RefreshInventoryTDs(playerid)
+{
+    for(new s = 0; s < TOTAL_SLOTS; s++)
+        UpdateInventorySlotTD(playerid, s);
+    return 1;
+}
+
+stock ShowInventory(playerid)
+{
+    EnsureInvCreated(playerid);
+
     PlayerTextDrawShow(playerid, Background_Under[playerid]);
     PlayerTextDrawShow(playerid, BgHeader[playerid]);
     PlayerTextDrawShow(playerid, TxtHeaderTitle[playerid]);
     PlayerTextDrawShow(playerid, TxtHeaderName[playerid]);
     PlayerTextDrawShow(playerid, TxtHeaderStats[playerid]);
 
-    InvNavigationBtn(playerid);
-
     PlayerTextDrawShow(playerid, BgRight[playerid]);
-    CreatePlayerRpgEquipment(playerid);
-
     PlayerTextDrawShow(playerid, BgCenter[playerid]);
-    CreatePlayerInventoryGrid(playerid);
-
     PlayerTextDrawShow(playerid, BgLeft[playerid]);
-    InvInfoItem(playerid);
 
-    SelectTextDraw(playerid, INV_COLOR_HOVER);
+    PlayerTextDrawShow(playerid, header_title[playerid]);
+    PlayerTextDrawShow(playerid, header_Pname[playerid]);
+    PlayerTextDrawShow(playerid, header_weight[playerid]);
+
+    PlayerTextDrawShow(playerid, info_model[playerid]);
+    PlayerTextDrawShow(playerid, info_text1[playerid]);
+    PlayerTextDrawShow(playerid, info_text2[playerid]);
+    PlayerTextDrawShow(playerid, info_text3[playerid]);
+    PlayerTextDrawShow(playerid, info_text4[playerid]);
+    PlayerTextDrawShow(playerid, info_text5[playerid]);
+
+    PlayerTextDrawShow(playerid, btn_use[playerid]);
+    PlayerTextDrawShow(playerid, btn_give[playerid]);
+    PlayerTextDrawShow(playerid, btn_drop[playerid]);
+    PlayerTextDrawShow(playerid, btn_close[playerid]);
+
+    PlayerTextDrawShow(playerid, inv_navBox[playerid]);
+    PlayerTextDrawShow(playerid, inv_navLeft[playerid]);
+    PlayerTextDrawShow(playerid, inv_navRight[playerid]);
+    PlayerTextDrawShow(playerid, inv_navPageInfo[playerid]);
+
+    RefreshInventoryTDs(playerid);
+
+    PlayerHasInvVisible[playerid] = true;
+    return 1;
+}
+
+stock HideInventory(playerid)
+{
+    // hide basics
+    PlayerTextDrawHide(playerid, Background_Under[playerid]);
+    PlayerTextDrawHide(playerid, BgHeader[playerid]);
+    PlayerTextDrawHide(playerid, TxtHeaderTitle[playerid]);
+    PlayerTextDrawHide(playerid, TxtHeaderName[playerid]);
+    PlayerTextDrawHide(playerid, TxtHeaderStats[playerid]);
+
+    PlayerTextDrawHide(playerid, BgRight[playerid]);
+    PlayerTextDrawHide(playerid, BgCenter[playerid]);
+    PlayerTextDrawHide(playerid, BgLeft[playerid]);
+
+    PlayerTextDrawHide(playerid, header_title[playerid]);
+    PlayerTextDrawHide(playerid, header_Pname[playerid]);
+    PlayerTextDrawHide(playerid, header_weight[playerid]);
+
+    PlayerTextDrawHide(playerid, info_model[playerid]);
+    PlayerTextDrawHide(playerid, info_text1[playerid]);
+    PlayerTextDrawHide(playerid, info_text2[playerid]);
+    PlayerTextDrawHide(playerid, info_text3[playerid]);
+    PlayerTextDrawHide(playerid, info_text4[playerid]);
+    PlayerTextDrawHide(playerid, info_text5[playerid]);
+
+    PlayerTextDrawHide(playerid, btn_use[playerid]);
+    PlayerTextDrawHide(playerid, btn_give[playerid]);
+    PlayerTextDrawHide(playerid, btn_drop[playerid]);
+    PlayerTextDrawHide(playerid, btn_close[playerid]);
+
+    PlayerTextDrawHide(playerid, inv_navBox[playerid]);
+    PlayerTextDrawHide(playerid, inv_navLeft[playerid]);
+    PlayerTextDrawHide(playerid, inv_navRight[playerid]);
+    PlayerTextDrawHide(playerid, inv_navPageInfo[playerid]);
+
+    // hide grid and equipment
+    for(new s = 0; s < TOTAL_SLOTS; s++){
+        PlayerTextDrawHide(playerid, InvSlot_Box[playerid][s]);
+        PlayerTextDrawHide(playerid, InvSlot_Model[playerid][s]);
+        PlayerTextDrawHide(playerid, InvSlot_Text[playerid][s]);
+    }
+    for(new e = 0; e < 16; e++){
+        PlayerTextDrawHide(playerid, Equip_Box[playerid][e]);
+        PlayerTextDrawHide(playerid, Equip_Model[playerid][e]);
+        HidePlayerProgressBar(playerid, Equip_Bar[playerid][e]);
+    }
+
+    PlayerHasInvVisible[playerid] = false;
     return 1;
 }

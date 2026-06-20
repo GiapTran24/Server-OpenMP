@@ -34,7 +34,7 @@ stock LoadInventory(playerid) {
 
     mysql_format(g_DatabaseHandle query, sizeof(query),
         "SELECT * FROM Inventory WHERE player_id = %d",
-        PlayerData[playerid][pID]
+        PlayerInfo[playerid][pID]
     );
 
     mysql_tquery(g_DatabaseHandle query, "OnInventoryLoad", "d", playerid);
@@ -114,9 +114,9 @@ stock ClearInventorySlot(playerid, slot)
     PlayerInventory[playerid][slot][invValue2] = 0;
     PlayerInventory[playerid][slot][invValue3] = 0;
 
-    mysql_format(g_DatabaseHandle query, sizeof(query),
-        "DELETE FROM Inventory \
-        WHERE player_id = %d AND slot = %d",
+    new query[512];
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
+        "DELETE FROM Inventory WHERE player_id = %d AND slot = %d",
         PlayerInfo[playerid][pID],
         slot
     );
@@ -128,23 +128,23 @@ stock SaveInventory(playerid)
 {
     new query[512];
 
-    mysql_format(g_DatabaseHandle query, sizeof(query),
+    mysql_format(g_DatabaseHandle, query, sizeof(query),
         "DELETE FROM Inventory WHERE player_id = %d",
-        PlayerData[playerid][pID]
+        PlayerInfo[playerid][pID]
     );
-    mysql_tquery(g_DatabaseHandle query);
+    mysql_tquery(g_DatabaseHandle, query);
 
     for(new slot; slot < MAX_INV_SLOTS; slot++)
     {
         if(PlayerInventory[playerid][slot][invItemID] == 0)
             continue;
 
-        mysql_format(g_DatabaseHandle query, sizeof(query),
+        mysql_format(g_DatabaseHandle, query, sizeof(query),
             "INSERT INTO Inventory \
             (player_id, slot, item_id, amount, value1, value2, value3) \
             VALUES (%d,%d,%d,%d,%d,%d,%d)",
 
-            PlayerData[playerid][pID],
+            PlayerInfo[playerid][pID],
 
             slot,
 
@@ -156,7 +156,7 @@ stock SaveInventory(playerid)
             PlayerInventory[playerid][slot][invValue3]
         );
 
-        mysql_tquery(g_DatabaseHandle query);
+        mysql_tquery(g_DatabaseHandle, query);
     }
 
     return 1;

@@ -36,7 +36,11 @@ new MySQL:g_DatabaseHandle;
 #include "includes/core/e_player.inc"
 
 // Inventory
-#include "includes/inventory/inv_td.inc"
+//#include "includes/inventory/inv_items.inc"
+//#include "includes/inventory/inventory.inc"
+//#include "includes/inventory/inv_td.inc"
+//#include "includes/inventory/cmds.inc"
+#include "includes/inventory/inv.inc"
 
 // Conversations
 //#include "includes/conversations/messager.inc"
