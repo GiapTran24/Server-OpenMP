@@ -73,18 +73,35 @@ CREATE TABLE `Friends` (
 
 
 --Inventory Player
-CREATE TABLE `Inventory`
-(
-    player_id INT UNSIGNED NOT NULL,
-    slot INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `player_inventory` (
+    `invDBID` INT AUTO_INCREMENT PRIMARY KEY,
+    `playerID` INT UNSIGNED NOT NULL, -- ID tài khoản hoặc ID nhân vật của người chơi
+    `invItemID` INT NOT NULL, -- Liên kết với ID của bảng items
+    `invAmount` INT NOT NULL DEFAULT 1,
+    `invDurability` FLOAT NOT NULL DEFAULT 100.0,
+    `invSlotID` INT NOT NULL, -- Vị trí ô trong túi đồ (0 đến MAX_INV_SLOTS)
+    `invSlotType` INT NOT NULL DEFAULT 0, -- Loại túi đồ (Equip hoặc Main)
+    FOREIGN KEY (`playerID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`invItemID`) REFERENCES `items`(`id`) ON DELETE CASCADE
+    
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    item_id INT NOT NULL,
-    amount INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `items` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `itemModelID` INT NOT NULL,
+    `itemName` VARCHAR(52) NOT NULL,
+    `itemType` INT NOT NULL,
+    `itemWeight` FLOAT NOT NULL,
+    `itemMaxStack` INT NOT NULL,
+    `itemPrice` INT NOT NULL,
+    `itemDescription` VARCHAR(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    value1 INT DEFAULT 0,
-    value2 INT DEFAULT 0,
-    value3 INT DEFAULT 0,
-
-    PRIMARY KEY(player_id, slot),
+-- FISHING
+CREATE TABLE `pFish` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `player_id` INT UNSIGNED NOT NULL,
+    `fish_id` INT NOT NULL DEFAULT -1,
+    `amount` INT NOT NULL DEFAULT 1,
     FOREIGN KEY (`player_id`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -1,3 +1,19 @@
+CMD:testsound(playerid, params[])
+{
+    new soundid;
+
+    if(sscanf(params, "d", soundid))
+        return SendClientMessage(playerid, -1, "/testsound [soundid]");
+
+    PlayerPlaySound(playerid, soundid, 0.0, 0.0, 0.0);
+
+    new str[64];
+    format(str, sizeof(str), "Playing sound: %d", soundid);
+    SendClientMessage(playerid, -1, str);
+
+    return 1;
+}
+
 CMD:setadmin(playerid, params[])
 {
     new targetid;

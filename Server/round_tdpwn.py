@@ -1,7 +1,7 @@
 from pathlib import Path
 import re
 
-path = Path('gamemodes/includes/inventory/round.inc')
+path = Path('gamemodes/includes/minigames/cauca/fish_loading.pwn')
 text = path.read_text('utf-8')
 result = []
 in_string = False

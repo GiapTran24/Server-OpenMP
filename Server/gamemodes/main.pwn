@@ -3,6 +3,7 @@
 #include <progress>
 #include <samp_bcrypt>
 #include <zcmd>
+//#include <crashdetect>
 
 new MySQL:g_DatabaseHandle;
 
@@ -14,7 +15,6 @@ new MySQL:g_DatabaseHandle;
 // UI
 #include "includes/ui/colors.inc"
 #include "includes/ui/notify.inc"
-#include "includes/ui/loading.inc"
 #include "includes/ui/zones.inc"
 
 // System
@@ -36,11 +36,7 @@ new MySQL:g_DatabaseHandle;
 #include "includes/core/e_player.inc"
 
 // Inventory
-//#include "includes/inventory/inv_items.inc"
 //#include "includes/inventory/inventory.inc"
-//#include "includes/inventory/inv_td.inc"
-//#include "includes/inventory/cmds.inc"
-#include "includes/inventory/inv.inc"
 
 // Conversations
 //#include "includes/conversations/messager.inc"
@@ -50,13 +46,17 @@ new MySQL:g_DatabaseHandle;
 #include "includes/minigames/taixiu/TD.pwn"
 #include "includes/minigames/taixiu/System.pwn"
 
+//Fishing
+//#include "includes/minigames/cauca/fishing.pwn"
+#include "includes/minigames/cauca/cauca.pwn"
+
 main() {}
 
 public OnGameModeInit()
 {
 	print("Chuong trinh may chu dang duoc khoi dong, vui long cho doi....");
 	
-	AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
+	//AddPlayerClass(0, 1958.33, 1343.12, 15.36, 269.15, WEAPON_FIST, 0, WEAPON_FIST, 0, WEAPON_FIST, 0);
 	g_DatabaseHandle = mysql_connect_file("mysql.ini");
 
     if (mysql_errno(g_DatabaseHandle) == 0) 
@@ -76,8 +76,8 @@ public OnGameModeInit()
         SendRconCommand("password 123123");
         SendRconCommand("name Server is under maintenance!");
     }
-
 	//ShowNameTags(false);
+	//LoadItems();
 	return 1;
 }
 

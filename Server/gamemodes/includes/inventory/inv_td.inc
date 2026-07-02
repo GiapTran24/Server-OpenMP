@@ -1,139 +1,269 @@
-#include <YSI_Coding\y_hooks>
-
 #define INVENTORY_ROWS  5
 #define INVENTORY_COLS  5
-#define TOTAL_SLOTS     (INVENTORY_ROWS * INVENTORY_COLS)
+#define MAX_INV_MAIN_SLOTS     (INVENTORY_ROWS * INVENTORY_COLS)
+#define INV_MODEL_DEFAULT 19300
 
-#define INV_COLOR_BG    0x0A0A0AFF
-#define INV_COLOR_BOX   0x232323FF
+#define MAX_INV_EQUIP_SLOTS 16
+
+#define INV_COLOR_BG    0x232323FF
+#define INV_COLOR_BOX   0x0A0A0AFF
 #define INV_COLOR_ITEM  0x1F1F1FFF
-#define INV_COLOR_HOVER 0x00C4FFFF
+#define INV_COLOR_HOVER 0xFFFFFF66
 #define INV_COLOR_BUTTON 0x00A8E8FF
 
-new PlayerText:Background_Under[MAX_PLAYERS];
-new PlayerText:BgRight[MAX_PLAYERS];
-new PlayerText:BgCenter[MAX_PLAYERS];
-new PlayerText:BgLeft[MAX_PLAYERS];
-new PlayerText:BgHeader[MAX_PLAYERS];
-new PlayerText:TxtHeaderTitle[MAX_PLAYERS];
-new PlayerText:TxtHeaderName[MAX_PLAYERS];
-new PlayerText:TxtHeaderStats[MAX_PLAYERS];
+new bool:InvOpen[MAX_PLAYERS];
 
-// State & selection tracking
-new bool:InvTD_Created[MAX_PLAYERS];
-new bool:PlayerHasInvVisible[MAX_PLAYERS];
-new SelectedInvSlot[MAX_PLAYERS];
-new SelectedEquipSlot[MAX_PLAYERS];
+// General
+enum e_inv_td_general {
+    PlayerText:inv_bgMain,
+    PlayerText:inv_bgGridItem,
+    PlayerText:inv_bgEquip,
+    PlayerText:inv_btn_close,
 
-// Box center layers (declared here so other functions can access)
-new PlayerText:InvSlot_Box[MAX_PLAYERS][TOTAL_SLOTS];   // Lớp 1: Ô nền
-new PlayerText:InvSlot_Model[MAX_PLAYERS][TOTAL_SLOTS]; // Lớp 2: Hình ảnh vật phẩm
-new PlayerText:InvSlot_Text[MAX_PLAYERS][TOTAL_SLOTS];  // Lớp 3: Số lượng chữ
+    PlayerText:inv_bgHeader,
+    PlayerText:inv_header_title,
+    PlayerText:inv_header_player,
+    PlayerText:inv_header_stats,
 
-// Left panel globals (made global so OnPlayerClick can reference)
-new PlayerText:header_title[MAX_PLAYERS];
-new PlayerText:header_Pname[MAX_PLAYERS];
-new PlayerText:header_weight[MAX_PLAYERS];
+    PlayerText:inv_bgNavigation,
+    PlayerText:inv_nav_btn_left,
+    PlayerText:inv_nav_page,
+    PlayerText:inv_nav_btn_right
+};
+new InvGeneralTD[MAX_PLAYERS][e_inv_td_general];
 
-new PlayerText:btn_use[MAX_PLAYERS];
-new PlayerText:btn_give[MAX_PLAYERS];
-new PlayerText:btn_drop[MAX_PLAYERS];
-new PlayerText:btn_close[MAX_PLAYERS];
+// Grid Main
+enum e_inv_grid {
+    PlayerText:inv_grid_box,
+    PlayerText:inv_grid_model,
+    PlayerText:inv_grid_text
+};
+new InvGridTD[MAX_PLAYERS][MAX_INV_MAIN_SLOTS][e_inv_grid];
 
-new PlayerText:info_model[MAX_PLAYERS];
-new PlayerText:info_text1[MAX_PLAYERS];
-new PlayerText:info_text2[MAX_PLAYERS];
-new PlayerText:info_text3[MAX_PLAYERS];
-new PlayerText:info_text4[MAX_PLAYERS];
-new PlayerText:info_text5[MAX_PLAYERS];
+//Grid Equip
+new PlayerText:InvEquipCharacters[MAX_PLAYERS];
+new PlayerBar:InvEquipBar[MAX_PLAYERS][MAX_INV_EQUIP_SLOTS];
+new PlayerText:InvEquipBox[MAX_PLAYERS][MAX_INV_EQUIP_SLOTS];
+new PlayerText:InvEquipModel[MAX_PLAYERS][MAX_INV_EQUIP_SLOTS];
 
-// Navigation globals
-new PlayerText:inv_navBox[MAX_PLAYERS];
-new PlayerText:inv_navLeft[MAX_PLAYERS];
-new PlayerText:inv_navRight[MAX_PLAYERS];
-new PlayerText:inv_navPageInfo[MAX_PLAYERS];
+// Info Item
+enum e_inv_info_item {
+    PlayerText:inv_item_background,
+    PlayerText:inv_item_model,
+    PlayerText:inv_item_name,
+    PlayerText:inv_item_type,
+    PlayerText:inv_item_weight,
+    PlayerText:inv_item_amount,
+    PlayerText:inv_item_description,
 
-stock CreateInvTD(playerid) {
-    Background_Under[playerid] = CreatePlayerTextDraw(playerid, 492.5, 246.0, "_");
-    PlayerTextDrawFont(playerid, Background_Under[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, Background_Under[playerid], 0.6, 20.8);
-    PlayerTextDrawTextSize(playerid, Background_Under[playerid], 298.5, 255.5);
-    PlayerTextDrawSetOutline(playerid, Background_Under[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, Background_Under[playerid], 0);
-    PlayerTextDrawAlignment(playerid, Background_Under[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, Background_Under[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, Background_Under[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, Background_Under[playerid], INV_COLOR_BG); // old la 135
-    PlayerTextDrawUseBox(playerid, Background_Under[playerid], true);
-    PlayerTextDrawSetProportional(playerid, Background_Under[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, Background_Under[playerid], false);
+    PlayerText:inv_item_btn_use,
+    PlayerText:inv_item_btn_give,
+    PlayerText:inv_item_btn_drop
+};
+new InvInfoItemTD[MAX_PLAYERS][e_inv_info_item];
 
-    BgHeader[playerid] = CreatePlayerTextDraw(playerid, 492.5, 246.0, "_");
-    PlayerTextDrawFont(playerid, BgHeader[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, BgHeader[playerid], 0.6, 1.4);
-    PlayerTextDrawTextSize(playerid, BgHeader[playerid], 298.5, 255.5);
-    PlayerTextDrawSetOutline(playerid, BgHeader[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, BgHeader[playerid], 0);
-    PlayerTextDrawAlignment(playerid, BgHeader[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, BgHeader[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, BgHeader[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, BgHeader[playerid], INV_COLOR_BOX);
-    PlayerTextDrawUseBox(playerid, BgHeader[playerid], true);
-    PlayerTextDrawSetProportional(playerid, BgHeader[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, BgHeader[playerid], false);
 
-    BgRight[playerid] = CreatePlayerTextDraw(playerid, 580.0, 263.0, "_");
-    PlayerTextDrawFont(playerid, BgRight[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, BgRight[playerid], 0.6, 18.9);
-    PlayerTextDrawTextSize(playerid, BgRight[playerid], 298.5, 80.0);
-    PlayerTextDrawSetOutline(playerid, BgRight[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, BgRight[playerid], 0);
-    PlayerTextDrawAlignment(playerid, BgRight[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, BgRight[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, BgRight[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, BgRight[playerid], INV_COLOR_BOX);
-    PlayerTextDrawUseBox(playerid, BgRight[playerid], true);
-    PlayerTextDrawSetProportional(playerid, BgRight[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, BgRight[playerid], false);
 
-    BgCenter[playerid] = CreatePlayerTextDraw(playerid, 450.0, 263.0, "_");
-    PlayerTextDrawFont(playerid, BgCenter[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, BgCenter[playerid], 0.6, 18.9);
-    PlayerTextDrawTextSize(playerid, BgCenter[playerid], 298.5, 170.5);
-    PlayerTextDrawSetOutline(playerid, BgCenter[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, BgCenter[playerid], 0);
-    PlayerTextDrawAlignment(playerid, BgCenter[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, BgCenter[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, BgCenter[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, BgCenter[playerid], INV_COLOR_BOX);
-    PlayerTextDrawUseBox(playerid, BgCenter[playerid], true);
-    PlayerTextDrawSetProportional(playerid, BgCenter[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, BgCenter[playerid], false);
+stock InitInventoryTD(playerid) {
+    InitInvGeneralTD(playerid);
+    InitInvGrid(playerid);
+    InitInvInfoItem(playerid);
+    InitInvEquipTD(playerid);
+    InvOpen[playerid] = false;
+    return 1;
+}
 
-    BgLeft[playerid] = CreatePlayerTextDraw(playerid, 310.0, 263.0, "_");
-    PlayerTextDrawFont(playerid, BgLeft[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, BgLeft[playerid], 0.6, 18.9);
-    PlayerTextDrawTextSize(playerid, BgLeft[playerid], 298.5, 100.0);
-    PlayerTextDrawSetOutline(playerid, BgLeft[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, BgLeft[playerid], 0);
-    PlayerTextDrawAlignment(playerid, BgLeft[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, BgLeft[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, BgLeft[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, BgLeft[playerid], INV_COLOR_BOX);
-    PlayerTextDrawUseBox(playerid, BgLeft[playerid], true);
-    PlayerTextDrawSetProportional(playerid, BgLeft[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, BgLeft[playerid], false);
+stock OpenInventoryTD(playerid)
+{
+    ShowInventoryTD(playerid);
+    InvOpen[playerid] = true;
+    SelectTextDraw(playerid, INV_COLOR_HOVER);
+    return 1;
+}
+
+stock CloseInventoryTD(playerid)
+{
+    HideInventoryTD(playerid);
+    InvOpen[playerid] = false;
+    CancelSelectTextDraw(playerid);
+    return 1;
+}
+
+stock InitInvGeneralTD(playerid) {
+    InvGeneralTD[playerid][inv_bgMain] = CreatePlayerTextDraw(playerid, 492.5, 246.0, "_");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_bgMain], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_bgMain], 0.6, 20.8);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_bgMain], 298.5, 255.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_bgMain], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_bgMain], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_bgMain], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_bgMain], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_bgMain], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_bgMain], INV_COLOR_BG);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_bgMain], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_bgMain], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_bgMain], false);
+
+    InvGeneralTD[playerid][inv_bgEquip] = CreatePlayerTextDraw(playerid, 580.0, 263.0, "_");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_bgEquip], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_bgEquip], 0.6, 18.9);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_bgEquip], 298.5, 80.0);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_bgEquip], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_bgEquip], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_bgEquip], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_bgEquip], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_bgEquip], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_bgEquip], INV_COLOR_BOX);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_bgEquip], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_bgEquip], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_bgEquip], false);
+
+    InvGeneralTD[playerid][inv_bgGridItem] = CreatePlayerTextDraw(playerid, 450.0, 263.0, "_");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_bgGridItem], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_bgGridItem], 0.6, 18.9);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_bgGridItem], 298.5, 170.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_bgGridItem], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_bgGridItem], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_bgGridItem], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_bgGridItem], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_bgGridItem], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_bgGridItem], INV_COLOR_BOX);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_bgGridItem], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_bgGridItem], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_bgGridItem], false);
+
+    InvGeneralTD[playerid][inv_btn_close] = CreatePlayerTextDraw(playerid, 350.0, 245.5, "ld_beat:cross");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_btn_close], TEXT_DRAW_FONT:4);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_btn_close], 0.6, 2.0);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_btn_close], 11.5, 13.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_btn_close], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_btn_close], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_btn_close], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_btn_close], INV_COLOR_BUTTON);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_btn_close], -1094795776);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_btn_close], 65280);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_btn_close], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_btn_close], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_btn_close], true);
+
+    // Header
+    InvGeneralTD[playerid][inv_bgHeader] = CreatePlayerTextDraw(playerid, 492.5, 246.0, "_");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_bgHeader], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_bgHeader], 0.6, 1.4);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_bgHeader], 298.5, 255.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_bgHeader], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_bgHeader], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_bgHeader], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_bgHeader], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_bgHeader], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_bgHeader], INV_COLOR_BOX);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_bgHeader], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_bgHeader], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_bgHeader], false);
+
+    InvGeneralTD[playerid][inv_header_title] = CreatePlayerTextDraw(playerid, 365.0, 246.0, "inventory");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_header_title], TEXT_DRAW_FONT:2);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_header_title], 0.2, 1.2);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_header_title], 425.0, 0.0);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_header_title], 0);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_header_title], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_header_title], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_header_title], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_header_title], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_header_title], 50);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_header_title], false);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_header_title], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_header_title], false);
+
+    InvGeneralTD[playerid][inv_header_player] = CreatePlayerTextDraw(playerid, 493.0, 246.0, "Player_Name");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_header_player], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_header_player], 0.2, 1.1);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_header_player], 425.5, 89.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_header_player], 0);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_header_player], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_header_player], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_header_player], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_header_player], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_header_player], 50);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_header_player], false);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_header_player], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_header_player], false);
+
+    InvGeneralTD[playerid][inv_header_stats] = CreatePlayerTextDraw(playerid, 619.0, 248.0, "24.0kg / ~g~40.0kg");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_header_stats], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_header_stats], 0.1, 1.0);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_header_stats], 425.5, 89.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_header_stats], 0);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_header_stats], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_header_stats], TEXT_DRAW_ALIGN:3);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_header_stats], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_header_stats], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_header_stats], 50);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_header_stats], false);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_header_stats], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_header_stats], false);
+
+    // Navigation
+    InvGeneralTD[playerid][inv_bgNavigation] = CreatePlayerTextDraw(playerid, 450.0, 433.0, "_");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_bgNavigation], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_bgNavigation], 0.6, 0.3);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_bgNavigation], 298.5, 34.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_bgNavigation], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_bgNavigation], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_bgNavigation], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_bgNavigation], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_bgNavigation], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_bgNavigation], INV_COLOR_BOX);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_bgNavigation], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_bgNavigation], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_bgNavigation], false);
+
+    InvGeneralTD[playerid][inv_nav_btn_left] = CreatePlayerTextDraw(playerid, 432.0, 431.0, "ld_beat:left");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_nav_btn_left], TEXT_DRAW_FONT:4);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_nav_btn_left], 0.6, 2.0);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_nav_btn_left], 7.5, 7.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_nav_btn_left], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_nav_btn_left], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_nav_btn_left], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_nav_btn_left], INV_COLOR_BUTTON);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_nav_btn_left], -1094795776);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_nav_btn_left], 65280);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_nav_btn_left], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_nav_btn_left], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_nav_btn_left], true);
+
+    InvGeneralTD[playerid][inv_nav_page] = CreatePlayerTextDraw(playerid, 450.0, 432.5, "1 /~r~100");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_nav_page], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_nav_page], 0.1, 0.4);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_nav_page], 459.0, 17.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_nav_page], 0);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_nav_page], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_nav_page], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_nav_page], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_nav_page], 255);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_nav_page], -421070286);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_nav_page], false);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_nav_page], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_nav_page], false);
+
+    InvGeneralTD[playerid][inv_nav_btn_right] = CreatePlayerTextDraw(playerid, 461.0, 431.0, "ld_beat:right");
+    PlayerTextDrawFont(playerid, InvGeneralTD[playerid][inv_nav_btn_right], TEXT_DRAW_FONT:4);
+    PlayerTextDrawLetterSize(playerid, InvGeneralTD[playerid][inv_nav_btn_right], 0.6, 2.0);
+    PlayerTextDrawTextSize(playerid, InvGeneralTD[playerid][inv_nav_btn_right], 7.5, 7.5);
+    PlayerTextDrawSetOutline(playerid, InvGeneralTD[playerid][inv_nav_btn_right], 1);
+    PlayerTextDrawSetShadow(playerid, InvGeneralTD[playerid][inv_nav_btn_right], 0);
+    PlayerTextDrawAlignment(playerid, InvGeneralTD[playerid][inv_nav_btn_right], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvGeneralTD[playerid][inv_nav_btn_right], INV_COLOR_BUTTON);
+    PlayerTextDrawBackgroundColour(playerid, InvGeneralTD[playerid][inv_nav_btn_right], -1094795776);
+    PlayerTextDrawBoxColour(playerid, InvGeneralTD[playerid][inv_nav_btn_right], 65280);
+    PlayerTextDrawUseBox(playerid, InvGeneralTD[playerid][inv_nav_btn_right], true);
+    PlayerTextDrawSetProportional(playerid, InvGeneralTD[playerid][inv_nav_btn_right], true);
+    PlayerTextDrawSetSelectable(playerid, InvGeneralTD[playerid][inv_nav_btn_right], true);
 
     return 1;
 }
 
-////////////////////////////////
-// BOX CENTER ( GRID ITEM INV )
-///////////////////////////////
-
-// (InvSlot arrays declared above as globals)
-
-stock CreatePlayerInventoryGrid(playerid)
+stock InitInvGrid(playerid)
 {
     // Tọa độ bắt đầu (Góc trên bên trái của lưới $5 \times 5$)
     new Float:startX = 364.75 + 4.25; 
@@ -150,48 +280,31 @@ stock CreatePlayerInventoryGrid(playerid)
         {
             new Float:posX = startX + (c * (slotSize + spacing));
             new Float:posY = startY + (r * (slotSize + spacing));
+           
+            InvGridTD[playerid][slotId][inv_grid_box] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+            PlayerTextDrawFont(playerid, InvGridTD[playerid][slotId][inv_grid_box], TEXT_DRAW_FONT:1);
+            PlayerTextDrawLetterSize(playerid, InvGridTD[playerid][slotId][inv_grid_box], 0.0, (slotSize / 9.5)); 
+            PlayerTextDrawTextSize(playerid, InvGridTD[playerid][slotId][inv_grid_box], posX + slotSize, 0.0);
+            PlayerTextDrawAlignment(playerid, InvGridTD[playerid][slotId][inv_grid_box], TEXT_DRAW_ALIGN:1);
+            PlayerTextDrawBoxColour(playerid, InvGridTD[playerid][slotId][inv_grid_box], INV_COLOR_ITEM);
+            PlayerTextDrawUseBox(playerid, InvGridTD[playerid][slotId][inv_grid_box], true);
             
-            // ==========================================================
-            // LỚP 1: Ô NỀN (BOX COULOUR)
-            // ==========================================================
-            InvSlot_Box[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
-            PlayerTextDrawFont(playerid, InvSlot_Box[playerid][slotId], TEXT_DRAW_FONT:1);
-            PlayerTextDrawLetterSize(playerid, InvSlot_Box[playerid][slotId], 0.0, (slotSize / 9.5)); 
-            PlayerTextDrawTextSize(playerid, InvSlot_Box[playerid][slotId], posX + slotSize, 0.0);
-            PlayerTextDrawAlignment(playerid, InvSlot_Box[playerid][slotId], TEXT_DRAW_ALIGN:1);
-            PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][slotId], INV_COLOR_ITEM); // Màu xám tối 0x333333AA
-            PlayerTextDrawUseBox(playerid, InvSlot_Box[playerid][slotId], true);
-            PlayerTextDrawShow(playerid, InvSlot_Box[playerid][slotId]);
-            
-            // ==========================================================
-            // LỚP 2: HÌNH ẢNH VẬT PHẨM (MODEL PREVIEW / SPRITE)
-            // ==========================================================
-            // Trùng tọa độ X, Y và kích thước với ô nền để hình nằm trọn bên trong
-            InvSlot_Model[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
-            PlayerTextDrawFont(playerid, InvSlot_Model[playerid][slotId], TEXT_DRAW_FONT:5); // Font 5 chuyên hiện Model 3D/Sprite
-            PlayerTextDrawLetterSize(playerid, InvSlot_Model[playerid][slotId], 0.0, (slotSize / 9.5));
-            PlayerTextDrawTextSize(playerid, InvSlot_Model[playerid][slotId], slotSize, slotSize); // Size của model bằng size ô
-            PlayerTextDrawAlignment(playerid, InvSlot_Model[playerid][slotId], TEXT_DRAW_ALIGN:1);
-            PlayerTextDrawColour(playerid, InvSlot_Model[playerid][slotId], -1);
-            PlayerTextDrawBackgroundColour(playerid, InvSlot_Model[playerid][slotId], 0);
-            PlayerTextDrawSetSelectable(playerid, InvSlot_Model[playerid][slotId], true);
-            // Mặc định ban đầu chưa có đồ thì ẩn đi (hoặc set model = 0)
-            PlayerTextDrawSetPreviewModel(playerid, InvSlot_Model[playerid][slotId], 0); 
-            PlayerTextDrawShow(playerid, InvSlot_Model[playerid][slotId]);
-            
-            // ==========================================================
-            // LỚP 3: CHỮ SỐ LƯỢNG (TEXT)
-            // ==========================================================
-            // Căn lề PHẢI (Alignment 3) để số tự động đẩy vào trong, không bị tràn ra ngoài ô
-            // Tọa độ X dịch sang phải sát mép ô (posX + slotSize - 2.0 pixel đệm)
-            // Tọa độ Y dịch xuống dưới đáy ô (posY + slotSize - 8.0 pixel chiều cao chữ)
-            InvSlot_Text[playerid][slotId] = CreatePlayerTextDraw(playerid, (posX + slotSize - 2.0), (posY + slotSize - 8.0), "22");
-            PlayerTextDrawFont(playerid, InvSlot_Text[playerid][slotId], TEXT_DRAW_FONT:1);
-            PlayerTextDrawLetterSize(playerid, InvSlot_Text[playerid][slotId], 0.16, 0.7); // Chữ siêu nhỏ để vừa góc ô
-            PlayerTextDrawAlignment(playerid, InvSlot_Text[playerid][slotId], TEXT_DRAW_ALIGN:3); // CĂN LỀ PHẢI
-            PlayerTextDrawColour(playerid, InvSlot_Text[playerid][slotId], -1); // Chữ màu trắng
-            PlayerTextDrawSetShadow(playerid, InvSlot_Text[playerid][slotId], 0); // Đổ bóng cho rõ số trên nền vật phẩm
-            PlayerTextDrawShow(playerid, InvSlot_Text[playerid][slotId]);
+            InvGridTD[playerid][slotId][inv_grid_text] = CreatePlayerTextDraw(playerid, (posX + slotSize - 2.0), (posY + slotSize - 8.0), "0");
+            PlayerTextDrawFont(playerid, InvGridTD[playerid][slotId][inv_grid_text], TEXT_DRAW_FONT:1);
+            PlayerTextDrawLetterSize(playerid, InvGridTD[playerid][slotId][inv_grid_text], 0.16, 0.7);
+            PlayerTextDrawAlignment(playerid, InvGridTD[playerid][slotId][inv_grid_text], TEXT_DRAW_ALIGN:3);
+            PlayerTextDrawColour(playerid, InvGridTD[playerid][slotId][inv_grid_text], -1); 
+            PlayerTextDrawSetShadow(playerid, InvGridTD[playerid][slotId][inv_grid_text], 0);
+
+            InvGridTD[playerid][slotId][inv_grid_model] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+            PlayerTextDrawFont(playerid, InvGridTD[playerid][slotId][inv_grid_model], TEXT_DRAW_FONT:5);
+            PlayerTextDrawLetterSize(playerid, InvGridTD[playerid][slotId][inv_grid_model], 0.0, (slotSize / 9.5));
+            PlayerTextDrawTextSize(playerid, InvGridTD[playerid][slotId][inv_grid_model], slotSize, slotSize);
+            PlayerTextDrawAlignment(playerid, InvGridTD[playerid][slotId][inv_grid_model], TEXT_DRAW_ALIGN:1);
+            PlayerTextDrawColour(playerid, InvGridTD[playerid][slotId][inv_grid_model], -1);
+            PlayerTextDrawBackgroundColour(playerid, InvGridTD[playerid][slotId][inv_grid_model], 0);
+            PlayerTextDrawSetSelectable(playerid, InvGridTD[playerid][slotId][inv_grid_model], true);
+            PlayerTextDrawSetPreviewModel(playerid, InvGridTD[playerid][slotId][inv_grid_model], INV_MODEL_DEFAULT); 
             
             slotId++;
         }
@@ -200,633 +313,431 @@ stock CreatePlayerInventoryGrid(playerid)
     return 1;
 }
 
-////////////////////////////
-// BOX LEFT
-////////////////////////////
-stock InvInfoItem(playerid) {
+stock InitInvInfoItem(playerid) {
+    InvInfoItemTD[playerid][inv_item_background] = CreatePlayerTextDraw(playerid, 310.0, 263.0, "_");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_background], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_background], 0.6, 18.9);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_background], 298.5, 100.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_background], 1);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_background], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_background], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_background], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_background], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_background], INV_COLOR_ITEM);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_background], true);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_background], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_background], false);
 
-    header_title[playerid] = CreatePlayerTextDraw(playerid, 365.0, 246.0, "inventory");
-    PlayerTextDrawFont(playerid, header_title[playerid], TEXT_DRAW_FONT:2);
-    PlayerTextDrawLetterSize(playerid, header_title[playerid], 0.2, 1.2);
-    PlayerTextDrawTextSize(playerid, header_title[playerid], 425.0, 0.0);
-    PlayerTextDrawSetOutline(playerid, header_title[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, header_title[playerid], 0);
-    PlayerTextDrawAlignment(playerid, header_title[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, header_title[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, header_title[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, header_title[playerid], 50);
-    PlayerTextDrawUseBox(playerid, header_title[playerid], false);
-    PlayerTextDrawSetProportional(playerid, header_title[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, header_title[playerid], false);
+    InvInfoItemTD[playerid][inv_item_model] = CreatePlayerTextDraw(playerid, 277.0, 262.0, "HUD:radar_burgershot");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_model], TEXT_DRAW_FONT:5);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_model], 0.6, 2.0);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_model], 66.0, 62.5);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_model], 1);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_model], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_model], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_model], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_model], 0);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_model], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_model], true);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_model], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_model], false);
+    PlayerTextDrawSetPreviewModel(playerid, InvInfoItemTD[playerid][inv_item_model], INV_MODEL_DEFAULT);
+    // PlayerTextDrawSetPreviewRot(playerid, InvInfoItemTD[playerid][inv_item_model], 248.0, 0.0, -15.0, 1.0);
+    // PlayerTextDrawSetPreviewVehicleColours(playerid, InvInfoItemTD[playerid][inv_item_model], 1, 1);
 
-    header_Pname[playerid] = CreatePlayerTextDraw(playerid, 493.0, 246.0, "Player_Name");
-    PlayerTextDrawFont(playerid, header_Pname[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, header_Pname[playerid], 0.2, 1.1);
-    PlayerTextDrawTextSize(playerid, header_Pname[playerid], 425.5, 89.5);
-    PlayerTextDrawSetOutline(playerid, header_Pname[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, header_Pname[playerid], 0);
-    PlayerTextDrawAlignment(playerid, header_Pname[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, header_Pname[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, header_Pname[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, header_Pname[playerid], 50);
-    PlayerTextDrawUseBox(playerid, header_Pname[playerid], false);
-    PlayerTextDrawSetProportional(playerid, header_Pname[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, header_Pname[playerid], false);
+    InvInfoItemTD[playerid][inv_item_name] = CreatePlayerTextDraw(playerid, 265.0, 324.0, "Name: ~y~Burger");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_name], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_name], 0.15, 0.8);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_name], 355.5, 16.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_name], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_name], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_name], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_name], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_name], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_name], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_name], false);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_name], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_name], false);
 
-    header_weight[playerid] = CreatePlayerTextDraw(playerid, 619.0, 248.0, "24.0kg / ~g~40.0kg");
-    PlayerTextDrawFont(playerid, header_weight[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, header_weight[playerid], 0.1, 1.0);
-    PlayerTextDrawTextSize(playerid, header_weight[playerid], 425.5, 89.5);
-    PlayerTextDrawSetOutline(playerid, header_weight[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, header_weight[playerid], 0);
-    PlayerTextDrawAlignment(playerid, header_weight[playerid], TEXT_DRAW_ALIGN:3);
-    PlayerTextDrawColour(playerid, header_weight[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, header_weight[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, header_weight[playerid], 50);
-    PlayerTextDrawUseBox(playerid, header_weight[playerid], false);
-    PlayerTextDrawSetProportional(playerid, header_weight[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, header_weight[playerid], false);
+    InvInfoItemTD[playerid][inv_item_type] = CreatePlayerTextDraw(playerid, 265.0, 333.0, "Category: ~b~Food");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_type], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_type], 0.15, 0.8);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_type], 355.5, 16.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_type], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_type], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_type], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_type], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_type], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_type], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_type], false);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_type], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_type], false);
 
-    btn_use[playerid] = CreatePlayerTextDraw(playerid, 275.0, 423.5, "Use");
-    PlayerTextDrawFont(playerid, btn_use[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, btn_use[playerid], 0.2, 1.1);
-    PlayerTextDrawTextSize(playerid, btn_use[playerid], 9.0, 30.0);
-    PlayerTextDrawSetOutline(playerid, btn_use[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, btn_use[playerid], 0);
-    PlayerTextDrawAlignment(playerid, btn_use[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, btn_use[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, btn_use[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_use[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawUseBox(playerid, btn_use[playerid], true);
-    PlayerTextDrawSetProportional(playerid, btn_use[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, btn_use[playerid], true);
+    InvInfoItemTD[playerid][inv_item_weight] = CreatePlayerTextDraw(playerid, 265.0, 343.0, "Weight: ~g~0.2kg");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_weight], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_weight], 0.15, 0.8);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_weight], 355.5, 16.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_weight], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_weight], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_weight], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_weight], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_weight], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_weight], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_weight], false);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_weight], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_weight], false);
 
-    btn_give[playerid] = CreatePlayerTextDraw(playerid, 310.0, 423.5, "Give");
-    PlayerTextDrawFont(playerid, btn_give[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, btn_give[playerid], 0.2, 1.1);
-    PlayerTextDrawTextSize(playerid, btn_give[playerid], 9.0, 32.0);
-    PlayerTextDrawSetOutline(playerid, btn_give[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, btn_give[playerid], 0);
-    PlayerTextDrawAlignment(playerid, btn_give[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, btn_give[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, btn_give[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_give[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawUseBox(playerid, btn_give[playerid], true);
-    PlayerTextDrawSetProportional(playerid, btn_give[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, btn_give[playerid], true);
+    InvInfoItemTD[playerid][inv_item_amount] = CreatePlayerTextDraw(playerid, 265.0, 352.0, "Quantity: ~r~5");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_amount], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_amount], 0.15, 0.8);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_amount], 355.5, 16.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_amount], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_amount], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_amount], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_amount], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_amount], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_amount], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_amount], false);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_amount], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_amount], false);
 
-    btn_drop[playerid] = CreatePlayerTextDraw(playerid, 345.0, 423.5, "Drop");
-    PlayerTextDrawFont(playerid, btn_drop[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, btn_drop[playerid], 0.2, 1.1);
-    PlayerTextDrawTextSize(playerid, btn_drop[playerid], 9.0, 30.0);
-    PlayerTextDrawSetOutline(playerid, btn_drop[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, btn_drop[playerid], 0);
-    PlayerTextDrawAlignment(playerid, btn_drop[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, btn_drop[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, btn_drop[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, btn_drop[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawUseBox(playerid, btn_drop[playerid], true);
-    PlayerTextDrawSetProportional(playerid, btn_drop[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, btn_drop[playerid], true);
+    InvInfoItemTD[playerid][inv_item_description] = CreatePlayerTextDraw(playerid, 265.0, 364.0, "~b~Description: ~w~A basic cooked burger. Restores hunger when consumed.");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_description], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_description], 0.15, 0.8);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_description], 355.5, 16.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_description], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_description], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_description], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_description], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_description], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_description], -206);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_description], false);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_description], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_description], false);
 
-    info_model[playerid] = CreatePlayerTextDraw(playerid, 277.0, 262.0, "HUD:radar_burgershot");
-    PlayerTextDrawFont(playerid, info_model[playerid], TEXT_DRAW_FONT:5);
-    PlayerTextDrawLetterSize(playerid, info_model[playerid], 0.6, 2.0);
-    PlayerTextDrawTextSize(playerid, info_model[playerid], 66.0, 62.5);
-    PlayerTextDrawSetOutline(playerid, info_model[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, info_model[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_model[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_model[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_model[playerid], 0);
-    PlayerTextDrawBoxColour(playerid, info_model[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_model[playerid], true);
-    PlayerTextDrawSetProportional(playerid, info_model[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_model[playerid], false);
-    PlayerTextDrawSetPreviewModel(playerid, info_model[playerid], 2703);
-    PlayerTextDrawSetPreviewRot(playerid, info_model[playerid], 248.0, 0.0, -15.0, 1.0);
-    PlayerTextDrawSetPreviewVehicleColours(playerid, info_model[playerid], 1, 1);
+    // Button
+    InvInfoItemTD[playerid][inv_item_btn_use] = CreatePlayerTextDraw(playerid, 275.0, 423.5, "Use");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_btn_use], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_btn_use], 0.2, 1.1);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_btn_use], 9.0, 30.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_btn_use], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_btn_use], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_btn_use], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_btn_use], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_btn_use], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_btn_use], INV_COLOR_BUTTON);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_btn_use], true);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_btn_use], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_btn_use], true);
 
-    info_text1[playerid] = CreatePlayerTextDraw(playerid, 265.0, 324.0, "Name: ~y~Burger");
-    PlayerTextDrawFont(playerid, info_text1[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, info_text1[playerid], 0.2, 0.8);
-    PlayerTextDrawTextSize(playerid, info_text1[playerid], 355.5, 16.0);
-    PlayerTextDrawSetOutline(playerid, info_text1[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, info_text1[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_text1[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_text1[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_text1[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, info_text1[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_text1[playerid], false);
-    PlayerTextDrawSetProportional(playerid, info_text1[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_text1[playerid], false);
+    InvInfoItemTD[playerid][inv_item_btn_give] = CreatePlayerTextDraw(playerid, 310.0, 423.5, "Give");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_btn_give], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_btn_give], 0.2, 1.1);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_btn_give], 9.0, 32.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_btn_give], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_btn_give], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_btn_give], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_btn_give], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_btn_give], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_btn_give], INV_COLOR_BUTTON);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_btn_give], true);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_btn_give], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_btn_give], true);
 
-    info_text2[playerid] = CreatePlayerTextDraw(playerid, 265.0, 333.0, "Category: ~b~Food");
-    PlayerTextDrawFont(playerid, info_text2[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, info_text2[playerid], 0.2, 0.8);
-    PlayerTextDrawTextSize(playerid, info_text2[playerid], 355.5, 16.0);
-    PlayerTextDrawSetOutline(playerid, info_text2[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, info_text2[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_text2[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_text2[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_text2[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, info_text2[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_text2[playerid], false);
-    PlayerTextDrawSetProportional(playerid, info_text2[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_text2[playerid], false);
-
-    info_text3[playerid] = CreatePlayerTextDraw(playerid, 265.0, 343.0, "Weight: ~g~0.2kg");
-    PlayerTextDrawFont(playerid, info_text3[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, info_text3[playerid], 0.2, 0.8);
-    PlayerTextDrawTextSize(playerid, info_text3[playerid], 355.5, 16.0);
-    PlayerTextDrawSetOutline(playerid, info_text3[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, info_text3[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_text3[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_text3[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_text3[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, info_text3[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_text3[playerid], false);
-    PlayerTextDrawSetProportional(playerid, info_text3[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_text3[playerid], false);
-
-    info_text4[playerid] = CreatePlayerTextDraw(playerid, 265.0, 352.0, "Quantity: ~r~5");
-    PlayerTextDrawFont(playerid, info_text4[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, info_text4[playerid], 0.2, 0.8);
-    PlayerTextDrawTextSize(playerid, info_text4[playerid], 355.5, 16.0);
-    PlayerTextDrawSetOutline(playerid, info_text4[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, info_text4[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_text4[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_text4[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_text4[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, info_text4[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_text4[playerid], false);
-    PlayerTextDrawSetProportional(playerid, info_text4[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_text4[playerid], false);
-
-    info_text5[playerid] = CreatePlayerTextDraw(playerid, 265.0, 364.0, "~b~Description: ~w~A basic cooked burger. Restores hunger when consumed.");
-    PlayerTextDrawFont(playerid, info_text5[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, info_text5[playerid], 0.2, 0.8);
-    PlayerTextDrawTextSize(playerid, info_text5[playerid], 355.5, 16.0);
-    PlayerTextDrawSetOutline(playerid, info_text5[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, info_text5[playerid], 0);
-    PlayerTextDrawAlignment(playerid, info_text5[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, info_text5[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, info_text5[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, info_text5[playerid], -206);
-    PlayerTextDrawUseBox(playerid, info_text5[playerid], false);
-    PlayerTextDrawSetProportional(playerid, info_text5[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, info_text5[playerid], false);
-
-    btn_close[playerid] = CreatePlayerTextDraw(playerid, 350.0, 245.5, "ld_beat:cross");
-    PlayerTextDrawFont(playerid, btn_close[playerid], TEXT_DRAW_FONT:4);
-    PlayerTextDrawLetterSize(playerid, btn_close[playerid], 0.6, 2.0);
-    PlayerTextDrawTextSize(playerid, btn_close[playerid], 11.5, 13.5);
-    PlayerTextDrawSetOutline(playerid, btn_close[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, btn_close[playerid], 0);
-    PlayerTextDrawAlignment(playerid, btn_close[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, btn_close[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawBackgroundColour(playerid, btn_close[playerid], -1094795776);
-    PlayerTextDrawBoxColour(playerid, btn_close[playerid], 65280);
-    PlayerTextDrawUseBox(playerid, btn_close[playerid], true);
-    PlayerTextDrawSetProportional(playerid, btn_close[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, btn_close[playerid], true);
-
-    PlayerTextDrawShow(playerid, header_title[playerid]);
-    PlayerTextDrawShow(playerid, header_Pname[playerid]);
-    PlayerTextDrawShow(playerid, header_weight[playerid]);
-
-    PlayerTextDrawShow(playerid, info_model[playerid]);
-    PlayerTextDrawShow(playerid, info_text1[playerid]);
-    PlayerTextDrawShow(playerid, info_text2[playerid]);
-    PlayerTextDrawShow(playerid, info_text3[playerid]);
-    PlayerTextDrawShow(playerid, info_text4[playerid]);
-    PlayerTextDrawShow(playerid, info_text5[playerid]);
-
-    PlayerTextDrawShow(playerid, btn_use[playerid]);
-    PlayerTextDrawShow(playerid, btn_give[playerid]);
-    PlayerTextDrawShow(playerid, btn_drop[playerid]);
-
-    PlayerTextDrawShow(playerid, btn_close[playerid]);
+    InvInfoItemTD[playerid][inv_item_btn_drop] = CreatePlayerTextDraw(playerid, 345.0, 423.5, "Drop");
+    PlayerTextDrawFont(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], 0.2, 1.1);
+    PlayerTextDrawTextSize(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], 9.0, 30.0);
+    PlayerTextDrawSetOutline(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], 0);
+    PlayerTextDrawSetShadow(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], 0);
+    PlayerTextDrawAlignment(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], TEXT_DRAW_ALIGN:2);
+    PlayerTextDrawColour(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], -1);
+    PlayerTextDrawBackgroundColour(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], 255);
+    PlayerTextDrawBoxColour(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], INV_COLOR_BUTTON);
+    PlayerTextDrawUseBox(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], true);
+    PlayerTextDrawSetProportional(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], true);
+    PlayerTextDrawSetSelectable(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], true);
 
     return 1;
 }
 
-//////////////////////////////////////////
-// BOX RIGHT
-/////////////////////////////////////////
-new PlayerText:Equip_CharPreview[MAX_PLAYERS];
-new PlayerText:Equip_Box[MAX_PLAYERS][16];   // Tăng lên 16 ô
-new PlayerText:Equip_Model[MAX_PLAYERS][16]; // Tăng lên 16 ô
-new PlayerBar:Equip_Bar[MAX_PLAYERS][16];   // Tăng lên 16 ô
+stock InitInvEquipTD(playerid) {
+    InvEquipCharacters[playerid] = CreatePlayerTextDraw(playerid, 537.5, 268.0, "_");
+    PlayerTextDrawFont(playerid, InvEquipCharacters[playerid], TEXT_DRAW_FONT:5);
+    PlayerTextDrawLetterSize(playerid, InvEquipCharacters[playerid], 0.0, (80.0 / 9.5)); 
+    PlayerTextDrawTextSize(playerid, InvEquipCharacters[playerid], 80.0, 80.0);
+    PlayerTextDrawAlignment(playerid, InvEquipCharacters[playerid], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBoxColour(playerid, InvEquipCharacters[playerid], 0);
+    PlayerTextDrawBackgroundColour(playerid, InvEquipCharacters[playerid], 0);
+    PlayerTextDrawUseBox(playerid, InvEquipCharacters[playerid], true);
+    PlayerTextDrawColour(playerid, InvEquipCharacters[playerid], -1);
+    PlayerTextDrawSetPreviewModel(playerid, InvEquipCharacters[playerid], INV_MODEL_DEFAULT); 
+    PlayerTextDrawSetPreviewRot(playerid, InvEquipCharacters[playerid], -10.0, 0.0, -20.0, 1.0);
 
-stock CreatePlayerRpgEquipment(playerid)
-{
-    // ==========================================================
-    // 1. MODEL NHÂN VẬT 3D (Giữ nguyên vị trí nửa trên)
-    // ==========================================================
-    Equip_CharPreview[playerid] = CreatePlayerTextDraw(playerid, 537.5, 268.0, "_");
-    PlayerTextDrawFont(playerid, Equip_CharPreview[playerid], TEXT_DRAW_FONT:5);
-    PlayerTextDrawLetterSize(playerid, Equip_CharPreview[playerid], 0.0, (80.0 / 9.5)); 
-    PlayerTextDrawTextSize(playerid, Equip_CharPreview[playerid], 80.0, 80.0);
-    PlayerTextDrawAlignment(playerid, Equip_CharPreview[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawBoxColour(playerid, Equip_CharPreview[playerid], 0);
-    PlayerTextDrawBackgroundColour(playerid, Equip_CharPreview[playerid], 0);
-    PlayerTextDrawUseBox(playerid, Equip_CharPreview[playerid], true);
-    PlayerTextDrawColour(playerid, Equip_CharPreview[playerid], -1);
-    PlayerTextDrawSetPreviewModel(playerid, Equip_CharPreview[playerid], GetPlayerSkin(playerid)); 
-    PlayerTextDrawSetPreviewRot(playerid, Equip_CharPreview[playerid], -10.0, 0.0, -20.0, 1.0);
-    PlayerTextDrawShow(playerid, Equip_CharPreview[playerid]);
-
-    // ==========================================================
-    // 2. TẠO 4 Ô TRANG BỊ TRÊN (ID 0 đến 3)
-    // ==========================================================
+    // Cac o chua Helmet, Armour, ...
     new Float:topSlotsX[4] = {543.0, 543.0, 600.0, 600.0};
     new Float:topSlotsY[4] = {275.0, 305.0, 275.0, 305.0};
-    new Float:sSize = 16.0;
+    new Float:width = 16.0;
 
     for(new i = 0; i < 4; i++)
     {
-        CreateSingleEquipSlot(playerid, i, topSlotsX[i], topSlotsY[i], sSize);
+        InitInvSingleEquipSlotsTD(playerid, i, topSlotsX[i], topSlotsY[i], width);
     }
 
-    // ==========================================================
-    // 3. TẠO 12 Ô LƯỚI PHÍA DƯỚI (Mở rộng thành 3 Hàng x 4 Cột)
-    // ID chạy tiếp tục từ 4 đến 15
-    // ==========================================================
+    // Cac o chua weapon , ...
     new Float:bottomStartX = 540.5;
-    new Float:bottomStartY = 354.0; // Đẩy lên Y=354 để lấy thêm không gian cho hàng thứ 3
+    new Float:bottomStartY = 354.0;
     new Float:spacingX = 5.0;
-    new Float:spacingY = 12.0; // Khoảng cách dọc giữa các hàng ô dưới
+    new Float:spacingY = 12.0;
     
     new slotId = 4;
-    for(new r = 0; r < 3; r++) // TĂNG LÊN 3 HÀNG dọc
+    for(new r = 0; r < 3; r++) 
     {
-        for(new c = 0; c < 4; c++) // 4 Cột ngang
+        for(new c = 0; c < 4; c++)
         {
-            new Float:posX = bottomStartX + (c * (sSize + spacingX));
-            new Float:posY = bottomStartY + (r * (sSize + spacingY));
+            new Float:posX = bottomStartX + (c * (width + spacingX));
+            new Float:posY = bottomStartY + (r * (width + spacingY));
             
-            CreateSingleEquipSlot(playerid, slotId, posX, posY, sSize);
+            InitInvSingleEquipSlotsTD(playerid, slotId, posX, posY, width);
             slotId++;
         }
     }
+    return 1;
 }
 
-// Hàm phụ trợ tạo nhanh từng ô để code gọn gàng, không bị lặp dòng
-stock CreateSingleEquipSlot(playerid, slotId, Float:posX, Float:posY, Float:size)
+stock InitInvSingleEquipSlotsTD(playerid, slotId, Float:posX, Float:posY, Float:width)
 {
-    Equip_Bar[playerid][slotId] = CreatePlayerProgressBar(playerid, posX, posY + size - 0.5, size, 1.0);
-    SetPlayerProgressBarValue(playerid, Equip_Bar[playerid][slotId], 30.0);
-    ShowPlayerProgressBar(playerid, Equip_Bar[playerid][slotId]);
-
-    // Lớp 1: Box nền
-    Equip_Box[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
-    PlayerTextDrawFont(playerid, Equip_Box[playerid][slotId], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, Equip_Box[playerid][slotId], 0.0, (size / 9.5));
-    PlayerTextDrawTextSize(playerid, Equip_Box[playerid][slotId], posX + size, 0.0);
-    PlayerTextDrawAlignment(playerid, Equip_Box[playerid][slotId], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][slotId], INV_COLOR_ITEM);
-    PlayerTextDrawBackgroundColour(playerid, Equip_Box[playerid][slotId], 255);
-    PlayerTextDrawUseBox(playerid, Equip_Box[playerid][slotId], true);
-    PlayerTextDrawShow(playerid, Equip_Box[playerid][slotId]);
-
-    // Lớp 2: Model Preview vật phẩm
-    Equip_Model[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
-    PlayerTextDrawFont(playerid, Equip_Model[playerid][slotId], TEXT_DRAW_FONT:5);
-    PlayerTextDrawLetterSize(playerid, Equip_Model[playerid][slotId], 0.0, (size / 9.5));
-    PlayerTextDrawTextSize(playerid, Equip_Model[playerid][slotId], size, size);
-    PlayerTextDrawAlignment(playerid, Equip_Model[playerid][slotId], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawBackgroundColour(playerid, Equip_Model[playerid][slotId], 0);
-    PlayerTextDrawColour(playerid, Equip_Model[playerid][slotId], -1);
-    PlayerTextDrawSetSelectable(playerid, Equip_Model[playerid][slotId], true);
-    PlayerTextDrawSetPreviewModel(playerid, Equip_Model[playerid][slotId], 0);
-    PlayerTextDrawShow(playerid, Equip_Model[playerid][slotId]);
-}
-
-//////////////////////////////////////////
-// Navigation Bar
-/////////////////////////////////////////
-stock InvNavigationBtn(playerid) {
-    // inv_nav globals are declared at file scope
-
-    inv_navBox[playerid] = CreatePlayerTextDraw(playerid, 450.0, 433.0, "_");
-    PlayerTextDrawFont(playerid, inv_navBox[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, inv_navBox[playerid], 0.6, 0.3);
-    PlayerTextDrawTextSize(playerid, inv_navBox[playerid], 298.5, 34.5);
-    PlayerTextDrawSetOutline(playerid, inv_navBox[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, inv_navBox[playerid], 0);
-    PlayerTextDrawAlignment(playerid, inv_navBox[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, inv_navBox[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, inv_navBox[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, inv_navBox[playerid], 0x232323FF);
-    PlayerTextDrawUseBox(playerid, inv_navBox[playerid], true);
-    PlayerTextDrawSetProportional(playerid, inv_navBox[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, inv_navBox[playerid], false);
-
-    inv_navLeft[playerid] = CreatePlayerTextDraw(playerid, 432.0, 431.0, "ld_beat:left");
-    PlayerTextDrawFont(playerid, inv_navLeft[playerid], TEXT_DRAW_FONT:4);
-    PlayerTextDrawLetterSize(playerid, inv_navLeft[playerid], 0.6, 2.0);
-    PlayerTextDrawTextSize(playerid, inv_navLeft[playerid], 7.5, 7.5);
-    PlayerTextDrawSetOutline(playerid, inv_navLeft[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, inv_navLeft[playerid], 0);
-    PlayerTextDrawAlignment(playerid, inv_navLeft[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, inv_navLeft[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawBackgroundColour(playerid, inv_navLeft[playerid], -1094795776);
-    PlayerTextDrawBoxColour(playerid, inv_navLeft[playerid], 65280);
-    PlayerTextDrawUseBox(playerid, inv_navLeft[playerid], true);
-    PlayerTextDrawSetProportional(playerid, inv_navLeft[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, inv_navLeft[playerid], true);
-
-    inv_navRight[playerid] = CreatePlayerTextDraw(playerid, 461.0, 431.0, "ld_beat:right");
-    PlayerTextDrawFont(playerid, inv_navRight[playerid], TEXT_DRAW_FONT:4);
-    PlayerTextDrawLetterSize(playerid, inv_navRight[playerid], 0.6, 2.0);
-    PlayerTextDrawTextSize(playerid, inv_navRight[playerid], 7.5, 7.5);
-    PlayerTextDrawSetOutline(playerid, inv_navRight[playerid], 1);
-    PlayerTextDrawSetShadow(playerid, inv_navRight[playerid], 0);
-    PlayerTextDrawAlignment(playerid, inv_navRight[playerid], TEXT_DRAW_ALIGN:1);
-    PlayerTextDrawColour(playerid, inv_navRight[playerid], INV_COLOR_BUTTON);
-    PlayerTextDrawBackgroundColour(playerid, inv_navRight[playerid], -1094795776);
-    PlayerTextDrawBoxColour(playerid, inv_navRight[playerid], 65280);
-    PlayerTextDrawUseBox(playerid, inv_navRight[playerid], true);
-    PlayerTextDrawSetProportional(playerid, inv_navRight[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, inv_navRight[playerid], true);
-
-    inv_navPageInfo[playerid] = CreatePlayerTextDraw(playerid, 450.0, 432.5, "1 /~r~100");
-    PlayerTextDrawFont(playerid, inv_navPageInfo[playerid], TEXT_DRAW_FONT:1);
-    PlayerTextDrawLetterSize(playerid, inv_navPageInfo[playerid], 0.1, 0.4);
-    PlayerTextDrawTextSize(playerid, inv_navPageInfo[playerid], 459.0, 17.5);
-    PlayerTextDrawSetOutline(playerid, inv_navPageInfo[playerid], 0);
-    PlayerTextDrawSetShadow(playerid, inv_navPageInfo[playerid], 0);
-    PlayerTextDrawAlignment(playerid, inv_navPageInfo[playerid], TEXT_DRAW_ALIGN:2);
-    PlayerTextDrawColour(playerid, inv_navPageInfo[playerid], -1);
-    PlayerTextDrawBackgroundColour(playerid, inv_navPageInfo[playerid], 255);
-    PlayerTextDrawBoxColour(playerid, inv_navPageInfo[playerid], -421070286);
-    PlayerTextDrawUseBox(playerid, inv_navPageInfo[playerid], false);
-    PlayerTextDrawSetProportional(playerid, inv_navPageInfo[playerid], true);
-    PlayerTextDrawSetSelectable(playerid, inv_navPageInfo[playerid], false);
+    InvEquipBar[playerid][slotId] = CreatePlayerProgressBar(playerid, posX, posY + width - 0.5, width, 1.0);
+    SetPlayerProgressBarValue(playerid, InvEquipBar[playerid][slotId], 30.0);
+    SetPlayerProgressBarColour(playerid, InvEquipBar[playerid][slotId], INV_COLOR_BUTTON);
     
-    PlayerTextDrawShow(playerid, inv_navBox[playerid]);
-    PlayerTextDrawShow(playerid, inv_navLeft[playerid]);
-    PlayerTextDrawShow(playerid, inv_navRight[playerid]);
-    PlayerTextDrawShow(playerid, inv_navPageInfo[playerid]);
-    SelectTextDraw(playerid, INV_COLOR_HOVER);
+    InvEquipBox[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+    PlayerTextDrawFont(playerid, InvEquipBox[playerid][slotId], TEXT_DRAW_FONT:1);
+    PlayerTextDrawLetterSize(playerid, InvEquipBox[playerid][slotId], 0.0, (width / 9.5));
+    PlayerTextDrawTextSize(playerid, InvEquipBox[playerid][slotId], posX + width, 0.0);
+    PlayerTextDrawAlignment(playerid, InvEquipBox[playerid][slotId], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBoxColour(playerid, InvEquipBox[playerid][slotId], INV_COLOR_ITEM);
+    PlayerTextDrawBackgroundColour(playerid, InvEquipBox[playerid][slotId], 255);
+    PlayerTextDrawUseBox(playerid, InvEquipBox[playerid][slotId], true);
+
+    InvEquipModel[playerid][slotId] = CreatePlayerTextDraw(playerid, posX, posY, "_");
+    PlayerTextDrawFont(playerid, InvEquipModel[playerid][slotId], TEXT_DRAW_FONT:5);
+    PlayerTextDrawLetterSize(playerid, InvEquipModel[playerid][slotId], 0.0, (width / 9.5));
+    PlayerTextDrawTextSize(playerid, InvEquipModel[playerid][slotId], width, width);
+    PlayerTextDrawAlignment(playerid, InvEquipModel[playerid][slotId], TEXT_DRAW_ALIGN:1);
+    PlayerTextDrawBackgroundColour(playerid, InvEquipModel[playerid][slotId], 0);
+    PlayerTextDrawColour(playerid, InvEquipModel[playerid][slotId], -1);
+    PlayerTextDrawSetSelectable(playerid, InvEquipModel[playerid][slotId], true);
+    PlayerTextDrawSetPreviewModel(playerid, InvEquipModel[playerid][slotId], INV_MODEL_DEFAULT);
+
     return 1;
 }
 
-
-hook OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
+stock ShowInventoryTD(playerid)
 {
-    // Inventory grid selection
-    for(new s = 0; s < TOTAL_SLOTS; s++)
-    {
-        if(playertextid == InvSlot_Model[playerid][s] || playertextid == InvSlot_Box[playerid][s] || playertextid == InvSlot_Text[playerid][s])
-        {
-            // unselect previous
-            new prev = SelectedInvSlot[playerid];
-            if(prev != -1 && prev >= 0 && prev < TOTAL_SLOTS)
-            {
-                PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][prev], INV_COLOR_ITEM);
-                PlayerTextDrawShow(playerid, InvSlot_Box[playerid][prev]);
-            }
+    ShowInvGeneralTD(playerid, true);
+    ShowInvGridTD(playerid, true);
+    // ShowInvInfoItemTD(playerid, true);
+    ShowInvEquipTD(playerid, true);
+    return 1;
+}
 
-            SelectedInvSlot[playerid] = s;
-            PlayerTextDrawBoxColour(playerid, InvSlot_Box[playerid][s], INV_COLOR_HOVER);
-            PlayerTextDrawShow(playerid, InvSlot_Box[playerid][s]);
+stock HideInventoryTD(playerid)
+{
+    ShowInvGeneralTD(playerid, false);
+    ShowInvGridTD(playerid, false);
+    ShowInvInfoItemTD(playerid, false);
+    ShowInvEquipTD(playerid, false);
+    return 1;
+}
 
-            // update left info panel
-            new itemid = PlayerInventory[playerid][s][invItemID];
-            if(itemid > 0 && ItemData[itemid][itemExists])
-            {
-                PlayerTextDrawSetPreviewModel(playerid, info_model[playerid], ItemData[itemid][itemModelID]);
-                new tmp[128];
-                format(tmp, sizeof(tmp), "Name: ~y~%s", ItemData[itemid][itemName]);
-                PlayerTextDrawSetString(playerid, info_text1[playerid], tmp);
-                format(tmp, sizeof(tmp), "Category: ~b~%d", ItemData[itemid][itemType]);
-                PlayerTextDrawSetString(playerid, info_text2[playerid], tmp);
-                format(tmp, sizeof(tmp), "Weight: ~g~%.2fkg", ItemData[itemid][itemWeight]);
-                PlayerTextDrawSetString(playerid, info_text3[playerid], tmp);
-                format(tmp, sizeof(tmp), "Quantity: ~r~%d", PlayerInventory[playerid][s][invAmount]);
-                PlayerTextDrawSetString(playerid, info_text4[playerid], tmp);
-                PlayerTextDrawSetString(playerid, info_text5[playerid], ItemData[itemid][itemDescription]);
-            }
-            else
-            {
-                PlayerTextDrawSetPreviewModel(playerid, info_model[playerid], 0);
-                PlayerTextDrawSetString(playerid, info_text1[playerid], "");
-                PlayerTextDrawSetString(playerid, info_text2[playerid], "");
-                PlayerTextDrawSetString(playerid, info_text3[playerid], "");
-                PlayerTextDrawSetString(playerid, info_text4[playerid], "");
-                PlayerTextDrawSetString(playerid, info_text5[playerid], "");
-            }
+stock ShowInvGeneralTD(playerid, bool:show)
+{
+    if(show) { 
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_bgMain]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_bgGridItem]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_bgEquip]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_btn_close]);
 
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_bgHeader]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_header_title]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_header_player]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_header_stats]);
+
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_bgNavigation]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_nav_btn_left]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_nav_page]);
+        PlayerTextDrawShow(playerid, InvGeneralTD[playerid][inv_nav_btn_right]);
+    }
+    else {
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_bgMain]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_bgGridItem]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_bgEquip]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_btn_close]);
+
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_bgHeader]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_header_title]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_header_player]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_header_stats]);
+
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_bgNavigation]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_nav_btn_left]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_nav_page]);
+        PlayerTextDrawHide(playerid, InvGeneralTD[playerid][inv_nav_btn_right]);
+    }
+    return 1;
+}
+
+stock ShowInvGridTD(playerid, bool:show)
+{
+    new slotId;
+    for(slotId = 0; slotId < MAX_INV_MAIN_SLOTS; slotId++) {
+        if(show) {
+            PlayerTextDrawShow(playerid, InvGridTD[playerid][slotId][inv_grid_box]);
+            PlayerTextDrawShow(playerid, InvGridTD[playerid][slotId][inv_grid_model]);
+            PlayerTextDrawShow(playerid, InvGridTD[playerid][slotId][inv_grid_text]);
+        } else {
+            PlayerTextDrawHide(playerid, InvGridTD[playerid][slotId][inv_grid_box]);
+            PlayerTextDrawHide(playerid, InvGridTD[playerid][slotId][inv_grid_model]);
+            PlayerTextDrawHide(playerid, InvGridTD[playerid][slotId][inv_grid_text]);
+        }
+    }
+    return 1;
+}
+
+stock ShowInvInfoItemTD(playerid, bool:show)
+{
+    
+    if(show) {
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_background]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_model]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_name]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_type]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_weight]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_amount]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_description]);
+
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_btn_use]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_btn_give]);
+        PlayerTextDrawShow(playerid, InvInfoItemTD[playerid][inv_item_btn_drop]);
+    }
+    else {
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_background]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_model]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_name]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_type]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_weight]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_amount]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_description]);
+
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_btn_use]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_btn_give]);
+        PlayerTextDrawHide(playerid, InvInfoItemTD[playerid][inv_item_btn_drop]);
+    }
+    return 1;
+}
+
+stock ShowInvEquipTD(playerid, bool:show)
+{
+    new slotId;
+    if(show) PlayerTextDrawShow(playerid, InvEquipCharacters[playerid]);
+    else PlayerTextDrawHide(playerid, InvEquipCharacters[playerid]);
+
+    for(slotId = 0; slotId < MAX_INV_EQUIP_SLOTS; slotId++) {
+        if(show) {
+            ShowPlayerProgressBar(playerid, InvEquipBar[playerid][slotId]);
+            PlayerTextDrawShow(playerid, InvEquipBox[playerid][slotId]);
+            PlayerTextDrawShow(playerid, InvEquipModel[playerid][slotId]);
+        } else {
+            HidePlayerProgressBar(playerid, InvEquipBar[playerid][slotId]);
+            PlayerTextDrawHide(playerid, InvEquipBox[playerid][slotId]);
+            PlayerTextDrawHide(playerid, InvEquipModel[playerid][slotId]);
+        }
+    }
+    return 1;
+}
+
+stock SetInvInfoItemTD(playerid, modelid = INV_MODEL_DEFAULT, const itemName[], itemType = 0, Float:itemWeight = 0.0, itemAmount = 0, const itemDescription[])
+{
+    new txt_item_name[50];
+    new txt_item_type[50];
+    new txt_item_weight[50];
+    new txt_item_amount[50];
+    new txt_item_description[152];
+
+    format(txt_item_name, sizeof(txt_item_name), "Name: ~y~%s", itemName);
+    format(txt_item_type, sizeof(txt_item_type), "Category: ~b~%d", itemType);
+    format(txt_item_weight, sizeof(txt_item_weight), "Weight: ~g~%0.2f", itemWeight);
+    format(txt_item_amount, sizeof(txt_item_amount), "Quantity: ~r~%d", itemAmount);
+    format(txt_item_description, sizeof(txt_item_description), "~b~Description: ~w~%s", itemDescription);
+    
+    PlayerTextDrawSetPreviewModel(playerid, InvInfoItemTD[playerid][inv_item_model], modelid);
+    // PlayerTextDrawSetPreviewRot(playerid, InvInfoItemTD[playerid][inv_item_model], rotX, rotY, rotZ, zoom);
+
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_name], txt_item_name);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_type], txt_item_type);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_weight], txt_item_weight);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_amount], txt_item_amount);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_description], txt_item_description);
+
+    ShowInvInfoItemTD(playerid, true);
+    return 1;
+}
+
+stock UpdateInvHeader(playerid, const title[], const playerName[], const statsText[])
+{
+    PlayerTextDrawSetString(playerid, InvGeneralTD[playerid][inv_header_title], title);
+    PlayerTextDrawSetString(playerid, InvGeneralTD[playerid][inv_header_player], playerName);
+    PlayerTextDrawSetString(playerid, InvGeneralTD[playerid][inv_header_stats], statsText);
+    return 1;
+}
+
+stock SetInvNavPage(playerid, const pageText[])
+{
+    PlayerTextDrawSetString(playerid, InvGeneralTD[playerid][inv_nav_page], pageText);
+    return 1;
+}
+
+stock SetInvButtonText(playerid, const useText[], const removeText[], const giveText[], const dropText[])
+{
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_btn_use], useText);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_btn_give], giveText);
+    PlayerTextDrawSetString(playerid, InvInfoItemTD[playerid][inv_item_btn_drop], dropText);
+    return 1;
+}
+
+stock UpdateInvGridSlotTD(playerid, slotId, modelid = INV_MODEL_DEFAULT, amount = 0)
+{
+    if(modelid != INV_MODEL_DEFAULT && modelid > 0) {
+        PlayerTextDrawSetPreviewModel(playerid, InvGridTD[playerid][slotId][inv_grid_model], modelid); 
+    }
+    if (amount <= 0) {
+        PlayerTextDrawSetString(playerid, InvGridTD[playerid][slotId][inv_grid_text], "_");
+    } else {
+        new txt_amount[11];
+        format(txt_amount, sizeof(txt_amount), "%d", amount);
+        PlayerTextDrawSetString(playerid, InvGridTD[playerid][slotId][inv_grid_text], txt_amount);
+    }
+    PlayerTextDrawBackgroundColour(playerid, InvGridTD[playerid][slotId][inv_grid_model], 0);
+    return 1;
+}
+
+stock UpdateInvEquipSlotTD(playerid, slotId, modelid = INV_MODEL_DEFAULT, Float:value = 10.0) 
+{
+    if(modelid != INV_MODEL_DEFAULT && modelid > 0) {
+        SetPlayerProgressBarValue(playerid, InvEquipBar[playerid][slotId], value);
+        PlayerTextDrawSetPreviewModel(playerid, InvEquipModel[playerid][slotId], modelid);
+    }
+    return 1;
+}
+
+hook OnPlayerClickTextDraw(playerid, Text:clickedid)
+{
+    if(clickedid == INVALID_TEXT_DRAW) {
+        if(InvOpen[playerid]) {
+            CloseInventoryTD(playerid);
             return 1;
         }
     }
-
-    // Equipment selection
-    for(new e = 0; e < 16; e++)
-    {
-        if(playertextid == Equip_Model[playerid][e] || playertextid == Equip_Box[playerid][e])
-        {
-            new prev = SelectedEquipSlot[playerid];
-            if(prev != -1 && prev >= 0 && prev < 16)
-            {
-                PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][prev], 255);
-                PlayerTextDrawShow(playerid, Equip_Box[playerid][prev]);
-            }
-            SelectedEquipSlot[playerid] = e;
-            PlayerTextDrawBoxColour(playerid, Equip_Box[playerid][e], INV_COLOR_HOVER);
-            PlayerTextDrawShow(playerid, Equip_Box[playerid][e]);
-            return 1;
-        }
-    }
-
-    // Buttons
-    if(playertextid == btn_use[playerid])
-    {
-        new slot = SelectedInvSlot[playerid];
-        if(slot < 0) return 1;
-        new itemid = PlayerInventory[playerid][slot][invItemID];
-        SendClientMessage(playerid, -1, "Use item: placeholder (implement effect based on item type)");
-        return 1;
-    }
-
-    if(playertextid == btn_give[playerid])
-    {
-        SendClientMessage(playerid, -1, "Give item: not implemented (select target player then give)");
-        return 1;
-    }
-
-    if(playertextid == btn_drop[playerid])
-    {
-        new slot = SelectedInvSlot[playerid];
-        if(slot < 0) return 1;
-        PlayerInventory[playerid][slot][invItemID] = 0;
-        PlayerInventory[playerid][slot][invAmount] = 0;
-        ClearInventorySlot(playerid, slot);
-        UpdateInventorySlotTD(playerid, slot);
-        SaveInventory(playerid);
-        SendClientMessage(playerid, -1, "Item dropped.");
-        return 1;
-    }
-
-    if(playertextid == btn_close[playerid])
-    {
-        HideInventory(playerid);
-        return 1;
-    }
-
-    // Navigation
-    if(playertextid == inv_navLeft[playerid])
-    {
-        SendClientMessage(playerid, -1, "Nav: previous page (not implemented)");
-        return 1;
-    }
-    if(playertextid == inv_navRight[playerid])
-    {
-        SendClientMessage(playerid, -1, "Nav: next page (not implemented)");
-        return 1;
-    }
-
-    return 1;
-}
-
-// Ensure creation helper and UI refresh routines
-stock EnsureInvCreated(playerid)
-{
-    if(InvTD_Created[playerid]) return 1;
-
-    CreateInvTD(playerid);
-    CreatePlayerRpgEquipment(playerid);
-    CreatePlayerInventoryGrid(playerid);
-    InvInfoItem(playerid);
-    InvNavigationBtn(playerid);
-
-    InvTD_Created[playerid] = true;
-    SelectedInvSlot[playerid] = -1;
-    SelectedEquipSlot[playerid] = -1;
-    PlayerHasInvVisible[playerid] = false;
-    return 1;
-}
-
-// Update a single inventory slot's TDs from PlayerInventory / ItemData
-stock UpdateInventorySlotTD(playerid, slot)
-{
-    if(slot < 0 || slot >= TOTAL_SLOTS) return 0;
-
-    new itemid = PlayerInventory[playerid][slot][invItemID];
-    new amount = PlayerInventory[playerid][slot][invAmount];
-
-    if(itemid > 0 && ItemData[itemid][itemExists])
-    {
-        PlayerTextDrawSetPreviewModel(playerid, InvSlot_Model[playerid][slot], ItemData[itemid][itemModelID]);
-        new buf[16]; format(buf, sizeof(buf), "%d", amount);
-        PlayerTextDrawSetString(playerid, InvSlot_Text[playerid][slot], buf);
-    }
-    else
-    {
-        PlayerTextDrawSetPreviewModel(playerid, InvSlot_Model[playerid][slot], 0);
-        PlayerTextDrawSetString(playerid, InvSlot_Text[playerid][slot], "");
-    }
-
-    PlayerTextDrawShow(playerid, InvSlot_Model[playerid][slot]);
-    PlayerTextDrawShow(playerid, InvSlot_Text[playerid][slot]);
-    return 1;
-}
-
-stock RefreshInventoryTDs(playerid)
-{
-    for(new s = 0; s < TOTAL_SLOTS; s++)
-        UpdateInventorySlotTD(playerid, s);
-    return 1;
-}
-
-stock ShowInventory(playerid)
-{
-    EnsureInvCreated(playerid);
-
-    PlayerTextDrawShow(playerid, Background_Under[playerid]);
-    PlayerTextDrawShow(playerid, BgHeader[playerid]);
-    PlayerTextDrawShow(playerid, TxtHeaderTitle[playerid]);
-    PlayerTextDrawShow(playerid, TxtHeaderName[playerid]);
-    PlayerTextDrawShow(playerid, TxtHeaderStats[playerid]);
-
-    PlayerTextDrawShow(playerid, BgRight[playerid]);
-    PlayerTextDrawShow(playerid, BgCenter[playerid]);
-    PlayerTextDrawShow(playerid, BgLeft[playerid]);
-
-    PlayerTextDrawShow(playerid, header_title[playerid]);
-    PlayerTextDrawShow(playerid, header_Pname[playerid]);
-    PlayerTextDrawShow(playerid, header_weight[playerid]);
-
-    PlayerTextDrawShow(playerid, info_model[playerid]);
-    PlayerTextDrawShow(playerid, info_text1[playerid]);
-    PlayerTextDrawShow(playerid, info_text2[playerid]);
-    PlayerTextDrawShow(playerid, info_text3[playerid]);
-    PlayerTextDrawShow(playerid, info_text4[playerid]);
-    PlayerTextDrawShow(playerid, info_text5[playerid]);
-
-    PlayerTextDrawShow(playerid, btn_use[playerid]);
-    PlayerTextDrawShow(playerid, btn_give[playerid]);
-    PlayerTextDrawShow(playerid, btn_drop[playerid]);
-    PlayerTextDrawShow(playerid, btn_close[playerid]);
-
-    PlayerTextDrawShow(playerid, inv_navBox[playerid]);
-    PlayerTextDrawShow(playerid, inv_navLeft[playerid]);
-    PlayerTextDrawShow(playerid, inv_navRight[playerid]);
-    PlayerTextDrawShow(playerid, inv_navPageInfo[playerid]);
-
-    RefreshInventoryTDs(playerid);
-
-    PlayerHasInvVisible[playerid] = true;
-    return 1;
-}
-
-stock HideInventory(playerid)
-{
-    // hide basics
-    PlayerTextDrawHide(playerid, Background_Under[playerid]);
-    PlayerTextDrawHide(playerid, BgHeader[playerid]);
-    PlayerTextDrawHide(playerid, TxtHeaderTitle[playerid]);
-    PlayerTextDrawHide(playerid, TxtHeaderName[playerid]);
-    PlayerTextDrawHide(playerid, TxtHeaderStats[playerid]);
-
-    PlayerTextDrawHide(playerid, BgRight[playerid]);
-    PlayerTextDrawHide(playerid, BgCenter[playerid]);
-    PlayerTextDrawHide(playerid, BgLeft[playerid]);
-
-    PlayerTextDrawHide(playerid, header_title[playerid]);
-    PlayerTextDrawHide(playerid, header_Pname[playerid]);
-    PlayerTextDrawHide(playerid, header_weight[playerid]);
-
-    PlayerTextDrawHide(playerid, info_model[playerid]);
-    PlayerTextDrawHide(playerid, info_text1[playerid]);
-    PlayerTextDrawHide(playerid, info_text2[playerid]);
-    PlayerTextDrawHide(playerid, info_text3[playerid]);
-    PlayerTextDrawHide(playerid, info_text4[playerid]);
-    PlayerTextDrawHide(playerid, info_text5[playerid]);
-
-    PlayerTextDrawHide(playerid, btn_use[playerid]);
-    PlayerTextDrawHide(playerid, btn_give[playerid]);
-    PlayerTextDrawHide(playerid, btn_drop[playerid]);
-    PlayerTextDrawHide(playerid, btn_close[playerid]);
-
-    PlayerTextDrawHide(playerid, inv_navBox[playerid]);
-    PlayerTextDrawHide(playerid, inv_navLeft[playerid]);
-    PlayerTextDrawHide(playerid, inv_navRight[playerid]);
-    PlayerTextDrawHide(playerid, inv_navPageInfo[playerid]);
-
-    // hide grid and equipment
-    for(new s = 0; s < TOTAL_SLOTS; s++){
-        PlayerTextDrawHide(playerid, InvSlot_Box[playerid][s]);
-        PlayerTextDrawHide(playerid, InvSlot_Model[playerid][s]);
-        PlayerTextDrawHide(playerid, InvSlot_Text[playerid][s]);
-    }
-    for(new e = 0; e < 16; e++){
-        PlayerTextDrawHide(playerid, Equip_Box[playerid][e]);
-        PlayerTextDrawHide(playerid, Equip_Model[playerid][e]);
-        HidePlayerProgressBar(playerid, Equip_Bar[playerid][e]);
-    }
-
-    PlayerHasInvVisible[playerid] = false;
-    return 1;
+	return 1;
 }
