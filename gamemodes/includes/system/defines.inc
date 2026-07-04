@@ -1,0 +1,7 @@
+#define MIXED_SPELLINGS
+
+#define ACCOUNT_MIN_PASSWORD_LENGTH (6)
+#define MAX_WEAPON_SLOTS 13
+
+// Sy_Friends
+#define MAX_FRIENDS 100

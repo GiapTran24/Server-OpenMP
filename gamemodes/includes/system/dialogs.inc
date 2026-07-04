@@ -1,0 +1,28 @@
+// Enum Dialogs
+enum
+{
+	DIALOG_NOTHING,
+    DIALOG_REGISTER,
+    DIALOG_LOGIN,
+    DIALOG_CLICK_PLAYER,
+    DIALOG_GIVE_MONEY,
+
+    // Dialog Sy_Friends
+    DIALOG_LIST_FRIENDS,
+    DIALOG_FRIEND_REQUEST,
+
+    // Dialog Taixiu
+    DIALOG_TX_HISTORY,
+    DIALOG_TX_TAI,
+    DIALOG_TX_XIU,
+    DIALOG_TX_XACNHAN_THUHOI,
+    DIALOG_TX_XACNHAN_ROIBAN,
+    DIALOG_TX_ADMIN_EDIT,
+
+    // Dialog Admin
+    DIALOG_SETADMIN,
+    DIALOG_GOTO,
+
+    //Dialog Inventory
+    DIALOG_ITEMS
+};

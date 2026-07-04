@@ -1,0 +1,107 @@
+CREATE TABLE `Accounts` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `Username` VARCHAR(24) NOT NULL,
+    `Password` VARCHAR(255) NOT NULL,
+
+    -- Thông tin nhân vật
+    `Level` INT NOT NULL DEFAULT 1,
+    `Exp` INT NOT NULL DEFAULT 0,
+    `Playtime` INT NOT NULL DEFAULT 0,
+    `Cash` INT NOT NULL DEFAULT 5000,
+    `Bank` INT NOT NULL DEFAULT 0,
+    `Admin` INT NOT NULL DEFAULT 0,
+    `Health` FLOAT NOT NULL DEFAULT 100.0,
+    `Armour` FLOAT NOT NULL DEFAULT 0.0,
+
+    -- Spawn
+    `PosX` FLOAT NOT NULL DEFAULT 1958.3783,
+    `PosY` FLOAT NOT NULL DEFAULT 1343.1572,
+    `PosZ` FLOAT NOT NULL DEFAULT 15.3746,
+    `Angle` FLOAT NOT NULL DEFAULT 0.0,
+    `Interior` INT NOT NULL DEFAULT 0,
+    `VirtualWorld` INT NOT NULL DEFAULT 0,
+
+    -- Thông tin cơ bản
+    `Skin` INT NOT NULL DEFAULT 0,
+    `Gender` TINYINT NOT NULL DEFAULT 0,
+
+    -- Thời gian
+    `RegisterDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `LastLogin` TIMESTAMP NULL DEFAULT NULL,
+    `Logged` INT NOT NULL DEFAULT 0,
+
+    PRIMARY KEY (`ID`),
+    UNIQUE KEY `Username` (`Username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE `Conversations` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `Per_1` INT UNSIGNED NOT NULL,
+    `Per_2` INT UNSIGNED NOT NULL,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (`Per_1`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`Per_2`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Messages` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `ConversationID` INT UNSIGNED NOT NULL,
+    `SenderID` INT UNSIGNED NOT NULL,
+    `Content` VARCHAR(256) NOT NULL,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (`ConversationID`) REFERENCES `Conversations`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`SenderID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Friends` (
+    `ID` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `PlayerID` INT UNSIGNED NOT NULL,
+    `FriendID` INT UNSIGNED NOT NULL,
+    `Status` INT UNSIGNED NOT NULL DEFAULT 0,
+    `Sender` INT UNSIGNED NOT NULL,
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (`PlayerID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`FriendID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`Sender`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--Inventory Player
+CREATE TABLE IF NOT EXISTS `player_inventory` (
+    `invDBID` INT AUTO_INCREMENT PRIMARY KEY,
+    `playerID` INT UNSIGNED NOT NULL, -- ID tài khoản hoặc ID nhân vật của người chơi
+    `invItemID` INT NOT NULL, -- Liên kết với ID của bảng items
+    `invAmount` INT NOT NULL DEFAULT 1,
+    `invDurability` FLOAT NOT NULL DEFAULT 100.0,
+    `invSlotID` INT NOT NULL, -- Vị trí ô trong túi đồ (0 đến MAX_INV_SLOTS)
+    `invSlotType` INT NOT NULL DEFAULT 0, -- Loại túi đồ (Equip hoặc Main)
+    FOREIGN KEY (`playerID`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE,
+    FOREIGN KEY (`invItemID`) REFERENCES `items`(`id`) ON DELETE CASCADE
+    
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `items` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `itemModelID` INT NOT NULL,
+    `itemName` VARCHAR(52) NOT NULL,
+    `itemType` INT NOT NULL,
+    `itemWeight` FLOAT NOT NULL,
+    `itemMaxStack` INT NOT NULL,
+    `itemPrice` INT NOT NULL,
+    `itemDescription` VARCHAR(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- FISHING
+CREATE TABLE `pFish` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `player_id` INT UNSIGNED NOT NULL,
+    `fish_id` INT NOT NULL DEFAULT -1,
+    `amount` INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (`player_id`) REFERENCES `Accounts`(`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
